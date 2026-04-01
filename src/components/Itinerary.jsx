@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import {
   Calendar, Clock, DollarSign, Thermometer, Zap,
-  ChevronDown, ChevronUp, Lock, Share2, Download,
-  Sparkles, MapPin, Info, Eye, Users
+  Lock, Share2, Download, Sparkles, MapPin, Eye, Users
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import PlaceCard from './PlaceCard';
@@ -14,7 +13,7 @@ const DIFF_COLORS = {
   Challenging: { bg: 'rgba(255,107,53,0.15)', text: '#FF6B35' },
 };
 
-export default function Itinerary({ itinerary, enriching, onLockedFeatureClick, onShare, onWaitlistOpen }) {
+export default function Itinerary({ itinerary, onShare, onWaitlistOpen }) {
   const [previewOpen, setPreviewOpen] = useState(false);
 
   if (!itinerary) return null;
@@ -31,46 +30,46 @@ export default function Itinerary({ itinerary, enriching, onLockedFeatureClick, 
       >
         {/* ── Trip Overview Card ── */}
         <motion.div 
-          className="relative rounded-[2.5rem] overflow-hidden mb-12 p-8 md:p-12 glass shadow-2xl"
+          className="relative rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden mb-12 p-6 sm:p-8 md:p-12 glass shadow-2xl"
           initial={{ scale: 0.95 }}
           animate={{ scale: 1 }}
           transition={{ type: 'spring', damping: 20 }}
         >
           {/* Decorative glow */}
-          <div className="absolute -top-24 -right-24 w-96 h-96 opacity-20 pointer-events-none blur-[100px]"
+          <div className="absolute -top-24 -right-24 w-64 sm:w-96 h-64 sm:h-96 opacity-20 pointer-events-none blur-[60px] sm:blur-[100px]"
             style={{ background: 'radial-gradient(circle, #E4B250, transparent 70%)' }} />
 
           <div className="relative z-10">
-            <div className="flex items-start justify-between flex-wrap gap-6 mb-8">
-              <div className="flex-1">
-                <div className="flex items-center gap-4 mb-3">
+            <div className="flex flex-col lg:flex-row items-start justify-between gap-6 mb-8">
+              <div className="flex-1 w-full text-center sm:text-left">
+                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 mb-4">
                   <div className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center gap-2">
-                    <Sparkles size={14} className="text-amber-400 animate-pulse" />
-                    <span className="text-[10px] font-bold text-amber-300 uppercase tracking-[0.2em]">
+                    <Sparkles size={14} className="text-amber-400 animate-pulse transition-transform" />
+                    <span className="text-[9px] sm:text-[10px] font-bold text-amber-300 uppercase tracking-widest">
                       AI Precision Crafted
                     </span>
                   </div>
                   <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20">
                     <Users size={12} className="text-teal-400" />
-                    <span className="text-[10px] font-bold text-teal-300 uppercase tracking-widest">
+                    <span className="text-[9px] sm:text-[10px] font-bold text-teal-300 uppercase tracking-widest">
                        8 Travelers Going
                     </span>
                   </div>
                 </div>
-                <h2 className="font-display text-4xl md:text-5xl text-white font-bold mb-4 tracking-tight leading-tight">
+                <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-white font-bold mb-4 tracking-tight leading-tight">
                   {itinerary.title}
                 </h2>
-                <p className="text-blue-100/40 text-lg max-w-3xl leading-relaxed font-body italic">
+                <p className="text-blue-100/40 text-base sm:text-lg max-w-3xl mx-auto sm:mx-0 leading-relaxed font-body italic">
                   "{itinerary.summary}"
                 </p>
               </div>
 
-              <div className="flex gap-3">
+              <div className="flex w-full sm:w-auto items-center justify-center sm:justify-end gap-3 flex-wrap sm:flex-nowrap">
                 <motion.button 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={onShare}
-                  className="p-4 rounded-2xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-all flex items-center gap-2 group shadow-lg"
+                  className="p-4 rounded-xl sm:rounded-2xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-all flex items-center gap-2 group shadow-lg"
                 >
                   <Share2 size={18} className="group-hover:rotate-12 transition-transform" />
                 </motion.button>
@@ -78,10 +77,10 @@ export default function Itinerary({ itinerary, enriching, onLockedFeatureClick, 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setPreviewOpen(true)}
-                  className="px-6 py-4 rounded-2xl font-bold text-sm text-ocean-900 transition-all shadow-glow-amber"
+                  className="flex-1 sm:flex-none px-6 py-4 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm text-ocean-900 transition-all shadow-glow-amber whitespace-nowrap"
                   style={{ background: 'linear-gradient(135deg, #E4B250 0%, #FF6B35 100%)' }}
                 >
-                  <span className="flex items-center gap-2">
+                  <span className="flex items-center justify-center gap-2">
                     <Eye size={18} />
                     Preview Full Trip
                   </span>
@@ -90,7 +89,7 @@ export default function Itinerary({ itinerary, enriching, onLockedFeatureClick, 
             </div>
 
             {/* Meta chips */}
-            <div className="flex flex-wrap gap-3 mb-8">
+            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 mb-8">
               {itinerary.duration && (
                 <Chip icon={<Calendar size={14} />} label={itinerary.duration} />
               )}
@@ -101,7 +100,7 @@ export default function Itinerary({ itinerary, enriching, onLockedFeatureClick, 
                 <Chip icon={<DollarSign size={14} />} label={itinerary.estimatedCost} />
               )}
               {itinerary.difficulty && (
-                <span className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold tracking-wide shadow-sm"
+                <span className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-[10px] sm:text-xs font-bold tracking-wide shadow-sm"
                   style={{ background: diffStyle.bg, color: diffStyle.text, border: `1px solid ${diffStyle.text}20` }}>
                   <Zap size={12} />
                   {itinerary.difficulty.toUpperCase()}
@@ -111,7 +110,7 @@ export default function Itinerary({ itinerary, enriching, onLockedFeatureClick, 
 
             {/* Highlights */}
             {itinerary.highlights?.length > 0 && (
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
                 {itinerary.highlights.map((h, i) => (
                   <Chip key={i} icon={<MapPin size={12} />} label={h} variant="teal" />
                 ))}
@@ -122,18 +121,18 @@ export default function Itinerary({ itinerary, enriching, onLockedFeatureClick, 
 
         {/* ── Featured Preview (Day 1) ── */}
         <div className="mb-12">
-           <div className="flex items-center justify-between mb-8 px-4">
+           <div className="flex items-center justify-between flex-wrap gap-4 mb-8 px-4">
               <h3 className="text-white font-display text-2xl font-bold flex items-center gap-3">
-                 <span className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-amber-400 border border-white/10 text-sm">01</span>
+                 <span className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-amber-400 border border-white/10 text-sm flex-shrink-0">01</span>
                  The Journey Begins
               </h3>
-              <div className="text-[10px] text-blue-200/30 uppercase font-bold tracking-widest">
-                 Live Feed • Updated 2m ago
+              <div className="text-[10px] text-blue-200/30 uppercase font-bold tracking-widest bg-white/5 px-3 py-1 rounded-full border border-white/5">
+                 Live Feed • Updated Recently
               </div>
            </div>
            
            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {itinerary.days?.[0]?.places?.slice(0, 3).map((place, i) => (
+              {itinerary.days?.[0]?.places?.slice(0, 2).map((place, i) => (
                  <PlaceCard key={i} place={place} />
               ))}
               
@@ -141,7 +140,7 @@ export default function Itinerary({ itinerary, enriching, onLockedFeatureClick, 
               <motion.div 
                 whileHover={{ scale: 1.02 }}
                 onMouseDown={() => setPreviewOpen(true)}
-                className="relative h-[28rem] rounded-[2rem] border border-dashed border-white/10 flex flex-col items-center justify-center text-center p-8 cursor-pointer overflow-hidden group"
+                className="relative h-[24rem] sm:h-[28rem] rounded-[2rem] border border-dashed border-white/10 flex flex-col items-center justify-center text-center p-8 cursor-pointer overflow-hidden group"
               >
                  <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent group-hover:from-amber-500/10 transition-colors" />
                  <div className="relative z-10">
@@ -162,25 +161,25 @@ export default function Itinerary({ itinerary, enriching, onLockedFeatureClick, 
 
         {/* ── App CTA Section ── */}
         <motion.div 
-          className="mt-20 rounded-[3rem] overflow-hidden glass p-1 border-gradient relative shadow-3xl"
+          className="mt-16 sm:mt-20 rounded-[2rem] sm:rounded-[3rem] overflow-hidden glass p-1 border-gradient relative shadow-3xl"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          <div className="p-10 md:p-16 text-center relative z-10 overflow-hidden rounded-[2.9rem]">
+          <div className="p-8 sm:p-10 md:p-16 text-center relative z-10 overflow-hidden rounded-[1.9rem] sm:rounded-[2.9rem]">
              <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-transparent pointer-events-none" />
              
             <motion.div 
                animate={{ y: [0, -10, 0] }}
                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-               className="text-5xl mb-6 inline-block"
+               className="text-4xl sm:text-5xl mb-4 sm:mb-6 inline-block"
             >
               🚀
             </motion.div>
-            <h3 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
+            <h3 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
               You're missing <span className="text-gradient-amber tracking-tighter">80% of the experience</span>
             </h3>
-            <p className="text-blue-100/40 text-lg mb-10 max-w-2xl mx-auto leading-relaxed font-body italic">
+            <p className="text-blue-100/40 text-base sm:text-lg mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed font-body italic">
               "This app helped me find travel buddies for my solo trip to Ladakh!" – <span className="text-white font-bold">Aisha</span>
             </p>
 
@@ -188,9 +187,9 @@ export default function Itinerary({ itinerary, enriching, onLockedFeatureClick, 
               whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(255,107,53,0.3)' }}
               whileTap={{ scale: 0.95 }}
               onClick={onWaitlistOpen}
-              className="inline-flex items-center gap-3 px-10 py-5 rounded-[1.5rem] font-bold text-ocean-900 transition-all shadow-2xl"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 sm:py-5 rounded-xl sm:rounded-[1.5rem] font-bold text-xs sm:text-sm text-ocean-900 transition-all shadow-2xl"
               style={{ background: 'linear-gradient(135deg, #E4B250 0%, #FF6B35 100%)' }}>
-              <Download size={20} />
+              <Download size={18} />
               Unlock Full Plan & Meet Travelers
             </motion.button>
           </div>
@@ -220,7 +219,7 @@ function Chip({ icon, label, variant = 'blue' }) {
   return (
     <motion.span 
       whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.1)' }}
-      className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold shadow-inner transition-colors"
+      className="flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] sm:text-xs font-bold shadow-inner transition-colors"
       style={{ background: s.bg, border: `1px solid ${s.border}`, color: s.text }}>
       <span style={{ color: s.icon }}>{icon}</span>
       {label}

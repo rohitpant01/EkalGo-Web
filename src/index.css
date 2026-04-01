@@ -29,13 +29,17 @@
 
 html {
   scroll-behavior: smooth;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 body {
   font-family: var(--font-body);
   background-color: var(--ocean-900);
   color: #F0F6FF;
+  width: 100%;
   overflow-x: hidden;
+  position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

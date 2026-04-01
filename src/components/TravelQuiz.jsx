@@ -81,7 +81,7 @@ export default function TravelQuiz({ onComplete }) {
   return (
     <section className="py-24 px-4 bg-ocean-950/50">
       <div className="max-w-4xl mx-auto">
-        <div className="glass rounded-[3rem] p-8 md:p-16 border border-white/10 shadow-3xl relative overflow-hidden">
+        <div className="glass rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-8 md:p-16 border border-white/10 shadow-3xl relative overflow-hidden">
           {/* Background effects */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 blur-[80px] pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-teal-500/10 blur-[80px] pointer-events-none" />
@@ -101,25 +101,25 @@ export default function TravelQuiz({ onComplete }) {
                   ))}
                 </div>
 
-                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-200/40 mb-2 block">
+                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-200/40 mb-2 block text-center sm:text-left">
                   Discovery Phase
                 </span>
-                <h3 className="text-3xl md:text-4xl text-white font-display font-bold mb-10 leading-tight">
+                <h3 className="text-2xl sm:text-3xl md:text-4xl text-white font-display font-bold mb-8 sm:mb-10 leading-tight text-center sm:text-left">
                   {QUESTIONS[step].title}
                 </h3>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   {QUESTIONS[step].options.map((option) => (
                     <button
                       key={option.id}
                       onClick={() => handleOptionSelect(option.id)}
-                      className="group flex items-start gap-4 p-5 rounded-[2rem] bg-white/5 border border-white/5 hover:border-amber-400/50 hover:bg-white/[0.08] transition-all text-left"
+                      className="group flex items-start gap-4 p-4 sm:p-5 rounded-[1.5rem] sm:rounded-[2rem] bg-white/5 border border-white/5 hover:border-amber-400/50 hover:bg-white/[0.08] transition-all text-left"
                     >
-                      <span className="text-3xl group-hover:scale-125 transition-transform duration-300">
+                      <span className="text-2xl sm:text-3xl group-hover:scale-125 transition-transform duration-300">
                         {option.icon}
                       </span>
                       <div>
-                        <p className="text-white font-bold mb-1">{option.label}</p>
+                        <p className="text-white font-bold mb-1 text-sm sm:text-base">{option.label}</p>
                         <p className="text-[10px] text-blue-200/40 font-body leading-relaxed">{option.description}</p>
                       </div>
                     </button>
@@ -133,7 +133,7 @@ export default function TravelQuiz({ onComplete }) {
               animate={{ opacity: 1, scale: 1 }}
               className="text-center relative z-10"
             >
-              <div className="w-20 h-20 rounded-3xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mx-auto mb-8">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mx-auto mb-6 sm:mb-8">
                 {result.icon}
               </div>
               
@@ -143,7 +143,7 @@ export default function TravelQuiz({ onComplete }) {
                  <Sparkles size={14} className="text-teal-400" />
               </div>
 
-              <h2 className="text-4xl md:text-5xl text-white font-display font-bold mb-4 tracking-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl text-white font-display font-bold mb-4 tracking-tight">
                  {result.title}
               </h2>
 

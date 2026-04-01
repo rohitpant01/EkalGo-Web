@@ -68,62 +68,64 @@ export default function SearchBar({ onSearch, loading }) {
             }`}
               style={{ background: 'linear-gradient(135deg, rgba(228,178,80,0.5), rgba(14,165,233,0.3))' }} />
 
-            <div className="relative flex items-center gap-3 px-5 py-4 rounded-2xl"
+            <div className="relative flex flex-col sm:flex-row items-stretch sm:items-center gap-3 px-3 sm:px-5 py-3 sm:py-4 rounded-2xl"
               style={{ background: 'rgba(4,51,88,0.8)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.08)' }}>
 
-              <MapPin size={20} className="text-amber-400 flex-shrink-0" />
+              <div className="flex items-center gap-3 flex-1 min-w-0">
+                <MapPin size={20} className="text-amber-400 flex-shrink-0" />
 
-              <div className="flex-1 relative">
-                <input
-                  type="text"
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
-                  onFocus={() => setFocused(true)}
-                  onBlur={() => setTimeout(() => setFocused(false), 150)}
-                  placeholder=""
-                  className="w-full bg-transparent text-white text-base font-body outline-none pointer-events-auto relative z-10"
-                  disabled={loading}
-                />
-                {!value && (
-                  <div className="absolute inset-0 flex items-center pointer-events-none text-blue-200/30 text-base font-body overflow-hidden">
-                    <AnimatePresence mode="wait">
-                      <motion.span
-                        key={placeholderIndex}
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: -20, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="whitespace-nowrap"
-                      >
-                        {SUGGESTIONS[placeholderIndex].label}
-                      </motion.span>
-                    </AnimatePresence>
-                  </div>
+                <div className="flex-1 relative">
+                  <input
+                    type="text"
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                    onFocus={() => setFocused(true)}
+                    onBlur={() => setTimeout(() => setFocused(false), 150)}
+                    placeholder=""
+                    className="w-full bg-transparent text-white text-sm sm:text-base font-body outline-none pointer-events-auto relative z-10 py-1"
+                    disabled={loading}
+                  />
+                  {!value && (
+                    <div className="absolute inset-0 flex items-center pointer-events-none text-blue-200/30 text-sm sm:text-base font-body overflow-hidden">
+                      <AnimatePresence mode="wait">
+                        <motion.span
+                          key={placeholderIndex}
+                          initial={{ y: 20, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          exit={{ y: -20, opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="whitespace-nowrap"
+                        >
+                          {SUGGESTIONS[placeholderIndex].label}
+                        </motion.span>
+                      </AnimatePresence>
+                    </div>
+                  )}
+                </div>
+
+                {value && (
+                  <button type="button" onClick={() => setValue('')}
+                    className="p-1 text-blue-200/40 hover:text-white transition-colors relative z-10 flex-shrink-0">
+                    <X size={16} />
+                  </button>
                 )}
               </div>
-
-              {value && (
-                <button type="button" onClick={() => setValue('')}
-                  className="p-1 text-blue-200/40 hover:text-white transition-colors relative z-10">
-                  <X size={16} />
-                </button>
-              )}
 
               <button
                 type="submit"
                 disabled={loading || !value.trim()}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-ocean-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 active:scale-95 flex-shrink-0 relative z-10"
+                className="flex items-center justify-center gap-2 px-6 py-3 sm:py-2.5 rounded-xl text-sm font-semibold text-ocean-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 active:scale-95 sm:flex-shrink-0 relative z-10 w-full sm:w-auto"
                 style={{ background: 'linear-gradient(135deg, #E4B250 0%, #FF6B35 100%)' }}
               >
                 {loading ? (
                   <>
                     <Loader2 size={16} className="animate-spin" />
-                    <span className="hidden sm:inline">Crafting...</span>
+                    <span>Crafting...</span>
                   </>
                 ) : (
                   <>
                     <Search size={16} />
-                    <span className="hidden sm:inline">See who's going 👀</span>
+                    <span>See who's going 👀</span>
                   </>
                 )}
               </button>

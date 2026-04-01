@@ -76,12 +76,12 @@ export default function HiddenGems({ onUnlock }) {
         </div>
 
         {/* Gems Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {GEMS.map((gem) => (
             <motion.div
               key={gem.id}
               whileHover={{ y: -10 }}
-              className="group relative h-[32rem] rounded-[2.5rem] overflow-hidden glass border border-white/10 cursor-pointer shadow-2xl"
+              className="group relative h-[28rem] sm:h-[32rem] rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden glass border border-white/10 cursor-pointer shadow-2xl"
               onClick={onUnlock}
             >
               {/* Image */}
@@ -95,19 +95,19 @@ export default function HiddenGems({ onUnlock }) {
               <div className="absolute inset-0 bg-ocean-950/40 backdrop-blur-[2px] transition-all duration-500 group-hover:backdrop-blur-0" />
               
               {/* Content Overlay */}
-              <div className="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end bg-gradient-to-t from-ocean-950/90 via-ocean-950/40 to-transparent">
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-widest text-amber-900 bg-amber-400">
+              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8 flex flex-col justify-end bg-gradient-to-t from-ocean-950/90 via-ocean-950/40 to-transparent">
+                <div className="flex items-center gap-2 mb-3 sm:mb-4">
+                  <span className="px-2 py-0.5 rounded-md text-[8px] sm:text-[9px] font-bold uppercase tracking-widest text-amber-900 bg-amber-400">
                     {gem.vibe}
                   </span>
                   <div className="flex items-center gap-1 text-white/60">
                     <Star size={10} fill="currentColor" />
-                    <span className="text-[10px] font-bold">Secret</span>
+                    <span className="text-[9px] sm:text-[10px] font-bold">Secret</span>
                   </div>
                 </div>
 
-                <div className="mb-6">
-                   <h3 className="text-white font-bold text-xl mb-1 blur-md transition-all group-hover:blur-sm">
+                <div className="mb-4 sm:mb-6">
+                   <h3 className="text-white font-bold text-lg sm:text-xl mb-1 blur-md transition-all group-hover:blur-sm">
                       {gem.name}
                    </h3>
                    <div className="flex items-center gap-1.5 text-blue-200/40">
@@ -116,16 +116,16 @@ export default function HiddenGems({ onUnlock }) {
                    </div>
                 </div>
 
-                <div className="space-y-4 pt-6 border-t border-white/5">
-                   <div className="flex items-center justify-between text-[10px] uppercase font-bold tracking-[0.2em] text-amber-500/60">
+                <div className="space-y-3 sm:space-y-4 pt-4 sm:pt-6 border-t border-white/5">
+                   <div className="flex items-center justify-between text-[9px] sm:text-[10px] uppercase font-bold tracking-[0.2em] text-amber-500/60">
                       <span>Coordinates</span>
                       <Lock size={12} />
                    </div>
-                   <div className="text-sm font-mono text-white/20 blur-[6px] select-none">
+                   <div className="text-xs sm:text-sm font-mono text-white/20 blur-[5px] sm:blur-[6px] select-none">
                       {gem.coords}
                    </div>
                    
-                   <button className="w-full py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-bold text-xs hover:bg-amber-400 hover:text-ocean-900 transition-all flex items-center justify-center gap-2 group-hover:shadow-glow-amber">
+                   <button className="w-full py-3 sm:py-4 rounded-xl sm:rounded-2xl bg-white/5 border border-white/10 text-white font-bold text-[10px] sm:text-xs hover:bg-amber-400 hover:text-ocean-900 transition-all flex items-center justify-center gap-2 group-hover:shadow-glow-amber">
                       Unlock exact location
                       <ChevronRight size={14} />
                    </button>
@@ -133,10 +133,10 @@ export default function HiddenGems({ onUnlock }) {
               </div>
 
               {/* Status Badge */}
-              <div className="absolute top-6 right-6">
-                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-[10px] font-bold text-white">
+              <div className="absolute top-4 sm:top-6 right-4 sm:right-6">
+                 <div className="flex items-center gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-[9px] sm:text-[10px] font-bold text-white">
                     <Users size={12} className="text-teal-400" />
-                    {Math.floor(Math.random() * 50) + 10} verified explorers
+                    {Math.floor(Math.random() * 50) + 10}
                  </div>
               </div>
             </motion.div>

@@ -96,14 +96,14 @@ export default function Hero({ onSearch, onWaitlistOpen }) {
           </div>
 
           {/* Headline */}
-          <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.95] mb-6 animate-slide-up"
+          <h1 className="font-display text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.1] sm:leading-[0.95] mb-6 animate-slide-up"
             style={{ animationDelay: '0.1s' }}>
-            <span className="text-white text-3xl md:text-5xl block mb-4 opacity-80">Find your next trip...</span>
+            <span className="text-white text-2xl xs:text-3xl md:text-5xl block mb-4 opacity-80">Find your next trip...</span>
             <span className="text-white">and the</span>
             <br />
             <span className="text-gradient-amber italic">People</span>
             <br />
-            <span className="text-white text-4xl md:text-6xl tracking-tight">already going there 👀</span>
+            <span className="text-white text-3xl xs:text-4xl md:text-6xl tracking-tight">already going there 👀</span>
           </h1>
 
           {/* Sub */}

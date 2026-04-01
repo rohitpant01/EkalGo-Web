@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Download } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import Logo from './Logo';
 import { redirectToApp } from '../utils/redirect';
 
@@ -32,10 +33,10 @@ export default function Navbar({ onWaitlistOpen }) {
         scrolled ? 'glass border-b border-white/5 shadow-lg' : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo */}
-          <Link to="/" className="transition-opacity hover:opacity-80">
+          <Link to="/" className="transition-opacity hover:opacity-80 flex-shrink-0">
             <Logo size="md" />
           </Link>
 
@@ -75,47 +76,54 @@ export default function Navbar({ onWaitlistOpen }) {
 
           {/* Mobile menu toggle */}
           <button
-            className="md:hidden p-2 text-white/70 hover:text-white"
+            className="md:hidden p-2 text-white/70 hover:text-white transition-colors"
             onClick={() => setMenuOpen(!menuOpen)}
           >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
         {/* Mobile menu */}
-        {menuOpen && (
-          <div className="md:hidden glass border-t border-white/5 py-4 px-2 space-y-1 animate-slide-up">
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                to={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="block px-4 py-3 rounded-xl text-sm font-medium text-blue-100/70 hover:text-white hover:bg-white/5 transition-all"
-              >
-                {link.label}
-              </Link>
-            ))}
-            <div className="pt-3 flex flex-col gap-2 px-4">
-              <button
-                onClick={() => { onWaitlistOpen(); setMenuOpen(false); }}
-                className="w-full py-3 rounded-xl border border-white/10 text-sm font-medium text-white/70 hover:bg-white/5 transition-all"
-              >
-                Join Waitlist
-              </button>
-              <button
-                onClick={() => {
-                  const ok = redirectToApp();
-                  if (!ok) { onWaitlistOpen(); }
-                  setMenuOpen(false);
-                }}
-                className="w-full py-3 rounded-xl text-sm font-semibold text-ocean-900"
-                style={{ background: 'linear-gradient(135deg, #E4B250 0%, #FF6B35 100%)' }}
-              >
-                {appAvailable ? 'Download App' : 'Get Early Access'}
-              </button>
-            </div>
-          </div>
-        )}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div 
+               initial={{ opacity: 0, y: -10 }}
+               animate={{ opacity: 1, y: 0 }}
+               exit={{ opacity: 0, y: -10 }}
+               className="md:hidden absolute top-full left-0 right-0 glass border-b border-white/5 pb-8 pt-4 px-4 space-y-2 shadow-2xl flex flex-col"
+            >
+              {navLinks.map((link) => (
+                <Link
+                  key={link.label}
+                  to={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="block px-4 py-3 rounded-xl text-base font-medium text-blue-100/70 hover:text-white hover:bg-white/5 transition-all text-center"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <div className="pt-4 flex flex-col gap-3">
+                <button
+                  onClick={() => { onWaitlistOpen(); setMenuOpen(false); }}
+                  className="w-full py-4 rounded-xl border border-white/10 text-sm font-medium text-white/70 hover:bg-white/5 transition-all"
+                >
+                  Join Waitlist
+                </button>
+                <button
+                  onClick={() => {
+                    const ok = redirectToApp();
+                    if (!ok) { onWaitlistOpen(); }
+                    setMenuOpen(false);
+                  }}
+                  className="w-full py-4 rounded-xl text-sm font-semibold text-ocean-900 shadow-glow-amber"
+                  style={{ background: 'linear-gradient(135deg, #E4B250 0%, #FF6B35 100%)' }}
+                >
+                  {appAvailable ? 'Download App' : 'Get Early Access'}
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </nav>
   );
