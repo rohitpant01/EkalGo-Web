@@ -45,7 +45,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen noise-bg" style={{ background: 'var(--ocean-900)' }}>
+    <div className="min-h-screen noise-bg w-full overflow-hidden relative" style={{ background: 'var(--ocean-900)' }}>
       {/* Toast */}
       <Toaster position="top-right" />
 

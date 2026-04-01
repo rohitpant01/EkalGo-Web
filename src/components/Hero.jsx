@@ -83,8 +83,8 @@ export default function Hero({ onSearch, onWaitlistOpen }) {
           backgroundSize: '60px 60px',
         }} />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 flex flex-col items-center">
-        <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 flex flex-col items-center">
+        <div className="w-full max-w-4xl mx-auto text-center flex flex-col items-center px-2">
 
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 animate-fade-in"
@@ -96,18 +96,18 @@ export default function Hero({ onSearch, onWaitlistOpen }) {
           </div>
 
           {/* Headline */}
-          <h1 className="font-display text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.1] sm:leading-[0.95] mb-6 animate-slide-up max-w-[90%] mx-auto"
+          <h1 className="font-display text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.1] sm:leading-[0.95] mb-6 animate-slide-up w-full max-w-[100%] mx-auto break-words whitespace-normal"
             style={{ animationDelay: '0.1s' }}>
-            <span className="text-white text-2xl xs:text-3xl md:text-5xl block mb-4 opacity-80">Find your next trip...</span>
-            <span className="text-white">and the</span>
-            <br />
-            <span className="text-gradient-amber italic">People</span>
-            <br />
-            <span className="text-white text-3xl xs:text-4xl md:text-6xl tracking-tight">already going there 👀</span>
+            <span className="text-white text-2xl xs:text-3xl md:text-5xl block mb-4 opacity-80 break-words">Find your next trip...</span>
+            <span className="text-white block sm:inline">and the</span>
+            <br className="hidden sm:block" />
+            <span className="text-gradient-amber italic block sm:inline break-words">People</span>
+            <br className="hidden sm:block" />
+            <span className="text-white text-3xl xs:text-4xl md:text-6xl tracking-tight block sm:inline mt-2 sm:mt-0 break-words">already going there 👀</span>
           </h1>
 
           {/* Sub */}
-          <p className="font-body text-lg md:text-xl text-blue-200/60 max-w-[90%] md:max-w-2xl mx-auto mb-10 leading-relaxed animate-slide-up"
+          <p className="font-body text-lg md:text-xl text-blue-200/60 w-full max-w-[100%] md:max-w-2xl mx-auto mb-10 leading-relaxed animate-slide-up break-words whitespace-normal"
             style={{ animationDelay: '0.2s' }}>
             You're just <span className="text-amber-400 font-bold">one trip away</span> from meeting someone unexpected ✨. 
             Connect with explorers, plan AI itineraries, and unlock India's secret soul.
@@ -134,7 +134,7 @@ export default function Hero({ onSearch, onWaitlistOpen }) {
           </div>
 
           {/* Stats row */}
-          <div className="flex items-center justify-center gap-8 md:gap-16 mb-12 animate-fade-in"
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-16 mb-12 animate-fade-in w-full px-2"
             style={{ animationDelay: '0.4s' }}>
             {STAT_ITEMS.map(({ icon: Icon, value, label }) => (
               <div key={label} className="text-center">
