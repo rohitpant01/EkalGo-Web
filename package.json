@@ -9,13 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.26.2",
+    "@emailjs/browser": "^4.4.1",
+    "@studio-freight/lenis": "^1.0.42",
     "axios": "^1.7.7",
     "framer-motion": "^11.11.1",
     "lucide-react": "^0.454.0",
-    "react-hot-toast": "^2.4.1"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hot-toast": "^2.4.1",
+    "react-router-dom": "^6.26.2"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",

@@ -27,7 +27,7 @@ export default function AppCTA({ onWaitlistOpen }) {
 
           {/* Decorative glow blobs */}
           <div className="absolute top-0 right-0 w-80 h-80 opacity-15 pointer-events-none"
-            style={{ background: 'radial-gradient(circle, #E4B250, transparent 65%)' }} />
+            style={{ background: 'radial-gradient(circle, #F9A826, transparent 65%)' }} />
           <div className="absolute bottom-0 left-0 w-64 h-64 opacity-10 pointer-events-none"
             style={{ background: 'radial-gradient(circle, #2DD4BF, transparent 65%)' }} />
 
@@ -130,7 +130,7 @@ export default function AppCTA({ onWaitlistOpen }) {
                           <div className="text-white font-display font-bold text-base">Travel Buddies</div>
                         </div>
                         <div className="w-8 h-8 rounded-xl"
-                          style={{ background: 'linear-gradient(135deg, #E4B250, #FF6B35)' }} />
+                          style={{ background: 'linear-gradient(135deg, #F9A826, #F59E0B)' }} />
                       </div>
 
                       {/* Card stack simulation */}
@@ -161,7 +161,7 @@ export default function AppCTA({ onWaitlistOpen }) {
                             className="w-10 h-10 rounded-full flex items-center justify-center text-sm"
                             style={{
                               background: i === 2
-                                ? 'linear-gradient(135deg, #E4B250, #FF6B35)'
+                                ? 'linear-gradient(135deg, #F9A826, #F59E0B)'
                                 : 'rgba(255,255,255,0.08)',
                               border: '1px solid rgba(255,255,255,0.1)',
                               color: i === 2 ? '#021A2C' : 'rgba(255,255,255,0.5)',

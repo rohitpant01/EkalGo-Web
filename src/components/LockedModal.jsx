@@ -32,7 +32,7 @@ export default function LockedModal({ isOpen, onClose, onWaitlistOpen }) {
 
         {/* Top glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-32 opacity-20 pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse, #E4B250, transparent 70%)' }} />
+          style={{ background: 'radial-gradient(ellipse, #F9A826, transparent 70%)' }} />
 
         {/* Close */}
         <button onClick={onClose}
@@ -79,7 +79,7 @@ export default function LockedModal({ isOpen, onClose, onWaitlistOpen }) {
             <button
               onClick={handleDownload}
               className="w-full flex items-center justify-center gap-3 py-4 rounded-2xl font-bold text-ocean-900 transition-all hover:scale-[1.02] active:scale-[0.98]"
-              style={{ background: 'linear-gradient(135deg, #E4B250 0%, #FF6B35 100%)' }}>
+              style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}>
               <Download size={18} />
               Download EkalGo App
               <ArrowRight size={16} />

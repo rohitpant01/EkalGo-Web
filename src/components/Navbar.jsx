@@ -67,7 +67,7 @@ export default function Navbar({ onWaitlistOpen }) {
                 if (!ok) onWaitlistOpen();
               }}
               className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-ocean-900 transition-all duration-200 hover:scale-105 active:scale-95"
-              style={{ background: 'linear-gradient(135deg, #E4B250 0%, #FF6B35 100%)' }}
+              style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}
             >
               <Download size={15} />
               {appAvailable ? 'Download App' : 'Get Early Access'}
@@ -116,7 +116,7 @@ export default function Navbar({ onWaitlistOpen }) {
                     setMenuOpen(false);
                   }}
                   className="w-full py-4 rounded-xl text-sm font-semibold text-ocean-900 shadow-glow-amber"
-                  style={{ background: 'linear-gradient(135deg, #E4B250 0%, #FF6B35 100%)' }}
+                  style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}
                 >
                   {appAvailable ? 'Download App' : 'Get Early Access'}
                 </button>

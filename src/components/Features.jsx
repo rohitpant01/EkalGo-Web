@@ -4,7 +4,7 @@ import { Heart, Map, MessageCircle, Shield, Compass, Zap } from 'lucide-react';
 const FEATURES = [
   {
     icon: Heart,
-    color: '#FF6B35',
+    color: '#F59E0B',
     bgColor: 'rgba(255,107,53,0.1)',
     title: 'Travel Soulmate Matching',
     desc: 'Swipe through profiles of solo travelers. Match based on destination, travel style, and interests. Find your perfect co-traveler.',
@@ -12,7 +12,7 @@ const FEATURES = [
   },
   {
     icon: Zap,
-    color: '#E4B250',
+    color: '#F9A826',
     bgColor: 'rgba(228,178,80,0.1)',
     title: 'AI Trip Planner',
     desc: 'Describe your dream trip in plain words. Our AI crafts a personalized day-by-day itinerary with real places, tips, and timings.',

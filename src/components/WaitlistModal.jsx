@@ -19,10 +19,12 @@ export default function WaitlistModal({ isOpen, onClose }) {
     // Small delay for UX feel
     await new Promise((r) => setTimeout(r, 600));
 
-    const result = addToWaitlist(email.trim());
+    const result = await addToWaitlist(email.trim());
 
     if (result.success) {
       setStatus('success');
+    } else if (result.alreadyExists) {
+      setStatus('already_joined');
     } else {
       setStatus('error');
       setErrorMsg(result.error);
@@ -54,7 +56,7 @@ export default function WaitlistModal({ isOpen, onClose }) {
         </button>
 
         <div className="relative p-8">
-          {status !== 'success' ? (
+          {status !== 'success' && status !== 'already_joined' ? (
             <>
               <div className="text-center mb-8">
                 <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4"
@@ -94,7 +96,7 @@ export default function WaitlistModal({ isOpen, onClose }) {
                   type="submit"
                   disabled={status === 'loading' || !email.trim()}
                   className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl font-bold text-ocean-900 disabled:opacity-50 transition-all hover:scale-[1.02] active:scale-[0.98]"
-                  style={{ background: 'linear-gradient(135deg, #E4B250 0%, #FF6B35 100%)' }}>
+                  style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}>
                   {status === 'loading' ? (
                     <><Loader2 size={18} className="animate-spin" /> Joining...</>
                   ) : (
@@ -110,7 +112,7 @@ export default function WaitlistModal({ isOpen, onClose }) {
               </div>
             </>
           ) : (
-            // Success state
+            // Success / Already Joined state
             <div className="text-center py-6">
               <div className="flex items-center justify-center mb-6">
                 <div className="w-20 h-20 rounded-full flex items-center justify-center"
@@ -119,7 +121,7 @@ export default function WaitlistModal({ isOpen, onClose }) {
                 </div>
               </div>
               <h2 className="font-display text-2xl font-bold text-white mb-3">
-                You're on the list! 🎉
+                {status === 'success' ? "You're on the list! 🎉" : "You're already on the list! 👋"}
               </h2>
               <p className="text-blue-200/50 text-sm mb-2">
                 We'll notify <span className="text-teal-300">{email}</span> the moment EkalGo launches.

@@ -5,16 +5,18 @@
 @tailwind utilities;
 
 :root {
-  --ocean-950: #010D16;
-  --ocean-900: #021A2C;
-  --ocean-800: #043358;
-  --ocean-700: #064C84;
-  --ocean-600: #0866B0;
-  --ocean-500: #0A7FDC;
-  --ocean-400: #2099E3;
+  --ocean-950: #1A2235;
+  --ocean-900: #222A3A;
+  --ocean-800: #2C3548;
+  --ocean-700: #384358;
+  --ocean-600: #4B5563;
+  --ocean-500: #2DD4BF;
+  --ocean-400: #38BDF8;
   --teal-500: #14B8A6;
-  --amber-500: #E4B250;
-  --ember: #FF6B35;
+  --teal-400: #2DD4BF;
+  --amber-500: #F9A826;
+  --amber-400: #FBBF24;
+  --ember: #F59E0B;
   --sand-100: #FAF0DC;
 
   --font-display: 'Playfair Display', Georgia, serif;
@@ -28,7 +30,6 @@
 }
 
 html, body, #root {
-  scroll-behavior: smooth;
   width: 100%;
   overflow-x: hidden;
   margin: 0;
@@ -42,6 +43,48 @@ body {
   position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@media (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+}
+
+/* Custom Cursor Component Styles */
+.custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: var(--amber-500);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: exclusion;
+}
+
+.custom-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(228, 178, 80, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
+}
+
+.custom-cursor-ring.active {
+  width: 48px;
+  height: 48px;
+  background-color: rgba(228, 178, 80, 0.1);
+  border-color: rgba(228, 178, 80, 0.8);
 }
 
 .container {
@@ -104,7 +147,7 @@ body {
 
 /* Glass morphism */
 .glass {
-  background: rgba(4, 51, 88, 0.4);
+  background: rgba(11, 15, 26, 0.4); /* Darker glass for #0B0F1A */
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -119,7 +162,7 @@ body {
 
 /* Text gradient */
 .text-gradient-amber {
-  background: linear-gradient(135deg, #E4B250 0%, #FF6B35 100%);
+  background: linear-gradient(135deg, #F9A826 0%, #F59E0B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -177,7 +220,7 @@ button:focus-visible {
   position: absolute;
   inset: -2px;
   border-radius: inherit;
-  background: linear-gradient(135deg, #E4B250, #FF6B35);
+  background: linear-gradient(135deg, #F9A826, #F59E0B);
   z-index: -1;
   opacity: 0;
   transition: opacity 0.3s;

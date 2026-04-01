@@ -115,7 +115,7 @@ export default function SearchBar({ onSearch, loading }) {
                 type="submit"
                 disabled={loading || !value.trim()}
                 className="flex items-center justify-center gap-2 px-6 py-3 sm:py-2.5 rounded-xl text-sm font-semibold text-ocean-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105 active:scale-95 sm:flex-shrink-0 relative z-10 w-full sm:w-auto"
-                style={{ background: 'linear-gradient(135deg, #E4B250 0%, #FF6B35 100%)' }}
+                style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}
               >
                 {loading ? (
                   <>
@@ -161,20 +161,15 @@ export default function SearchBar({ onSearch, loading }) {
           )}
         </form>
 
-        {/* AI hint */}
-        {!loading && (
-          <p className="text-center mt-4 text-xs font-mono text-blue-200/30">
-            Ensemble AI (Groq + Gemini) • Discover real-time travel matches
-          </p>
-        )}
+
 
         {/* Loading state */}
         {loading && (
           <div className="flex items-center justify-center gap-3 mt-6 text-sm text-blue-200/50">
             <div className="flex gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-amber-400 dot-1 shadow-[0_0_8px_#E4B250]" />
-              <span className="w-2 h-2 rounded-full bg-amber-400 dot-2 shadow-[0_0_8px_#E4B250]" />
-              <span className="w-2 h-2 rounded-full bg-amber-400 dot-3 shadow-[0_0_8px_#E4B250]" />
+              <span className="w-2 h-2 rounded-full bg-amber-400 dot-1 shadow-[0_0_8px_#F9A826]" />
+              <span className="w-2 h-2 rounded-full bg-amber-400 dot-2 shadow-[0_0_8px_#F9A826]" />
+              <span className="w-2 h-2 rounded-full bg-amber-400 dot-3 shadow-[0_0_8px_#F9A826]" />
             </div>
             <span className="font-body">Searching for travelers and hidden spots...</span>
           </div>

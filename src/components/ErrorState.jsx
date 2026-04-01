@@ -38,7 +38,7 @@ export default function ErrorState({ error, onRetry }) {
               whileTap={{ scale: 0.95 }}
               onClick={onRetry}
               className="group inline-flex items-center gap-3 px-10 py-5 rounded-2xl font-bold text-ocean-900 transition-all shadow-glow-amber"
-              style={{ background: 'linear-gradient(135deg, #E4B250 0%, #FF6B35 100%)' }}
+              style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}
             >
               <RefreshCw size={20} className="group-hover:rotate-180 transition-transform duration-700" />
               Prepare Journey Again

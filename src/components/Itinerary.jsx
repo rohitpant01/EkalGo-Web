@@ -9,8 +9,8 @@ import PreviewModal from './PreviewModal';
 
 const DIFF_COLORS = {
   Easy: { bg: 'rgba(46,204,113,0.15)', text: '#2ECC71' },
-  Moderate: { bg: 'rgba(228,178,80,0.15)', text: '#E4B250' },
-  Challenging: { bg: 'rgba(255,107,53,0.15)', text: '#FF6B35' },
+  Moderate: { bg: 'rgba(228,178,80,0.15)', text: '#F9A826' },
+  Challenging: { bg: 'rgba(255,107,53,0.15)', text: '#F59E0B' },
 };
 
 export default function Itinerary({ itinerary, onShare, onWaitlistOpen }) {
@@ -37,7 +37,7 @@ export default function Itinerary({ itinerary, onShare, onWaitlistOpen }) {
         >
           {/* Decorative glow */}
           <div className="absolute -top-24 -right-24 w-64 sm:w-96 h-64 sm:h-96 opacity-20 pointer-events-none blur-[60px] sm:blur-[100px]"
-            style={{ background: 'radial-gradient(circle, #E4B250, transparent 70%)' }} />
+            style={{ background: 'radial-gradient(circle, #F9A826, transparent 70%)' }} />
 
           <div className="relative z-10">
             <div className="flex flex-col lg:flex-row items-start justify-between gap-6 mb-8">
@@ -78,7 +78,7 @@ export default function Itinerary({ itinerary, onShare, onWaitlistOpen }) {
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setPreviewOpen(true)}
                   className="flex-1 sm:flex-none px-6 py-4 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm text-ocean-900 transition-all shadow-glow-amber whitespace-nowrap"
-                  style={{ background: 'linear-gradient(135deg, #E4B250 0%, #FF6B35 100%)' }}
+                  style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}
                 >
                   <span className="flex items-center justify-center gap-2">
                     <Eye size={18} />
@@ -188,7 +188,7 @@ export default function Itinerary({ itinerary, onShare, onWaitlistOpen }) {
               whileTap={{ scale: 0.95 }}
               onClick={onWaitlistOpen}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 sm:py-5 rounded-xl sm:rounded-[1.5rem] font-bold text-xs sm:text-sm text-ocean-900 transition-all shadow-2xl"
-              style={{ background: 'linear-gradient(135deg, #E4B250 0%, #FF6B35 100%)' }}>
+              style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}>
               <Download size={18} />
               Unlock Full Plan & Meet Travelers
             </motion.button>

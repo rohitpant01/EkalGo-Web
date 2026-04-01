@@ -1,0 +1,40 @@
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background Gradient for the leaf -->
+    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#4ADE80" />
+      <stop offset="40%" stopColor="#2DD4BF" />
+      <stop offset="100%" stopColor="#0EA5E9" />
+    </linearGradient>
+
+    <!-- Shadow for the cutout arrow -->
+    <filter id="cutoutShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" floodColor="#0B0F1A" floodOpacity="0.3" />
+    </filter>
+  </defs>
+
+  <!-- Main 'E' Leaf Silhouette -->
+  <!-- Top left rounded, Top right sharp, Bottom right rounded, Bottom left sharp -->
+  <path 
+    d="M 25 20 
+       C 50 15, 75 20, 85 20 
+       C 80 45, 90 60, 80 80 
+       C 60 90, 40 85, 25 80 
+       C 15 65, 10 40, 25 20 Z" 
+    fill="url(#leafGrad)"
+  />
+
+  <!-- The Cutout (creating the "E" and the "Arrow") -->
+  <!-- Starts left, cuts through the middle, points top-right -->
+  <path 
+    d="M 15 50 
+       C 35 48, 45 40, 55 35 
+       L 55 30 
+       L 75 35 
+       L 65 45 
+       L 60 40 
+       C 50 45, 30 55, 15 55 Z" 
+    fill="#1A2235" 
+    filter="url(#cutoutShadow)"
+  />
+</svg>

@@ -7,7 +7,7 @@ const STEPS = [
     number: '01',
     title: 'Create Profile',
     desc: 'Sign up with email or phone. Add your travel style, interests, and dream destinations.',
-    color: '#E4B250',
+    color: '#F9A826',
   },
   {
     icon: Search,
@@ -21,7 +21,7 @@ const STEPS = [
     number: '03',
     title: 'Match & Connect',
     desc: 'Swipe through travelers going to the same place. Match, chat, plan together.',
-    color: '#FF6B35',
+    color: '#F59E0B',
   },
   {
     icon: Plane,

@@ -92,7 +92,7 @@ export default function PreviewModal({ isOpen, onClose, itinerary, onWaitlistOpe
                     <button
                       onClick={onWaitlistOpen}
                       className="w-full group flex items-center justify-center gap-3 px-6 py-4 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm text-ocean-900 transition-all duration-300 hover:scale-105 active:scale-95 shadow-glow-amber mb-3"
-                      style={{ background: 'linear-gradient(135deg, #E4B250 0%, #FF6B35 100%)' }}
+                      style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}
                     >
                       Unlock Full Itinerary
                       <Download size={18} />
@@ -125,7 +125,7 @@ export default function PreviewModal({ isOpen, onClose, itinerary, onWaitlistOpe
               <div className="flex items-center justify-between flex-wrap gap-4 mb-8">
                  <div className="flex items-center gap-4">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center font-display font-bold text-ocean-900 shadow-xl flex-shrink-0"
-                      style={{ background: 'linear-gradient(135deg, #E4B250, #FF6B35)' }}>
+                      style={{ background: 'linear-gradient(135deg, #F9A826, #F59E0B)' }}>
                       1
                     </div>
                     <div>

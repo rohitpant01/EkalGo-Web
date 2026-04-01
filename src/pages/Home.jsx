@@ -1,14 +1,14 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import Hero from '../components/Hero';
-import SearchBar from '../components/SearchBar';
-import TravelQuiz from '../components/TravelQuiz';
+import LiveBuilder from '../components/LiveBuilder';
+import ScrollStory from '../components/ScrollStory';
 import HiddenGems from '../components/HiddenGems';
-import Features from '../components/Features';
-import HowItWorks from '../components/HowItWorks';
-import Itinerary from '../components/Itinerary';
+import Travelers from '../components/Travelers';
 import AppCTA from '../components/AppCTA';
-import { SkeletonItinerary } from '../components/SkeletonCard';
+import SearchBar from '../components/SearchBar';
+import Itinerary from '../components/Itinerary';
 import ErrorState from '../components/ErrorState';
+import { SkeletonItinerary } from '../components/SkeletonCard';
 
 export default function Home({ 
   itinerary, 
@@ -23,33 +23,26 @@ export default function Home({
 }) {
   const searchSectionRef = useRef(null);
 
-  const scrollToSearch = () => {
-    searchSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <>
+      {/* 1. Hero (animated map, typing, parallax) */}
       <Hero
         onSearch={onSearch}
         onWaitlistOpen={onWaitlistOpen}
       />
 
-      {/* NEW: Lead Magnet - Travel Persona Quiz */}
-      <TravelQuiz onComplete={scrollToSearch} />
-
-      {/* AI Search */}
-      <div ref={searchSectionRef} id="search" className="pt-10">
-        <SearchBar onSearch={onSearch} loading={loading} />
+      {/* Actual App Search functionality placed here so users can try it.
+          It transitions into the live builder conceptually. */}
+      <div ref={searchSectionRef} id="search" className="relative z-20 -mt-10 pb-20 bg-transparent px-4">
+         <div className="max-w-4xl mx-auto">
+           <SearchBar onSearch={onSearch} loading={loading} />
+         </div>
       </div>
 
-      {/* Results: loading / error / itinerary */}
-      <div id="itinerary">
+      {/* Search Results Area */}
+      <div id="itinerary" className="bg-ocean-950">
         {loading && <SkeletonItinerary />}
-
-        {!loading && error && (
-          <ErrorState error={error} onRetry={onRetry} />
-        )}
-
+        {!loading && error && <ErrorState error={error} onRetry={onRetry} />}
         {!loading && !error && itinerary && (
           <Itinerary
             itinerary={itinerary}
@@ -61,16 +54,23 @@ export default function Home({
         )}
       </div>
 
-      {/* NEW: Lead Magnet - Hidden Gems Gallery */}
+      {/* 2. AI Itinerary Live Builder (Showcase) */}
+      {!itinerary && !loading && (
+        <LiveBuilder />
+      )}
+
+      {/* 3. Scroll Story (The Game Changer) */}
+      {!itinerary && !loading && (
+        <ScrollStory />
+      )}
+
+      {/* 4. Hidden Places (Blurred mystery cards) */}
       <HiddenGems onUnlock={onWaitlistOpen} />
 
-      {/* Features Section */}
-      <Features />
+      {/* 5. Travelers Section (Social Feel) */}
+      <Travelers onWaitlistOpen={onWaitlistOpen} />
 
-      {/* How It Works */}
-      <HowItWorks />
-
-      {/* App Download CTA */}
+      {/* 6. FOMO Section / CTA */}
       <AppCTA onWaitlistOpen={onWaitlistOpen} />
     </>
   );

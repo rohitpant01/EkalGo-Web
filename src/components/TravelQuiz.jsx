@@ -171,7 +171,7 @@ export default function TravelQuiz({ onComplete }) {
                 whileTap={{ scale: 0.95 }}
                 onClick={onComplete}
                 className="group flex items-center justify-center gap-3 px-10 py-5 rounded-[1.5rem] font-bold text-ocean-900 mx-auto transition-all shadow-glow-amber"
-                style={{ background: 'linear-gradient(135deg, #E4B250 0%, #FF6B35 100%)' }}
+                style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}
               >
                 Reveal My Hidden Gems
                 <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />

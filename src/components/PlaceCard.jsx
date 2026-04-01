@@ -3,11 +3,11 @@ import { MapPin, Star, Clock, Lightbulb, ImageOff, Users, Unlock, MousePointer2 
 import { motion } from 'framer-motion';
 
 const TYPE_COLORS = {
-  temple: { bg: 'rgba(255,107,53,0.15)', text: '#FF6B35', label: '🛕 Temple' },
+  temple: { bg: 'rgba(255,107,53,0.15)', text: '#F59E0B', label: '🛕 Temple' },
   trek: { bg: 'rgba(46,204,113,0.15)', text: '#2ECC71', label: '🥾 Trek' },
   viewpoint: { bg: 'rgba(14,165,233,0.15)', text: '#0EA5E9', label: '🔭 Viewpoint' },
-  market: { bg: 'rgba(228,178,80,0.15)', text: '#E4B250', label: '🛒 Market' },
-  restaurant: { bg: 'rgba(255,107,53,0.15)', text: '#FF6B35', label: '🍽️ Food' },
+  market: { bg: 'rgba(228,178,80,0.15)', text: '#F9A826', label: '🛒 Market' },
+  restaurant: { bg: 'rgba(255,107,53,0.15)', text: '#F59E0B', label: '🍽️ Food' },
   default: { bg: 'rgba(45,212,191,0.15)', text: '#2DD4BF', label: '📍 Place' },
 };
 
