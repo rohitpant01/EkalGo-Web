@@ -1,77 +1,43 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import Hero from '../components/Hero';
-import LiveBuilder from '../components/LiveBuilder';
-import ScrollStory from '../components/ScrollStory';
-import HiddenGems from '../components/HiddenGems';
-import Travelers from '../components/Travelers';
-import AppCTA from '../components/AppCTA';
-import SearchBar from '../components/SearchBar';
-import Itinerary from '../components/Itinerary';
-import ErrorState from '../components/ErrorState';
-import { SkeletonItinerary } from '../components/SkeletonCard';
+import FeaturesGrid from '../components/FeaturesGrid';
+import HowItWorks from '../components/HowItWorks';
+import CuriosityExplore from '../components/CuriosityExplore';
+import SafetySection from '../components/SafetySection';
+import WaitlistCTA from '../components/WaitlistCTA';
 
-export default function Home({ 
-  itinerary, 
-  loading, 
-  error, 
-  enriching, 
-  onSearch, 
-  onWaitlistOpen, 
-  onLockedOpen,
-  onShare,
-  onRetry
-}) {
-  const searchSectionRef = useRef(null);
-
+export default function Home({ onWaitlistOpen }) {
   return (
     <>
-      {/* 1. Hero (animated map, typing, parallax) */}
-      <Hero
-        onSearch={onSearch}
-        onWaitlistOpen={onWaitlistOpen}
-      />
-
-      {/* Actual App Search functionality placed here so users can try it.
-          It transitions into the live builder conceptually. */}
-      <div ref={searchSectionRef} id="search" className="relative z-20 -mt-10 pb-20 bg-transparent px-4">
-         <div className="max-w-4xl mx-auto">
-           <SearchBar onSearch={onSearch} loading={loading} />
-         </div>
+      {/* 1. Immersive Hero */}
+      <div id="hero">
+        <Hero onWaitlistOpen={onWaitlistOpen} />
+      </div>
+      
+      {/* 2. Features Grid */}
+      <div id="features">
+        <FeaturesGrid />
       </div>
 
-      {/* Search Results Area */}
-      <div id="itinerary" className="bg-ocean-950">
-        {loading && <SkeletonItinerary />}
-        {!loading && error && <ErrorState error={error} onRetry={onRetry} />}
-        {!loading && !error && itinerary && (
-          <Itinerary
-            itinerary={itinerary}
-            enriching={enriching}
-            onLockedFeatureClick={onLockedOpen}
-            onShare={onShare}
-            onWaitlistOpen={onWaitlistOpen}
-          />
-        )}
+      {/* 3. How It Works Steps */}
+      <div id="how-it-works">
+        <HowItWorks />
       </div>
 
-      {/* 2. AI Itinerary Live Builder (Showcase) */}
-      {!itinerary && !loading && (
-        <LiveBuilder />
-      )}
+      {/* 4. Explore Preview (Curiosity Driven) */}
+      <div id="explore-preview">
+        <CuriosityExplore onWaitlistOpen={onWaitlistOpen} />
+      </div>
 
-      {/* 3. Scroll Story (The Game Changer) */}
-      {!itinerary && !loading && (
-        <ScrollStory />
-      )}
+      {/* 5. Safety & Trust */}
+      <div id="safety">
+        <SafetySection />
+      </div>
 
-      {/* 4. Hidden Places (Blurred mystery cards) */}
-      <HiddenGems onUnlock={onWaitlistOpen} />
-
-      {/* 5. Travelers Section (Social Feel) */}
-      <Travelers onWaitlistOpen={onWaitlistOpen} />
-
-      {/* 6. FOMO Section / CTA */}
-      <AppCTA onWaitlistOpen={onWaitlistOpen} />
+      {/* 6. Waitlist & CTA */}
+      <div id="cta">
+        <WaitlistCTA />
+      </div>
     </>
   );
 }

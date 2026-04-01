@@ -1,93 +1,86 @@
 import React from 'react';
-import { UserPlus, Search, Heart, Plane } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Search, BrainCircuit, Compass, PlaneTakeoff } from 'lucide-react';
 
 const STEPS = [
   {
-    icon: UserPlus,
-    number: '01',
-    title: 'Create Profile',
-    desc: 'Sign up with email or phone. Add your travel style, interests, and dream destinations.',
-    color: '#F9A826',
-  },
-  {
     icon: Search,
-    number: '02',
-    title: 'Plan Your Trip',
-    desc: 'Type your destination — AI generates a complete personalized itinerary in seconds.',
-    color: '#2DD4BF',
+    title: 'Enter Destination',
+    desc: 'Tell us where you want to go and your vibe.',
+    color: 'from-accent-neon to-brand-800'
   },
   {
-    icon: Heart,
-    number: '03',
-    title: 'Match & Connect',
-    desc: 'Swipe through travelers going to the same place. Match, chat, plan together.',
-    color: '#F59E0B',
+    icon: BrainCircuit,
+    title: 'AI Generates Plan',
+    desc: 'Our engine computes thousands of possibilities.',
+    color: 'from-accent-gold to-brand-800'
   },
   {
-    icon: Plane,
-    number: '04',
-    title: 'Travel Together',
-    desc: 'Meet your travel soulmate, explore hidden gems, and create unforgettable memories.',
-    color: '#A78BFA',
+    icon: Compass,
+    title: 'Explore Hidden Gems',
+    desc: 'Discover places algorithms rarely show.',
+    color: 'from-accent-teal to-brand-800'
   },
+  {
+    icon: PlaneTakeoff,
+    title: 'Travel with Confidence',
+    desc: 'Enjoy verified routes and real-time alerts.',
+    color: 'from-accent-gold to-brand-800'
+  }
 ];
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="py-24 px-4 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-5"
-          style={{ background: 'radial-gradient(circle, #0A7FDC, transparent 70%)' }} />
-      </div>
-
-      <div className="relative z-10 max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-4"
-            style={{ background: 'rgba(45,212,191,0.1)', border: '1px solid rgba(45,212,191,0.2)' }}>
-            <span className="text-xs font-mono font-medium tracking-widest uppercase text-teal-400">
-              How It Works
-            </span>
-          </div>
-          <h2 className="font-display text-4xl md:text-5xl text-white mb-4">
-            Solo travel, <span className="text-gradient-ocean italic">simplified</span>
-          </h2>
-          <p className="text-blue-200/50 max-w-lg mx-auto">
-            From signup to your first shared adventure — in 4 steps.
-          </p>
+    <section className="py-24 relative overflow-hidden bg-brand-900 border-t border-white/5">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div className="text-center mb-24">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-5xl font-bold mb-4 text-white"
+          >
+            How it <span className="text-gradient-gold">Works</span>
+          </motion.h2>
+          <p className="text-gray-400">Four simple steps to your ultimate journey.</p>
         </div>
 
-        {/* Steps */}
         <div className="relative">
-          {/* Connecting line (desktop) */}
-          <div className="hidden lg:block absolute top-16 left-1/2 -translate-x-1/2 w-[75%] h-px"
-            style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0.08) 80%, transparent)' }} />
+          {/* Connecting Line */}
+          <div className="hidden md:block absolute top-[48px] left-[12%] right-[12%] h-0.5 bg-gradient-to-r from-accent-neon via-accent-gold to-accent-teal opacity-30 z-0" />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger">
-            {STEPS.map(({ icon: Icon, number, title, desc, color }) => (
-              <div key={title} className="relative text-center group">
-                {/* Circle */}
-                <div className="relative inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-5 mx-auto transition-transform duration-300 group-hover:-translate-y-2"
-                  style={{ background: `${color}15`, border: `2px solid ${color}30` }}>
-                  <Icon size={24} style={{ color }} />
-
-                  {/* Number badge */}
-                  <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full flex items-center justify-center text-xs font-mono font-bold text-ocean-900"
-                    style={{ background: color }}>
-                    {number.slice(-1)}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 z-10 relative">
+            {STEPS.map((step, idx) => {
+              const Icon = step.icon;
+              return (
+                <motion.div 
+                  key={idx}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.2 }}
+                  className="flex flex-col items-center text-center relative group"
+                >
+                  <div className={`w-24 h-24 rounded-full flex items-center justify-center mb-6 bg-gradient-to-br ${step.color} p-[1px] group-hover:scale-110 transition-transform duration-300 shadow-glass-card`}>
+                    <div className="w-full h-full rounded-full bg-brand-900 flex items-center justify-center">
+                      <Icon size={32} className={idx % 2 === 0 ? 'text-accent-neon' : 'text-accent-gold'} />
+                    </div>
                   </div>
-                </div>
+                  
+                  {/* Step Number Badge */}
+                  <div className="absolute top-0 right-1/2 translate-x-10 -translate-y-2 w-8 h-8 rounded-full bg-brand-800 border-2 border-brand-900 flex items-center justify-center text-sm font-bold text-white shadow-lg z-20">
+                    {idx + 1}
+                  </div>
 
-                <h3 className="font-display font-semibold text-white text-lg mb-3">
-                  {title}
-                </h3>
-                <p className="text-sm text-blue-200/40 leading-relaxed">
-                  {desc}
-                </p>
-              </div>
-            ))}
+                  <h3 className="text-xl font-semibold text-white mb-2">{step.title}</h3>
+                  <p className="text-gray-400 text-sm max-w-[200px]">{step.desc}</p>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
+
       </div>
     </section>
   );

@@ -1,193 +1,321 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Lock, Download, Sparkles, MapPin, CheckCircle2, ChevronRight, Zap } from 'lucide-react';
-import PlaceCard from './PlaceCard';
+import { X, Sparkles, Lock, Map, Wallet, Zap, Calendar, MapPin, Users, ArrowRight, Loader2, CheckCircle2 } from 'lucide-react';
+import { generatePreviewTeaser } from '../services/api';
 
-export default function PreviewModal({ isOpen, onClose, itinerary, onWaitlistOpen }) {
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [sent, setSent] = useState(false);
+const THINKING_STEPS = [
+  "Connecting to EkalGo Intelligence...",
+  "Scanning route for hidden gems...",
+  "Analyzing local weather & crowd data...",
+  "Optimizing travel logistics...",
+  "Finalizing your premium itinerary..."
+];
 
-  if (!itinerary) return null;
+export default function PreviewModal({ isOpen, onClose, destination, itinerary, onWaitlistOpen }) {
+  const [status, setStatus] = useState('thinking');
+  const [stepIndex, setStepIndex] = useState(0);
+  const [previewData, setPreviewData] = useState(null);
 
-  const day1 = itinerary.days?.[0];
-  const remainingDaysCount = (itinerary.days?.length || 1) - 1;
+  useEffect(() => {
+    if (isOpen) {
+      // If we already have the itinerary, use it directly
+      if (itinerary) {
+        setPreviewData({
+          day1Title: itinerary.days?.[0]?.theme || "The Journey Begins",
+          day1Desc: itinerary.days?.[0]?.places?.[0]?.description || itinerary.summary,
+          day2Title: itinerary.days?.[1]?.theme || "Deep Exploration",
+          day2Desc: itinerary.days?.[1]?.places?.[0]?.description || "Unlocking the hidden soul of the destination.",
+          savingsAmount: itinerary.estimatedCost?.split(' ')[0] || "2,400",
+          hiddenGemsCount: "9"
+        });
+        setStatus('preview');
+        return;
+      }
 
-  const handleSendToPhone = (e) => {
-    e.preventDefault();
-    if (phoneNumber.length >= 10) {
-      setSent(true);
-      setTimeout(() => setSent(false), 3000);
+      // Otherwise, fetch teaser data (from explore page clicks)
+      if (destination) {
+        setStatus('thinking');
+        setStepIndex(0);
+        setPreviewData(null);
+        
+        const interval = setInterval(() => {
+          setStepIndex(prev => (prev < THINKING_STEPS.length - 1 ? prev + 1 : prev));
+        }, 700);
+
+        const fetchData = async () => {
+          try {
+            const result = await generatePreviewTeaser(destination.name);
+            if (result.success) {
+              setPreviewData(result.data);
+            }
+          } catch (err) {
+            console.error("Failed to fetch preview:", err);
+            setPreviewData({
+              day1Title: "Arrival & Local Exploration",
+              day1Desc: `Welcome to ${destination.name}. Settle in and explore the historic heart of the city with our curated local guide.`,
+              day2Title: "Hidden Gems Discovery",
+              day2Desc: "Head off the beaten path to discover secret spots known only to the EkalGo explorer community.",
+              savingsAmount: "2,100",
+              hiddenGemsCount: "7"
+            });
+          } finally {
+            setTimeout(() => setStatus('preview'), 1500);
+            if (interval) clearInterval(interval);
+          }
+        };
+
+        fetchData();
+        return () => clearInterval(interval);
+      }
     }
-  };
+  }, [isOpen, destination, itinerary]);
+
+  if (!isOpen) return null;
 
   return (
     <AnimatePresence>
-      {isOpen && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center px-4">
-          {/* Overlay */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 outline-none">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
+          className="absolute inset-0 bg-brand-900/80 backdrop-blur-md"
+        />
+        
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.9, y: 20 }}
+          className="relative w-full max-w-2xl max-h-[85vh] overflow-hidden glass-panel border border-white/10 shadow-3xl shadow-glow-gold/10 flex flex-col pt-4 mx-4"
+        >
+          {/* Close Button */}
+          <button
             onClick={onClose}
-            className="absolute inset-0 bg-ocean-950/90 backdrop-blur-md"
-          />
-
-          {/* Modal Content */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative w-full max-w-5xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto lg:overflow-hidden rounded-[2rem] sm:rounded-[3rem] glass shadow-3xl border border-white/10 flex flex-col lg:flex-row"
+            className="absolute top-4 right-4 z-[110] p-2 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-all backdrop-blur-md border border-white/5"
           >
-            {/* Close Button */}
-            <button
-              onClick={onClose}
-              className="absolute top-6 right-6 p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/60 hover:text-white transition-all z-20"
-            >
-              <X size={20} />
-            </button>
+            <X size={20} />
+          </button>
 
-            {/* Left Side: Teaser Content */}
-            <div className="lg:w-1/3 p-8 md:p-12 border-b lg:border-b-0 lg:border-r border-white/5 bg-gradient-to-b from-white/5 to-transparent flex flex-col">
-              <div className="flex items-center gap-2 mb-6">
-                <div className="px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20 flex items-center gap-2">
-                  <CheckCircle2 size={12} className="text-teal-400" />
-                  <span className="text-[10px] font-bold text-teal-300 uppercase tracking-widest">
-                     Day 1 Revealed
-                  </span>
+          <div 
+            data-lenis-prevent
+            className="flex-1 overflow-y-auto custom-scrollbar p-6 sm:p-10 pb-24"
+          >
+            {status === 'thinking' || !previewData ? (
+              <div className="h-full min-h-[400px] flex flex-col items-center justify-center text-center space-y-8 py-12">
+                <div className="relative">
+                   <motion.div 
+                     animate={{ rotate: 360 }}
+                     transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                     className="w-24 h-24 rounded-full border-2 border-dashed border-accent-gold/30"
+                   />
+                   <div className="absolute inset-0 flex items-center justify-center">
+                      <Sparkles className="text-accent-gold animate-pulse" size={32} />
+                   </div>
+                </div>
+                
+                <div className="space-y-4 max-w-sm">
+                   <h3 className="text-xl font-display font-bold text-white tracking-tight">AI is Orchestrating...</h3>
+                   <div className="h-6">
+                     <motion.p 
+                       key={stepIndex}
+                       initial={{ opacity: 0, y: 10 }}
+                       animate={{ opacity: 1, y: 0 }}
+                       className="text-accent-gold/80 font-mono text-sm uppercase tracking-widest"
+                     >
+                       {THINKING_STEPS[stepIndex]}
+                     </motion.p>
+                   </div>
+                </div>
+
+                <div className="flex gap-2">
+                   {[0,1,2].map(i => (
+                     <motion.div 
+                       key={i}
+                       animate={{ opacity: [0.3, 1, 0.3] }}
+                       transition={{ duration: 1, delay: i * 0.2, repeat: Infinity }}
+                       className="w-1.5 h-1.5 rounded-full bg-accent-gold"
+                     />
+                   ))}
                 </div>
               </div>
+            ) : (
+              <div className="space-y-10 animate-fadeIn">
+                {/* Header */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                     <div className="px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 flex items-center gap-2">
+                        <CheckCircle2 size={12} className="text-green-400" />
+                        <span className="text-[10px] font-bold text-green-400 uppercase tracking-widest">Optimized & Ready</span>
+                     </div>
+                     <div className="flex items-center gap-1.5 text-[10px] font-bold text-blue-100/40 uppercase tracking-widest">
+                        <Users size={12} /> Personalized for you
+                     </div>
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl font-display font-bold text-white">
+                    {destination?.name} <span className="text-gradient-gold">AI Travel Plan</span>
+                  </h2>
+                  <div className="flex flex-wrap gap-4 text-sm">
+                     <span className="flex items-center gap-2 text-blue-100/60">
+                        <Sparkles size={14} className="text-accent-gold" /> +{previewData.hiddenGemsCount || '10'} Hidden Gems Discovered
+                     </span>
+                     <span className="flex items-center gap-2 text-blue-100/60">
+                        <Wallet size={14} className="text-accent-teal" /> Potential Savings: ₹{previewData.savingsAmount || '2,400'}
+                     </span>
+                  </div>
+                </div>
 
-              <h2 className="font-display text-2xl sm:text-3xl text-white font-bold mb-4 leading-tight text-center lg:text-left">
-                {itinerary.title}
-              </h2>
-              
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-6 text-[10px] font-bold text-blue-200/40 uppercase tracking-widest">
-                  <span>{itinerary.duration}</span>
-                  <span className="opacity-20">•</span>
-                  <span>{itinerary.difficulty}</span>
-              </div>
-
-              <p className="text-blue-200/60 text-sm leading-relaxed mb-8 italic text-center lg:text-left">
-                "{itinerary.summary}"
-              </p>
-
-              <div className="space-y-4 flex-1 hidden lg:block">
-                 <p className="text-[10px] font-bold uppercase tracking-widest text-amber-500/60">Highlights Included:</p>
-                 {itinerary.highlights?.slice(0, 3).map((h, i) => (
-                    <div key={i} className="flex items-center gap-3 text-sm text-white/80">
-                       <MapPin size={14} className="text-amber-400" />
-                       {h}
+                {/* Section 1: Visible */}
+                <div className="space-y-6">
+                  <h4 className="text-accent-gold text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                     <Calendar size={14} /> Quick Preview (Day 1 & 2)
+                  </h4>
+                  
+                  <div className="space-y-8 relative">
+                    <div className="absolute left-[11px] top-4 bottom-4 w-[1px] bg-white/10" />
+                    
+                    <div className="relative pl-10">
+                       <div className="absolute left-0 top-1 w-6 h-6 rounded-full bg-brand-800 border border-white/20 flex items-center justify-center text-[10px] font-bold text-white z-10">01</div>
+                       <div className="space-y-2">
+                          <p className="text-white font-bold">{previewData.day1Title}</p>
+                          <p className="text-sm text-blue-100/40 leading-relaxed font-body">{previewData.day1Desc}</p>
+                       </div>
                     </div>
-                 ))}
-                 <div className="flex items-center gap-3 text-sm text-blue-300/40 italic">
-                    <Lock size={14} />
-                    And 15+ more secret spots...
-                 </div>
-              </div>
 
-              <div className="mt-8 lg:mt-12 space-y-6">
-                 <div>
-                    <button
-                      onClick={onWaitlistOpen}
-                      className="w-full group flex items-center justify-center gap-3 px-6 py-4 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm text-ocean-900 transition-all duration-300 hover:scale-105 active:scale-95 shadow-glow-amber mb-3"
-                      style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}
-                    >
-                      Unlock Full Itinerary
-                      <Download size={18} />
-                    </button>
-                    <p className="text-center text-[10px] text-blue-200/30">
-                       Join 10k+ explorers on the waitlist
-                    </p>
-                 </div>
+                    <div className="relative pl-10">
+                       <div className="absolute left-0 top-1 w-6 h-6 rounded-full bg-brand-800 border border-white/20 flex items-center justify-center text-[10px] font-bold text-white z-10">02</div>
+                       <div className="space-y-2">
+                          <p className="text-white font-bold">{previewData.day2Title}</p>
+                          <p className="text-sm text-blue-100/40 leading-relaxed font-body">{previewData.day2Desc}</p>
+                       </div>
+                    </div>
+                  </div>
+                </div>
 
-                 <div className="pt-6 border-t border-white/5">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-blue-200/40 mb-3 text-center lg:text-left">Or send to your phone</p>
-                    <form onSubmit={handleSendToPhone} className="flex gap-2">
-                       <input 
-                          type="tel" 
-                          value={phoneNumber}
-                          onChange={(e) => setPhoneNumber(e.target.value)}
-                          placeholder="+91 Phone Number" 
-                          className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs text-white placeholder-blue-200/20 outline-none focus:border-amber-400/50 transition-colors"
-                       />
-                       <button type="submit" className={`px-4 py-3 rounded-xl transition-all ${sent ? 'bg-teal-500/20 text-teal-400' : 'bg-blue-500/10 border border-blue-500/20 text-blue-400 hover:bg-blue-500/20'}`}>
-                          {sent ? <CheckCircle2 size={16} /> : <Zap size={16} />}
+                {/* Section: Hidden Places Intelligence Teaser */}
+                <div className="space-y-6">
+                   <div className="flex items-center justify-between">
+                      <h4 className="text-accent-gold text-xs font-bold uppercase tracking-widest flex-1 flex items-center gap-2">
+                         <Sparkles size={14} className="animate-pulse" /> Secret Locations & Hidden Trails
+                      </h4>
+                      <div className="flex items-center gap-2 px-2 py-1 rounded-lg bg-red-500/10 border border-red-500/20">
+                         <Lock size={10} className="text-red-400" />
+                         <span className="text-[8px] font-bold text-red-400 uppercase tracking-widest">
+                            Restricted
+                         </span>
+                      </div>
+                   </div>
+                   
+                   <div className="grid grid-cols-2 gap-4">
+                      {[1, 2].map((i) => (
+                        <div key={i} className="group relative rounded-2xl border border-white/10 bg-brand-800 overflow-hidden aspect-[4/3]">
+                           {/* Blurred Background Image */}
+                           <img 
+                             src={i === 1 
+                               ? "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=400" 
+                               : "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=400"
+                             }
+                             className="absolute inset-0 w-full h-full object-cover blur-[8px] opacity-40 grayscale-[0.3]"
+                             alt="Hidden"
+                           />
+                           
+                           {/* Dark Overlay */}
+                           <div className="absolute inset-0 bg-gradient-to-t from-brand-900 via-brand-900/40 to-transparent" />
+
+                           {/* Content Overlay */}
+                           <div className="absolute inset-0 p-4 flex flex-col justify-end space-y-2">
+                              <div className="space-y-1 relative">
+                                 {/* Blurred Text simulation */}
+                                 <div className="h-4 w-3/4 bg-white/30 rounded blur-[3px]" />
+                                 <div className="h-3 w-1/2 bg-white/10 rounded blur-[2px]" />
+                              </div>
+                              
+                              <div className="flex items-center gap-2 opacity-40">
+                                 <MapPin size={10} className="text-accent-neon" />
+                                 <div className="h-2 w-16 bg-blue-100/20 rounded blur-[2px]" />
+                              </div>
+                           </div>
+
+                           {/* Interaction Overlay */}
+                           <div className="absolute inset-0 bg-brand-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4 text-center backdrop-blur-sm">
+                              <div className="w-10 h-10 rounded-full bg-accent-gold/20 flex items-center justify-center mb-2 border border-accent-gold/40">
+                                 <Zap size={18} className="text-accent-gold" />
+                              </div>
+                              <span className="text-[10px] font-bold text-white uppercase tracking-widest leading-tight">
+                                 Unlock to <br /> Reveal Details
+                              </span>
+                           </div>
+                        </div>
+                      ))}
+                   </div>
+                   
+                   <p className="text-[10px] text-blue-100/30 text-center font-mono uppercase tracking-[0.2em] pt-2">
+                      +9 more hidden trails found near this route
+                   </p>
+                </div>
+
+                {/* Section 2: Blurred AI Path */}
+                <div className="relative rounded-2xl border border-white/5 overflow-hidden group/lock">
+                   <div className="p-8 space-y-8 blur-md select-none pointer-events-none opacity-20">
+                      <div className="space-y-4 text-left">
+                         <div className="h-4 w-1/3 bg-white/20 rounded-full" />
+                         <div className="h-12 w-full bg-white/10 rounded-2xl" />
+                      </div>
+                      <div className="flex gap-4">
+                         <div className="h-24 w-1/2 bg-white/10 rounded-2xl border border-white/5" />
+                         <div className="h-24 w-1/2 bg-white/10 rounded-2xl border border-white/5" />
+                      </div>
+                   </div>
+
+                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-900/60 to-brand-900/90 flex flex-col items-center justify-center p-6 text-center">
+                       <motion.div 
+                         animate={{ y: [0, -4, 0] }}
+                         transition={{ duration: 3, repeat: Infinity }}
+                         className="w-14 h-14 rounded-2xl bg-accent-gold/10 border border-accent-gold/30 flex items-center justify-center text-accent-gold mb-6 shadow-glow-gold/20"
+                       >
+                          <Lock size={26} />
+                       </motion.div>
+                       <h3 className="text-2xl font-display font-bold text-white mb-2">AI Optimized Full Path</h3>
+                       <p className="text-sm text-blue-100/50 max-w-xs mx-auto mb-8 font-body leading-relaxed">
+                          The complete <span className="text-white">Day 3-5</span> route, secret beach access points, and smart budget distributions are generated and ready.
+                       </p>
+                       
+                       <button
+                         onClick={() => { onClose(); onWaitlistOpen(); }}
+                         className="btn-primary py-4 px-10 flex items-center gap-4 font-bold group shadow-2xl relative overflow-hidden"
+                       >
+                          <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12" />
+                          <span className="relative z-10">Unlock Full Itinerary</span>
+                          <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform relative z-10" />
                        </button>
-                    </form>
-                 </div>
-              </div>
-            </div>
+                   </div>
+                </div>
 
-            {/* Right Side: Day 1 Reveal */}
-            <div className="flex-1 overflow-y-auto lg:overflow-y-auto p-6 sm:p-8 md:p-12 custom-scrollbar">
-              <div className="flex items-center justify-between flex-wrap gap-4 mb-8">
-                 <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center font-display font-bold text-ocean-900 shadow-xl flex-shrink-0"
-                      style={{ background: 'linear-gradient(135deg, #F9A826, #F59E0B)' }}>
-                      1
-                    </div>
-                    <div>
-                       <h3 className="text-white font-bold text-lg sm:text-xl">{day1?.theme || "Day 1 Discovery"}</h3>
-                       <p className="text-[10px] text-blue-200/40 uppercase tracking-widest font-bold">Unlocking the Journey</p>
-                    </div>
-                 </div>
-                 <div className="flex items-center gap-2 text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
-                    <Sparkles size={14} />
-                    <span className="text-[9px] font-bold uppercase tracking-widest">AI Top Picks</span>
-                 </div>
+                <div className="grid grid-cols-2 gap-4 pb-4">
+                   <div className="p-5 rounded-2xl glass-panel border border-white/5 opacity-30 select-none flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-xl bg-accent-neon/10 flex items-center justify-center text-accent-neon">
+                         <Map size={20} />
+                      </div>
+                      <div className="space-y-2 flex-1">
+                         <div className="h-2 w-full bg-white/20 rounded-full" />
+                         <div className="h-2 w-2/3 bg-white/10 rounded-full" />
+                      </div>
+                   </div>
+                   <div className="p-5 rounded-2xl glass-panel border border-white/5 opacity-30 select-none flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-xl bg-accent-gold/10 flex items-center justify-center text-accent-gold">
+                         <Zap size={20} />
+                      </div>
+                      <div className="space-y-2 flex-1">
+                         <div className="h-2 w-full bg-white/20 rounded-full" />
+                         <div className="h-2 w-2/3 bg-white/10 rounded-full" />
+                      </div>
+                   </div>
+                </div>
               </div>
-
-              {/* Day 1 Places */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
-                 {day1?.places?.slice(0, 2).map((place, i) => (
-                    <PlaceCard key={i} place={place} />
-                 ))}
-              </div>
-
-              {/* Locked Remaining Days Section */}
-              <div className="relative rounded-[2rem] sm:rounded-[2.5rem] border border-dashed border-white/10 p-8 sm:p-10 text-center bg-white/[0.02]">
-                 <div className="mb-6 flex justify-center">
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/5 flex items-center justify-center relative">
-                       <div className="absolute inset-0 rounded-full border-2 border-amber-500/30 animate-pulse" />
-                       <Lock size={20} className="text-amber-500" />
-                    </div>
-                 </div>
-                 <h4 className="text-white font-bold text-lg sm:text-xl mb-2">Wait... there's so much more</h4>
-                 <p className="text-blue-200/40 text-xs sm:text-sm max-w-md mx-auto mb-8">
-                    We've hidden the remaining <span className="text-white font-bold">{remainingDaysCount} days</span> and the full interactive map.
-                 </p>
-                 
-                 <button
-                  onClick={onWaitlistOpen}
-                  className="inline-flex items-center gap-2 text-amber-400 font-bold text-xs sm:text-sm hover:text-amber-300 transition-colors group"
-                >
-                  Unlock the full trip
-                  <ChevronRight size={18} className="transition-transform group-hover:translate-x-1" />
-                </button>
-              </div>
-              
-              {/* FOMO Section */}
-              <div className="mt-8 p-4 rounded-xl sm:rounded-2xl bg-teal-500/5 border border-teal-500/10 flex flex-wrap items-center justify-between gap-4">
-                 <div className="flex items-center gap-3">
-                    <div className="flex -space-x-1.5 sm:-space-x-2">
-                       {[1,2,3].map(i => (
-                          <div key={i} className="w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-ocean-950 bg-ocean-800 flex items-center justify-center text-[8px] sm:text-[10px] font-bold text-white">
-                             {String.fromCharCode(65 + Math.floor(Math.random() * 26))}
-                          </div>
-                       ))}
-                    </div>
-                    <span className="text-[10px] sm:text-xs text-teal-300/80 font-medium italic">"8 travelers already exploring this route"</span>
-                 </div>
-                 <div className="flex items-center gap-1 text-[9px] sm:text-[10px] font-bold text-teal-400 animate-pulse uppercase tracking-widest bg-teal-500/10 px-2 py-0.5 rounded-md">
-                    <Zap size={10} fill="currentColor" /> Live
-                 </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      )}
+            )}
+          </div>
+        </motion.div>
+      </div>
     </AnimatePresence>
   );
 }

@@ -10,28 +10,18 @@ import LockedModal from './components/LockedModal';
 import Home from './pages/Home';
 import Safety from './pages/Safety';
 import Pricing from './pages/Pricing';
-import RoutesPage from './pages/Routes';
+import Explore from './pages/Explore';
+import AIPlanner from './pages/AIPlanner';
+import Privacy from './pages/Privacy';
+import Security from './pages/Security';
 
-import { useItinerary } from './hooks/useItinerary';
-import { notify } from './utils/toast';
 import LiveSocialProof from './components/LiveSocialProof';
-import CustomCursor from './components/CustomCursor';
+import WhatsAppButton from './components/WhatsAppButton';
 import Lenis from '@studio-freight/lenis';
 
 export default function App() {
   const [waitlistOpen, setWaitlistOpen] = useState(false);
   const [lockedOpen, setLockedOpen] = useState(false);
-
-  const { itinerary, loading, error, query, enriching, search, reset } = useItinerary();
-
-  const handleSearch = (q) => {
-    search(q);
-    // Scroll to results area after a tick
-    setTimeout(() => {
-      const el = document.getElementById('itinerary');
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 300);
-  };
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -52,22 +42,8 @@ export default function App() {
     };
   }, []);
 
-  const handleShare = () => {
-    if (navigator.share && itinerary) {
-      navigator.share({
-        title: itinerary.title,
-        text: `Check out this EkalGo itinerary: ${itinerary.title}`,
-        url: window.location.href,
-      }).catch(() => {});
-    } else {
-      navigator.clipboard?.writeText(window.location.href);
-      notify.success('Link copied to clipboard!');
-    }
-  };
-
   return (
-    <div className="min-h-screen noise-bg w-full overflow-hidden relative" style={{ background: 'var(--ocean-900)' }}>
-      <CustomCursor />
+    <div className="min-h-screen noise-bg w-full overflow-hidden relative" style={{ background: 'var(--brand-900)' }}>
       
       {/* Toast */}
       <Toaster position="top-right" />
@@ -81,22 +57,17 @@ export default function App() {
           path="/" 
           element={
             <Home 
-              itinerary={itinerary}
-              loading={loading}
-              error={error}
-              query={query}
-              enriching={enriching}
-              onSearch={handleSearch}
               onWaitlistOpen={() => setWaitlistOpen(true)}
               onLockedOpen={() => setLockedOpen(true)}
-              onShare={handleShare}
-              onRetry={() => search(query)}
             />
           } 
         />
         <Route path="/safety" element={<Safety />} />
         <Route path="/pricing" element={<Pricing onWaitlistOpen={() => setWaitlistOpen(true)} />} />
-        <Route path="/routes" element={<RoutesPage />} />
+        <Route path="/explore" element={<Explore />} />
+        <Route path="/ai-planner" element={<AIPlanner />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/security" element={<Security />} />
       </Routes>
 
       {/* Shared Components */}
@@ -118,6 +89,9 @@ export default function App() {
       
       {/* Live Social Notifications */}
       <LiveSocialProof />
+
+      {/* Floating Support */}
+      <WhatsAppButton />
     </div>
   );
 }

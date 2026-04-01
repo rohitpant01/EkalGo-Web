@@ -1,71 +1,101 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Logo from './Logo';
-import { Mail, Github, Twitter, Instagram } from 'lucide-react';
-
-const LINKS = {
-  Product: ['Features', 'How It Works', 'Pricing', 'Changelog'],
-  Company: ['About', 'Blog', 'Careers', 'Press'],
-  Legal: ['Privacy Policy', 'Terms of Service', 'Cookie Policy'],
-};
+import { Mail, Github, Twitter, Instagram, MessageSquare, Shield, Lock } from 'lucide-react';
 
 export default function Footer({ onWaitlistOpen }) {
   return (
-    <footer className="border-t pt-16 pb-8 px-4"
-      style={{ borderColor: 'rgba(255,255,255,0.05)', background: 'rgba(1,13,22,0.8)' }}>
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+    <footer className="py-20 border-t border-white/5 bg-brand-900 relative overflow-hidden"
+      style={{ background: 'var(--brand-900)' }}>
+      
+      {/* Background Decorative Element */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-accent-gold/20 to-transparent" />
 
-          {/* Brand col */}
-          <div className="lg:col-span-2">
-            <Logo size="md" />
-            <p className="mt-4 text-sm text-blue-200/40 leading-relaxed max-w-xs">
-              EkalGo — Find your travel soulmate. AI-powered solo travel companion for India's boldest explorers.
-            </p>
-
-            <div className="flex items-center gap-3 mt-6">
-              {[Twitter, Instagram, Github, Mail].map((Icon, i) => (
-                <button key={i}
-                  onClick={i === 3 ? onWaitlistOpen : undefined}
-                  className="w-9 h-9 rounded-xl flex items-center justify-center text-blue-200/30 hover:text-white hover:bg-white/8 transition-all"
-                  style={{ border: '1px solid rgba(255,255,255,0.07)' }}>
-                  <Icon size={15} />
-                </button>
-              ))}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16">
+          
+          {/* Brand & About */}
+          <div className="lg:col-span-5 space-y-8">
+            <div className="flex flex-col items-start gap-4">
+              <Logo size="md" />
+              <p className="text-blue-100/60 leading-relaxed max-w-sm font-body">
+                EkalGo is an AI-powered travel platform designed to help you explore smarter. From hidden gems to optimized routes, we aim to make travel effortless and intelligent.
+              </p>
+            </div>
+            
+            <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 space-y-4">
+              <h4 className="text-xs font-bold text-accent-gold uppercase tracking-widest font-display">About EkalGo</h4>
+              <div className="space-y-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-full bg-brand-800 border border-white/10 flex items-center justify-center text-accent-teal font-bold text-xs">ET</div>
+                  <div>
+                    <p className="text-sm font-bold text-white">EkalGo Team</p>
+                    <p className="text-[10px] text-blue-100/40 uppercase tracking-widest">Founder & Architects</p>
+                  </div>
+                </div>
+                <p className="text-xs text-blue-100/50 italic leading-relaxed">
+                  "Our mission is to revolutionize travel planning by making hidden intelligence accessible to every explorer."
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* Link cols */}
-          {Object.entries(LINKS).map(([category, links]) => (
-            <div key={category}>
-              <h4 className="text-xs font-mono font-semibold uppercase tracking-widest text-blue-200/40 mb-4">
-                {category}
-              </h4>
-              <ul className="space-y-3">
-                {links.map((link) => (
-                  <li key={link}>
-                    <a href="#"
-                      className="text-sm text-blue-200/50 hover:text-white transition-colors">
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+          {/* Quick Links */}
+          <div className="lg:col-span-2 space-y-6">
+            <h4 className="text-[10px] font-bold text-white uppercase tracking-[0.2em] font-display">Platform</h4>
+            <div className="flex flex-col gap-4">
+              <Link to="/explore" className="text-sm text-blue-100/40 hover:text-white transition-colors">Discovery Engine</Link>
+              <Link to="/ai-planner" className="text-sm text-blue-100/40 hover:text-white transition-colors">AI Route Planner</Link>
+              <Link to="/safety" className="text-sm text-blue-100/40 hover:text-white transition-colors">Safety Index</Link>
+              <button onClick={onWaitlistOpen} className="text-sm text-blue-100/40 hover:text-accent-gold transition-colors text-left">Early Access</button>
             </div>
-          ))}
+          </div>
+
+          {/* Legal & Trust */}
+          <div className="lg:col-span-2 space-y-6">
+            <h4 className="text-[10px] font-bold text-white uppercase tracking-[0.2em] font-display">Trust Center</h4>
+            <div className="flex flex-col gap-4">
+              <Link to="/privacy" className="text-sm text-blue-100/40 hover:text-white transition-colors flex items-center gap-2">
+                <Lock size={14} /> Privacy
+              </Link>
+              <Link to="/security" className="text-sm text-blue-100/40 hover:text-white transition-colors flex items-center gap-2">
+                <Shield size={14} /> Security
+              </Link>
+              <a href="https://wa.me/918474972007" className="text-sm text-blue-100/40 hover:text-accent-teal transition-colors flex items-center gap-2">
+                <MessageSquare size={14} /> Support
+              </a>
+            </div>
+          </div>
+
+          {/* Contact */}
+          <div className="lg:col-span-3 space-y-6 text-center lg:text-right">
+            <h4 className="text-[10px] font-bold text-white uppercase tracking-[0.2em] font-display">Get in Touch</h4>
+            <div className="space-y-4">
+              <p className="text-sm text-blue-100/60 transition-colors">ekalgo.app@gmail.com</p>
+              <div className="flex items-center justify-center lg:justify-end gap-3 font-display">
+                {[Twitter, Instagram, Github].map((Icon, i) => (
+                  <button key={i}
+                    className="w-10 h-10 rounded-xl flex items-center justify-center text-blue-100/40 hover:text-white hover:bg-white/5 transition-all border border-white/5 bg-brand-800">
+                    <Icon size={18} />
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-          <p className="text-xs text-blue-200/25 font-body">
-            © {new Date().getFullYear()} EkalGo. Built with ✈️ for solo travelers.
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-10 border-t border-white/5">
+          <p className="text-[10px] text-blue-100/20 font-mono uppercase tracking-widest leading-loose">
+            © {new Date().getFullYear()} EkalGo. AI-Powered Discovery. All rights reserved.
           </p>
-          <div className="flex items-center gap-4">
-            <span className="text-xs text-blue-200/25">Made in India 🇮🇳</span>
-            <div className="flex items-center gap-1.5">
-              <div className="w-1.5 h-1.5 rounded-full bg-jade animate-pulse" />
-              <span className="text-xs text-jade/60">All systems operational</span>
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-2">
+              <div className="w-1 h-1 rounded-full bg-accent-gold" />
+              <span className="text-[10px] text-blue-100/40 uppercase tracking-widest font-mono">Build alpha_1.0_ind</span>
             </div>
+            <span className="text-[10px] text-blue-100/40 uppercase tracking-widest font-mono">Made in India</span>
           </div>
         </div>
       </div>

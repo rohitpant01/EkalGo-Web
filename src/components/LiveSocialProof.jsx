@@ -49,8 +49,8 @@ export default function LiveSocialProof() {
             initial={{ x: -100, opacity: 0, scale: 0.8 }}
             animate={{ x: 0, opacity: 1, scale: 1 }}
             exit={{ x: -20, opacity: 0, scale: 0.9 }}
-            className="flex items-center gap-3 px-4 py-3 rounded-2xl glass shadow-2xl border border-white/10"
-            style={{ minWidth: '240px' }}
+            className="flex items-center gap-3 px-4 py-3 rounded-2xl glass-panel shadow-3xl border border-white/10"
+            style={{ minWidth: '240px', boxShadow: '0 20px 50px -12px rgba(0,0,0,0.8)' }}
           >
             <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0">
               {current.icon}

@@ -39,8 +39,9 @@ export default function WaitlistModal({ isOpen, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop"
-      style={{ background: 'rgba(1,13,22,0.85)', backdropFilter: 'blur(12px)' }}
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop overflow-y-auto"
+      data-lenis-prevent
+      style={{ background: 'rgba(1,13,22,0.95)', backdropFilter: 'blur(16px)' }}
       onClick={(e) => e.target === e.currentTarget && handleClose()}>
 
       <div className="relative w-full max-w-md rounded-3xl overflow-hidden animate-slide-up"

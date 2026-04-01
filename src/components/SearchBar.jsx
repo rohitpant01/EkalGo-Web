@@ -165,13 +165,21 @@ export default function SearchBar({ onSearch, loading }) {
 
         {/* Loading state */}
         {loading && (
-          <div className="flex items-center justify-center gap-3 mt-6 text-sm text-blue-200/50">
-            <div className="flex gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-amber-400 dot-1 shadow-[0_0_8px_#F9A826]" />
-              <span className="w-2 h-2 rounded-full bg-amber-400 dot-2 shadow-[0_0_8px_#F9A826]" />
-              <span className="w-2 h-2 rounded-full bg-amber-400 dot-3 shadow-[0_0_8px_#F9A826]" />
+          <div className="flex items-center justify-center gap-4 mt-6 text-sm text-blue-200/50">
+            <div className="relative flex items-center justify-center w-6 h-6">
+               <motion.div 
+                 animate={{ scale: [1, 2, 1], opacity: [0.1, 0.4, 0.1] }}
+                 transition={{ duration: 2, repeat: Infinity }}
+                 className="absolute inset-0 bg-accent-gold/30 rounded-full blur-md"
+               />
+               <motion.div
+                 animate={{ scale: [0.8, 1.2, 0.8] }}
+                 transition={{ duration: 1.5, repeat: Infinity }}
+               >
+                 <Sparkles size={16} className="text-accent-gold" />
+               </motion.div>
             </div>
-            <span className="font-body">Searching for travelers and hidden spots...</span>
+            <span className="font-body tracking-wide">AI is orchestrating your premium route...</span>
           </div>
         )}
       </div>

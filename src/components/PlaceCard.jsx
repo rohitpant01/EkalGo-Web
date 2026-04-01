@@ -1,23 +1,31 @@
 import React, { useState } from 'react';
-import { MapPin, Star, Clock, Lightbulb, ImageOff, Users, Unlock, MousePointer2 } from 'lucide-react';
+import { MapPin, Star, Clock, Lightbulb, ImageOff, Users, Unlock, MousePointer2, Sparkles, Zap, Image as ImageIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const TYPE_COLORS = {
+  beach: { bg: 'rgba(14,165,233,0.15)', text: '#0EA5E9', label: '🏖️ Beach' },
+  mountains: { bg: 'rgba(46,204,113,0.15)', text: '#2ECC71', label: '🏔️ Peak' },
+  heritage: { bg: 'rgba(255,107,53,0.15)', text: '#F59E0B', label: '🏰 Royal' },
+  nature: { bg: 'rgba(20,184,166,0.15)', text: '#14B8A6', label: '🌿 Nature' },
+  spiritual: { bg: 'rgba(168,85,247,0.15)', text: '#A855F7', label: '🕉️ Spirit' },
   temple: { bg: 'rgba(255,107,53,0.15)', text: '#F59E0B', label: '🛕 Temple' },
   trek: { bg: 'rgba(46,204,113,0.15)', text: '#2ECC71', label: '🥾 Trek' },
-  viewpoint: { bg: 'rgba(14,165,233,0.15)', text: '#0EA5E9', label: '🔭 Viewpoint' },
+  viewpoint: { bg: 'rgba(14,165,233,0.15)', text: '#0EA5E9', label: '🔭 View' },
   market: { bg: 'rgba(228,178,80,0.15)', text: '#F9A826', label: '🛒 Market' },
   restaurant: { bg: 'rgba(255,107,53,0.15)', text: '#F59E0B', label: '🍽️ Food' },
   default: { bg: 'rgba(45,212,191,0.15)', text: '#2DD4BF', label: '📍 Place' },
 };
 
-export default function PlaceCard({ place, locked = false, onLockedClick, travelersCount = Math.floor(Math.random() * 10) + 3 }) {
+export default function PlaceCard({ place, locked = false, onLockedClick, travelersCount = Math.floor(Math.random() * 10) + 3, onClick }) {
   const [imgError, setImgError] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
   const [scratched, setScratched] = useState(false);
   const typeStyle = TYPE_COLORS[place.type] || TYPE_COLORS.default;
 
-  const hasPhoto = place.photoUrl && !imgError;
+  // Use a high-quality Unsplash image as a generic fallback if no photo is available or if it fails to load
+  const fallbackImage = `https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=600`;
+  const displayPhoto = imgError ? fallbackImage : (place.photoUrl || fallbackImage);
+  const hasPhoto = !!displayPhoto;
 
   return (
     <motion.div
@@ -30,7 +38,7 @@ export default function PlaceCard({ place, locked = false, onLockedClick, travel
         border: '1px solid rgba(255,255,255,0.06)',
         boxShadow: '0 20px 40px -15px rgba(0,0,0,0.5)',
       }}
-      onClick={locked ? onLockedClick : undefined}
+      onClick={onClick}
       onMouseEnter={() => locked && setScratched(true)}
       onMouseLeave={() => locked && setScratched(false)}
     >
@@ -48,7 +56,7 @@ export default function PlaceCard({ place, locked = false, onLockedClick, travel
               <div className="absolute inset-0 shimmer" style={{ background: 'rgba(6,76,132,0.4)' }} />
             )}
             <img
-              src={place.photoUrl}
+              src={displayPhoto}
               alt={place.name}
               onLoad={() => setImgLoaded(true)}
               onError={() => setImgError(true)}
@@ -65,92 +73,126 @@ export default function PlaceCard({ place, locked = false, onLockedClick, travel
         )}
 
         {/* Top Badges */}
-        <div className="absolute top-4 left-4 flex flex-col gap-2">
-          <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-lg"
-            style={{ background: typeStyle.bg, color: typeStyle.text, backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.1)' }}>
+        <div className="absolute top-4 left-4 flex flex-col gap-2 z-20">
+          <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-xl"
+            style={{ 
+              background: typeStyle.bg, 
+              color: typeStyle.text, 
+              backdropFilter: 'blur(16px)', 
+              border: '1px solid rgba(255,255,255,0.1)',
+              textShadow: '0 1px 2px rgba(0,0,0,0.5)'
+            }}>
             {typeStyle.label}
           </span>
           {place.rating && (
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full shadow-lg"
-              style={{ background: 'rgba(2,26,44,0.6)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.1)' }}>
-              <Star size={10} className="text-amber-400 fill-amber-400" />
+            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full shadow-xl"
+              style={{ background: 'rgba(2,26,44,0.7)', backdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.1)' }}>
+              <Star size={10} className="text-accent-gold fill-accent-gold" />
               <span className="text-[10px] font-bold text-white">{place.rating}</span>
             </div>
           )}
         </div>
 
         {/* Travelers Count */}
-        <div className="absolute bottom-4 left-4 px-3 py-1 rounded-full text-[10px] font-bold text-white flex items-center gap-2 shadow-lg"
-          style={{ background: 'rgba(2,26,44,0.6)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.1)' }}>
-          <Users size={12} className="text-teal-400" />
+        <div className="absolute bottom-4 left-4 px-3 py-1 rounded-full text-[11px] font-bold text-white flex items-center gap-2 shadow-xl z-20"
+          style={{ background: 'rgba(4,51,88,0.8)', backdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.1)' }}>
+          <Users size={13} className="text-accent-teal" />
           {travelersCount} travelers going
         </div>
 
         {/* Locked overlay */}
         {locked && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-md transition-all group-hover:bg-black/10">
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-12 h-12 rounded-full bg-amber-500/20 flex items-center justify-center border border-amber-500/40">
-                <Unlock size={20} className="text-amber-400" />
+          <div className="absolute inset-0 flex items-center justify-center p-6 text-center">
+            <div className="absolute inset-0 bg-brand-900/60 backdrop-blur-xl transition-all group-hover:bg-brand-900/40" />
+            
+            <div className="relative z-10 flex flex-col items-center gap-4">
+              <motion.div 
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                className="w-16 h-16 rounded-full bg-accent-gold/20 flex items-center justify-center border border-accent-gold/40 shadow-glow-gold"
+              >
+                <Unlock size={28} className="text-accent-gold" />
+              </motion.div>
+              
+              <div className="space-y-2">
+                <h4 className="text-white font-display font-bold text-xl leading-tight">
+                  Available Only <br /> <span className="text-gradient-gold">in the EkalGo App</span>
+                </h4>
+                <p className="text-[10px] text-blue-100/60 font-medium uppercase tracking-[0.2em]">
+                  Exclusive Premium Feed
+                </p>
               </div>
-              <span className="text-[10px] font-bold text-amber-300 uppercase tracking-widest bg-amber-900/40 px-2 py-1 rounded-md">
-                Locked in App
-              </span>
+
+              <button 
+                onClick={(e) => { e.stopPropagation(); onLockedClick(); }}
+                className="btn-primary py-2.5 px-8 text-xs shadow-glow-gold hover:scale-105 active:scale-95 transition-all font-bold flex items-center gap-2"
+              >
+                <Zap size={14} fill="currentColor" />
+                Get App Access
+              </button>
             </div>
           </div>
         )}
       </div>
 
       {/* Content */}
-      <div className="p-5 space-y-4">
-        <div>
-          <h3 className="font-display font-bold text-white text-lg leading-tight mb-2 group-hover:text-amber-400 transition-colors">
-            {place.name}
-          </h3>
-          <div className="flex items-center gap-1.5 opacity-50">
-            <MapPin size={12} className="text-blue-300" />
-            <span className="text-[10px] text-blue-100 font-medium uppercase tracking-wider">{place.address || 'Location Hidden'}</span>
+      <div className="p-6 space-y-4">
+        <div className="flex items-center justify-between gap-2">
+          <div className="space-y-1">
+            <h3 className={`font-display font-bold text-white text-xl leading-tight group-hover:text-accent-gold transition-colors flex items-center gap-2 ${locked ? 'blur-[4px] opacity-40 select-none' : ''}`}>
+              {place.name}
+              {!locked && (
+                <motion.span
+                  animate={{ opacity: [0.4, 1, 0.4], scale: [0.9, 1.1, 0.9] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <Sparkles size={16} className="text-accent-gold" />
+                </motion.span>
+              )}
+            </h3>
+            <div className={`flex items-center gap-1.5 opacity-50 ${locked ? 'blur-[2px] opacity-20' : ''}`}>
+              <MapPin size={12} className="text-accent-neon" />
+              <span className="text-[10px] text-blue-100 font-medium uppercase tracking-wider">{place.address || 'Location Hidden'}</span>
+            </div>
           </div>
-        </div>
 
-        {/* Scratch to Reveal Area */}
-        <div className="relative group/scratch">
-          <p className={`text-xs leading-relaxed transition-all duration-500 ${locked && !scratched ? 'blur-[8px] select-none text-blue-200/20' : 'text-blue-200/50'}`}>
-            {place.description || 'Discover the secret stories and hidden corners of this amazing travel destination only on the EkalGo mobile application.'}
-          </p>
-          {locked && !scratched && (
-             <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
-                <div className="flex items-center gap-2 text-[10px] font-bold text-amber-400 uppercase tracking-widest">
-                   <MousePointer2 size={12} /> Hover to peek
-                </div>
-             </div>
+          {/* AI Glow Pulse Indicator */}
+          {!locked && (
+            <div className="relative flex items-center justify-center w-8 h-8">
+               <motion.div 
+                 animate={{ scale: [1, 1.5, 1], opacity: [0.2, 0.5, 0.2] }}
+                 transition={{ duration: 3, repeat: Infinity }}
+                 className="absolute inset-0 bg-accent-gold/20 rounded-full blur-md"
+               />
+               <div className="w-2 h-2 bg-accent-gold rounded-full shadow-glow-gold" />
+            </div>
           )}
         </div>
 
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-1.5 py-1 px-3 rounded-lg bg-teal-500/5 border border-teal-500/10">
-            <Clock size={12} className="text-teal-400" />
-            <span className="text-[10px] font-bold text-teal-300 uppercase">{place.duration || '2 hours'}</span>
+        {/* Scratch to Reveal Area */}
+        <div className="relative">
+          <p className={`text-sm leading-relaxed transition-all duration-500 ${locked ? 'blur-[8px] select-none text-blue-200/20' : 'text-blue-200/50'}`}>
+            {place.description || 'Discover the secret stories and hidden corners of this amazing travel destination only on the EkalGo platform.'}
+          </p>
+        </div>
+
+        <div className={`flex items-center gap-4 ${locked ? 'blur-[4px] opacity-20' : ''}`}>
+          <div className="flex items-center gap-1.5 py-1.5 px-3 rounded-lg bg-accent-teal/5 border border-accent-teal/10">
+            <Clock size={12} className="text-accent-teal" />
+            <span className="text-[10px] font-bold text-accent-teal uppercase tracking-widest">{place.duration || '2 hours'}</span>
           </div>
         </div>
 
         {place.proTip && !locked && (
-          <div className="p-3 rounded-2xl bg-amber-500/5 border border-amber-500/10 flex gap-3">
-             <div className="shrink-0 w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400">
-                <Lightbulb size={16} />
+          <div className="p-4 rounded-2xl bg-accent-gold/5 border border-accent-gold/10 flex gap-4">
+             <div className="shrink-0 w-10 h-10 rounded-full bg-accent-gold/10 flex items-center justify-center text-accent-gold">
+                <Lightbulb size={20} />
              </div>
              <div className="flex flex-col">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-amber-500/60 mb-0.5">Insider Pro-Tip</span>
-                <span className="text-xs text-amber-200/80 leading-relaxed italic">"{place.proTip}"</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-accent-gold/60 mb-1">Insider Pro-Tip</span>
+                <span className="text-sm text-accent-gold/80 leading-relaxed italic">"{place.proTip}"</span>
              </div>
           </div>
-        )}
-        
-        {locked && (
-           <div className="mt-4 pt-4 border-t border-white/5 flex items-center justify-between">
-              <span className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">App Exclusive</span>
-              <button className="text-[10px] font-bold text-amber-400 hover:text-amber-300">Unlock It 🔒</button>
-           </div>
         )}
       </div>
     </motion.div>
