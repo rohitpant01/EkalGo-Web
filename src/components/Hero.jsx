@@ -62,18 +62,18 @@ export default function Hero({ onSearch, onWaitlistOpen }) {
 
   return (
     <section
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden"
-      style={{ background: 'linear-gradient(160deg, #010D16 0%, #021A2C 35%, #043358 65%, #0A4F6E 100%)' }}
+      className="hero relative w-full min-h-screen flex flex-col justify-center items-center text-center overflow-hidden"
+      style={{ background: 'linear-gradient(160deg, #010D16 0%, #021A2C 35%, #043358 65%, #0A4F6E 100%)', padding: '20px' }}
     >
       {/* Particle canvas */}
       <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none opacity-60" />
 
-      {/* Decorative orbs */}
-      <div className="absolute top-1/4 -left-32 w-96 h-96 rounded-full opacity-10 blur-3xl pointer-events-none"
+      {/* Decorative orbs - constrained within bounds */}
+      <div className="absolute top-1/4 left-0 w-64 h-64 rounded-full opacity-10 blur-3xl pointer-events-none transform -translate-x-1/2"
         style={{ background: 'radial-gradient(circle, #E4B250, transparent 70%)' }} />
-      <div className="absolute bottom-1/4 -right-32 w-96 h-96 rounded-full opacity-10 blur-3xl pointer-events-none"
+      <div className="absolute bottom-1/4 right-0 w-64 h-64 rounded-full opacity-10 blur-3xl pointer-events-none transform translate-x-1/2"
         style={{ background: 'radial-gradient(circle, #14B8A6, transparent 70%)' }} />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-5 blur-3xl pointer-events-none"
+      <div className="absolute top-1/2 left-1/2 w-96 h-96 rounded-full opacity-5 blur-3xl pointer-events-none transform -translate-x-1/2 -translate-y-1/2"
         style={{ background: 'radial-gradient(circle, #2099E3, transparent 70%)' }} />
 
       {/* Grid overlay */}
@@ -83,8 +83,8 @@ export default function Hero({ onSearch, onWaitlistOpen }) {
           backgroundSize: '60px 60px',
         }} />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16">
-        <div className="max-w-4xl mx-auto text-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 flex flex-col items-center">
+        <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
 
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 animate-fade-in"
@@ -96,7 +96,7 @@ export default function Hero({ onSearch, onWaitlistOpen }) {
           </div>
 
           {/* Headline */}
-          <h1 className="font-display text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.1] sm:leading-[0.95] mb-6 animate-slide-up"
+          <h1 className="font-display text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.1] sm:leading-[0.95] mb-6 animate-slide-up max-w-[90%] mx-auto"
             style={{ animationDelay: '0.1s' }}>
             <span className="text-white text-2xl xs:text-3xl md:text-5xl block mb-4 opacity-80">Find your next trip...</span>
             <span className="text-white">and the</span>
@@ -107,18 +107,18 @@ export default function Hero({ onSearch, onWaitlistOpen }) {
           </h1>
 
           {/* Sub */}
-          <p className="font-body text-lg md:text-xl text-blue-200/60 max-w-2xl mx-auto mb-10 leading-relaxed animate-slide-up"
+          <p className="font-body text-lg md:text-xl text-blue-200/60 max-w-[90%] md:max-w-2xl mx-auto mb-10 leading-relaxed animate-slide-up"
             style={{ animationDelay: '0.2s' }}>
             You're just <span className="text-amber-400 font-bold">one trip away</span> from meeting someone unexpected ✨. 
             Connect with explorers, plan AI itineraries, and unlock India's secret soul.
           </p>
 
           {/* CTA Group */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14 animate-slide-up"
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14 animate-slide-up w-full px-4"
             style={{ animationDelay: '0.3s' }}>
             <button
               onClick={onWaitlistOpen}
-              className="group flex items-center gap-3 px-8 py-4 rounded-2xl font-semibold text-base text-ocean-900 transition-all duration-200 hover:scale-105 active:scale-95 shadow-glow-amber"
+              className="group flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-semibold text-base text-ocean-900 transition-all duration-200 hover:scale-105 active:scale-95 shadow-glow-amber w-[90%] max-w-[300px] sm:w-auto"
               style={{ background: 'linear-gradient(135deg, #E4B250 0%, #FF6B35 100%)' }}
             >
               Get Early Access
@@ -126,7 +126,7 @@ export default function Hero({ onSearch, onWaitlistOpen }) {
             </button>
             <a
               href="#search"
-              className="flex items-center gap-3 px-8 py-4 rounded-2xl font-semibold text-base text-white transition-all duration-200 hover:bg-white/10 active:scale-95"
+              className="flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-semibold text-base text-white transition-all duration-200 hover:bg-white/10 active:scale-95 w-[90%] max-w-[300px] sm:w-auto"
               style={{ border: '1px solid rgba(255,255,255,0.15)' }}
             >
               Plan a Trip Now
@@ -148,7 +148,7 @@ export default function Hero({ onSearch, onWaitlistOpen }) {
           </div>
 
           {/* Scrolling tags */}
-          <div className="overflow-hidden animate-fade-in" style={{ animationDelay: '0.5s' }}>
+          <div className="overflow-hidden animate-fade-in w-full max-w-full" style={{ animationDelay: '0.5s' }}>
             <div className="flex gap-3 w-max animate-[scroll_20s_linear_infinite]"
               style={{ animation: 'scroll 25s linear infinite' }}>
               {[...TRAVEL_TAGS, ...TRAVEL_TAGS].map((tag, i) => (

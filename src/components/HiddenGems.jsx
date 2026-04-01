@@ -75,13 +75,15 @@ export default function HiddenGems({ onUnlock }) {
           </div>
         </div>
 
-        {/* Gems Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {GEMS.map((gem) => (
+        {/* Gems Container */}
+        <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 overflow-hidden sm:px-0">
+          {GEMS.map((gem, index) => (
             <motion.div
               key={gem.id}
-              whileHover={{ y: -10 }}
-              className="group relative h-[28rem] sm:h-[32rem] rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden glass border border-white/10 cursor-pointer shadow-2xl"
+              whileHover={index === 0 ? { y: -10 } : {}}
+              className={`group relative w-[85vw] md:w-auto shrink-0 h-[28rem] sm:h-[32rem] rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden glass border border-white/10 cursor-pointer shadow-2xl ${
+                index !== 0 ? 'blur-card opacity-50 -ml-4 md:ml-0' : 'w-full md:w-auto'
+              }`}
               onClick={onUnlock}
             >
               {/* Image */}

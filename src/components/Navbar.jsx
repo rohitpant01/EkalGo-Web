@@ -29,12 +29,12 @@ export default function Navbar({ onWaitlistOpen }) {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-4 py-3 ${
         scrolled ? 'glass border-b border-white/5 shadow-lg' : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16 sm:h-20">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex items-center justify-between h-14 sm:h-20">
           {/* Logo */}
           <Link to="/" className="transition-opacity hover:opacity-80 flex-shrink-0">
             <Logo size="md" />

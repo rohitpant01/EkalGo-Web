@@ -27,21 +27,35 @@
   padding: 0;
 }
 
-html {
+html, body, #root {
   scroll-behavior: smooth;
   width: 100%;
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   font-family: var(--font-body);
   background-color: var(--ocean-900);
   color: #F0F6FF;
-  width: 100%;
-  overflow-x: hidden;
   position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: 100%;
+  width: 100%;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.blur-card {
+  filter: blur(4px);
+  opacity: 0.6;
+  pointer-events: none;
+  user-select: none;
 }
 
 /* Custom scrollbar */
@@ -262,3 +276,8 @@ button:focus-visible {
 .orbit-1 { animation: orbit 8s linear infinite; }
 .orbit-2 { animation: orbit 12s linear infinite reverse; }
 .orbit-3 { animation: orbit 6s linear infinite; animation-delay: -3s; }
+
+/* Debug Trick */
+.debug * {
+  outline: 1px solid red !important;
+}
