@@ -1,5 +1,5 @@
-const PLAY_STORE_URL = import.meta.env.VITE_PLAY_STORE_URL || null;
-const APP_STORE_URL = import.meta.env.VITE_APP_STORE_URL || null;
+const PLAY_STORE_URL = process.env.NEXT_PUBLIC_PLAY_STORE_URL || null;
+const APP_STORE_URL = process.env.NEXT_PUBLIC_APP_STORE_URL || null;
 
 export function redirectToPlayStore() {
   if (PLAY_STORE_URL && PLAY_STORE_URL !== 'https://play.google.com/store/apps/details?id=com.ekalgo.app') {

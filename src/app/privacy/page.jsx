@@ -1,8 +1,10 @@
+'use client';
+
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Shield, Lock, Eye, FileText, ChevronRight } from 'lucide-react';
+import { Lock, Eye, FileText, ChevronRight } from 'lucide-react';
 
-export default function Privacy() {
+export default function PrivacyPage() {
   const sections = [
     {
       title: "1. Information We Collect",
@@ -35,7 +37,7 @@ export default function Privacy() {
   ];
 
   return (
-    <div className="pt-32 pb-24 min-h-screen relative overflow-hidden">
+    <div className="pt-32 pb-24 min-h-screen bg-brand-900 relative overflow-hidden">
       {/* Background Glows */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-gold/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent-teal/5 blur-[120px] rounded-full translate-y-1/2 -translate-x-1/2" />
@@ -85,7 +87,6 @@ export default function Privacy() {
             </motion.div>
           ))}
 
-          {/* Simple sections */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}

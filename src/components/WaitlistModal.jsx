@@ -1,5 +1,8 @@
+"use client";
+
 import React, { useState } from 'react';
 import { X, Mail, CheckCircle, ArrowRight, Loader2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { addToWaitlist } from '../utils/waitlist';
 
 export default function WaitlistModal({ isOpen, onClose }) {
@@ -39,22 +42,22 @@ export default function WaitlistModal({ isOpen, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop overflow-y-auto"
+    <div className="fixed inset-0 z-[9999] flex items-start justify-center p-4 pt-[120px] modal-backdrop overflow-y-auto"
       data-lenis-prevent
       style={{ background: 'rgba(1,13,22,0.95)', backdropFilter: 'blur(16px)' }}
       onClick={(e) => e.target === e.currentTarget && handleClose()}>
 
-      <div className="relative w-full max-w-md rounded-3xl overflow-hidden animate-slide-up"
+      <motion.div 
+        initial={{ opacity: 0, y: -20, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: -20, scale: 0.95 }}
+        className="relative w-full max-w-md rounded-3xl overflow-hidden"
         style={{ background: 'linear-gradient(160deg, #043358 0%, #021A2C 100%)', border: '1px solid rgba(45,212,191,0.2)' }}>
 
         {/* Glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-24 opacity-20 pointer-events-none"
           style={{ background: 'radial-gradient(ellipse, #2DD4BF, transparent 70%)' }} />
 
-        <button onClick={handleClose}
-          className="absolute top-4 right-4 p-2 rounded-xl text-blue-200/40 hover:text-white hover:bg-white/10 transition-all z-10">
-          <X size={18} />
-        </button>
 
         <div className="relative p-8">
           {status !== 'success' && status !== 'already_joined' ? (
@@ -139,7 +142,13 @@ export default function WaitlistModal({ isOpen, onClose }) {
             </div>
           )}
         </div>
-      </div>
+        
+        {/* Close Button moved to end for stacking */}
+        <button onClick={handleClose}
+          className="absolute top-4 right-4 p-2 rounded-xl text-blue-200/40 hover:text-white hover:bg-white/10 transition-all z-[200]">
+          <X size={18} />
+        </button>
+      </motion.div>
     </div>
   );
 }

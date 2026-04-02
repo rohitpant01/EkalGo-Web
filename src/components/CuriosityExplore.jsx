@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Compass, Sparkles, MapPin, ArrowRight } from 'lucide-react';
 import PlaceCard from './PlaceCard';
 import FeatureTeaser from './FeatureTeaser';
-import PreviewModal from './PreviewModal';
+import { useModal } from '@/context/ModalContext';
 
 const DISPLAY_DESTINATIONS = [
   {
@@ -36,13 +36,11 @@ const LOCKED_DESTINATION = {
   duration: "4-5 DAYS"
 };
 
-export default function CuriosityExplore({ onWaitlistOpen }) {
-  const [activeDestination, setActiveDestination] = React.useState(null);
-  const [isPreviewOpen, setIsPreviewOpen] = React.useState(false);
+export default function CuriosityExplore() {
+  const { openWaitlist, openPreview } = useModal();
 
   const handlePreview = (dest) => {
-    setActiveDestination(dest);
-    setIsPreviewOpen(true);
+    openPreview({ destination: dest });
   };
 
   return (
@@ -124,19 +122,11 @@ export default function CuriosityExplore({ onWaitlistOpen }) {
             <PlaceCard 
               place={LOCKED_DESTINATION} 
               locked={true} 
-              onLockedClick={onWaitlistOpen}
               onClick={() => handlePreview(LOCKED_DESTINATION)}
             />
           </motion.div>
         </div>
 
-        {/* Preview Modal */}
-        <PreviewModal 
-          isOpen={isPreviewOpen} 
-          onClose={() => setIsPreviewOpen(false)} 
-          destination={activeDestination}
-          onWaitlistOpen={onWaitlistOpen}
-        />
 
         {/* Horizontal Feature Teasers */}
         <div className="pt-24 border-t border-white/5 space-y-12">
@@ -151,7 +141,7 @@ export default function CuriosityExplore({ onWaitlistOpen }) {
               </div>
            </div>
 
-           <FeatureTeaser onLockedClick={onWaitlistOpen} />
+           <FeatureTeaser />
         </div>
 
       </div>

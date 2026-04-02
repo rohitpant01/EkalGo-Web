@@ -1,42 +1,32 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Compass, Sparkles, MapPin, Loader2, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
-import { getPlaceWithPhoto } from '../services/api';
-import PlaceCard from '../components/PlaceCard';
-import PreviewModal from '../components/PreviewModal';
-import WaitlistModal from '../components/WaitlistModal';
+import { Search, Compass, Sparkles, Loader2, ShieldCheck, Zap } from 'lucide-react';
+import { getPlaceWithPhoto } from '@/services/api';
+import PlaceCard from '@/components/PlaceCard';
+import { useModal } from '@/context/ModalContext';
 
 const DESTINATIONS = [
-  // Beach Group
   { title: 'Goa', type: 'Beach', budget: 'Moderate', duration: '4-5 Days', tags: ['Party', 'Chill'] },
   { title: 'Varkala', type: 'Beach', budget: 'Budget', duration: '3-4 Days', tags: ['Cliffs', 'Surf'] },
   { title: 'Gokarna', type: 'Beach', budget: 'Budget', duration: '3-4 Days', tags: ['Hidden', 'Peace'] },
-  
-  // Mountains Group
   { title: 'Manali', type: 'Mountains', budget: 'Budget', duration: '3-4 Days', tags: ['Adventure', 'Snow'] },
   { title: 'Ladakh', type: 'Mountains', budget: 'Premium', duration: '7-10 Days', tags: ['Trek', 'Extreme'] },
   { title: 'Spiti Valley', type: 'Mountains', budget: 'Moderate', duration: '6-8 Days', tags: ['Cold Desert', 'Gompas'] },
-  
-  // Heritage/Culture Group
   { title: 'Udaipur', type: 'Heritage', budget: 'Premium', duration: '3-4 Days', tags: ['Lakes', 'Royal'] },
   { title: 'Jaipur', type: 'Heritage', budget: 'Moderate', duration: '3-4 Days', tags: ['Forts', 'Culture'] },
   { title: 'Hampi', type: 'Heritage', budget: 'Budget', duration: '3-4 Days', tags: ['History', 'Boulders'] },
-  
-  // Nature/Nature Group
   { title: 'Munnar', type: 'Nature', budget: 'Moderate', duration: '3-4 Days', tags: ['Tea', 'Hills'] },
   { title: 'Waynad', type: 'Nature', budget: 'Moderate', duration: '3-4 Days', tags: ['Forest', 'Waterfalls'] },
   { title: 'Coorg', type: 'Nature', budget: 'Moderate', duration: '2-3 Days', tags: ['Coffee', 'Mist'] },
 ];
 
-export default function Explore() {
+export default function ExplorePage() {
+  const { openWaitlist, openPreview } = useModal();
   const [searchTerm, setSearchTerm] = useState('');
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
-  
-  // Modal states
-  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const [activeDestination, setActiveDestination] = useState(null);
-  const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
 
   useEffect(() => {
     async function loadPlaces() {
@@ -54,19 +44,19 @@ export default function Explore() {
   }, []);
 
   const handlePreview = (place) => {
-    setActiveDestination({
-      name: place.title,
-      type: place.type,
-      photoUrl: place.photoUrl,
+    openPreview({ 
+      destination: {
+        name: place.title,
+        type: place.type,
+        photoUrl: place.photoUrl,
+      }
     });
-    setIsPreviewOpen(true);
   };
 
   const handleLockedClick = () => {
-    setIsWaitlistOpen(true);
+    openWaitlist();
   };
 
-  // Grouping logic for "3+1" strategy
   const categories = [...new Set(DESTINATIONS.map(d => d.type))];
   
   const groupedData = categories.map(cat => ({
@@ -81,13 +71,10 @@ export default function Explore() {
 
   return (
     <div className="min-h-screen pt-28 pb-20 bg-brand-900 overflow-hidden relative">
-      {/* Background Gradients */}
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-accent-neon/5 blur-[120px] pointer-events-none rounded-full" />
       <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-accent-gold/5 blur-[120px] pointer-events-none rounded-full" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Premium Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -109,7 +96,6 @@ export default function Explore() {
           </p>
         </motion.div>
 
-        {/* Enhanced Search */}
         <div className="max-w-2xl mx-auto mb-20 relative group">
           <div className="absolute -inset-1 bg-gradient-to-r from-accent-gold/20 to-accent-neon/20 rounded-2xl blur opacity-30 group-focus-within:opacity-100 transition-opacity" />
           <div className="relative flex items-center bg-brand-800/80 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden focus-within:border-accent-gold/40 transition-all">
@@ -124,7 +110,6 @@ export default function Explore() {
           </div>
         </div>
 
-        {/* Categorized Sections */}
         {loading ? (
            <div className="flex flex-col items-center justify-center py-24 gap-6">
               <div className="relative">
@@ -137,7 +122,7 @@ export default function Explore() {
            </div>
         ) : (
           <div className="space-y-24">
-            {filteredGroups.map((group, gIdx) => (
+            {filteredGroups.map((group) => (
               <section key={group.name} className="space-y-10">
                 <div className="flex items-end justify-between border-b border-white/5 pb-4">
                   <div className="space-y-2">
@@ -159,7 +144,6 @@ export default function Explore() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                  {/* The 3 Real Cards */}
                   {group.items.map((place, idx) => (
                     <motion.div
                       key={place.title}
@@ -183,7 +167,6 @@ export default function Explore() {
                     </motion.div>
                   ))}
 
-                  {/* The 4th Locked Card */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -222,24 +205,8 @@ export default function Explore() {
               </button>
            </div>
         )}
-
       </div>
 
-      {/* Modals */}
-      <PreviewModal 
-        isOpen={isPreviewOpen}
-        onClose={() => setIsPreviewOpen(false)}
-        destination={activeDestination}
-        onWaitlistOpen={() => {
-          setIsPreviewOpen(false);
-          setIsWaitlistOpen(true);
-        }}
-      />
-      
-      <WaitlistModal 
-        isOpen={isWaitlistOpen}
-        onClose={() => setIsWaitlistOpen(false)}
-      />
     </div>
   );
 }

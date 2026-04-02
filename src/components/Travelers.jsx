@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { User, MapPin, Sparkles, Navigation } from 'lucide-react';
+import { useModal } from '@/context/ModalContext';
 
 const TRAVELERS = [
   {
@@ -29,7 +30,8 @@ const TRAVELERS = [
   }
 ];
 
-export default function Travelers({ onWaitlistOpen }) {
+export default function Travelers() {
+  const { openWaitlist } = useModal();
   return (
     <section className="py-24 bg-ocean-900 border-t border-white/5 relative overflow-hidden">
       {/* Decorative dots grid */}
@@ -86,7 +88,7 @@ export default function Travelers({ onWaitlistOpen }) {
                    zIndex,
                    transform: `scale(${scale})`
                  }}
-                 onClick={onWaitlistOpen}
+                 onClick={openWaitlist}
                >
                  {/* Avatar */}
                  <div className="relative w-full aspect-square rounded-2xl overflow-hidden mb-4">

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MapPin, Star, Clock, Lightbulb, ImageOff, Users, Unlock, MousePointer2, Sparkles, Zap, Image as ImageIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useModal } from '@/context/ModalContext';
 
 const TYPE_COLORS = {
   beach: { bg: 'rgba(14,165,233,0.15)', text: '#0EA5E9', label: '🏖️ Beach' },
@@ -15,11 +16,20 @@ const TYPE_COLORS = {
   restaurant: { bg: 'rgba(255,107,53,0.15)', text: '#F59E0B', label: '🍽️ Food' },
   default: { bg: 'rgba(45,212,191,0.15)', text: '#2DD4BF', label: '📍 Place' },
 };
-
-export default function PlaceCard({ place, locked = false, onLockedClick, travelersCount = Math.floor(Math.random() * 10) + 3, onClick }) {
+export default function PlaceCard({ place, locked = false, travelersCount, onClick }) {
+  const { openWaitlist } = useModal();
   const [imgError, setImgError] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
   const [scratched, setScratched] = useState(false);
+  const [displayTravelersCount, setDisplayTravelersCount] = useState(travelersCount || 10);
+
+  React.useEffect(() => {
+    if (!travelersCount) {
+      // Only generate random count on client if not provided
+      setDisplayTravelersCount(Math.floor(Math.random() * 10) + 5);
+    }
+  }, [travelersCount]);
+
   const typeStyle = TYPE_COLORS[place.type] || TYPE_COLORS.default;
 
   // Use a high-quality Unsplash image as a generic fallback if no photo is available or if it fails to load
@@ -97,7 +107,7 @@ export default function PlaceCard({ place, locked = false, onLockedClick, travel
         <div className="absolute bottom-4 left-4 px-3 py-1 rounded-full text-[11px] font-bold text-white flex items-center gap-2 shadow-xl z-20"
           style={{ background: 'rgba(4,51,88,0.8)', backdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.1)' }}>
           <Users size={13} className="text-accent-teal" />
-          {travelersCount} travelers going
+          {displayTravelersCount} travelers going
         </div>
 
         {/* Locked overlay */}
@@ -124,7 +134,7 @@ export default function PlaceCard({ place, locked = false, onLockedClick, travel
               </div>
 
               <button 
-                onClick={(e) => { e.stopPropagation(); onLockedClick(); }}
+                onClick={(e) => { e.stopPropagation(); openWaitlist(); }}
                 className="btn-primary py-2.5 px-8 text-xs shadow-glow-gold hover:scale-105 active:scale-95 transition-all font-bold flex items-center gap-2"
               >
                 <Zap size={14} fill="currentColor" />

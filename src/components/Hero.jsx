@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Search, Sparkles, MapPin } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+import { useModal } from '@/context/ModalContext';
 
-export default function Hero({ onSearch, onWaitlistOpen }) {
+export default function Hero({ onSearch }) {
+  const { openWaitlist } = useModal();
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
   const { scrollY } = useScroll();
@@ -202,7 +204,7 @@ export default function Hero({ onSearch, onWaitlistOpen }) {
               <span className="text-gray-300">Where to? <span className="text-white">{typedText}</span><span className="animate-pulse">|</span></span>
             </div>
             <Link 
-              to="/ai-planner"
+              href="/ai-planner"
               className="btn-primary rounded-full px-6 py-3 ml-2 shrink-0 flex items-center gap-2 font-bold"
             >
               Generate
@@ -219,14 +221,14 @@ export default function Hero({ onSearch, onWaitlistOpen }) {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full"
         >
           <button
-            onClick={onWaitlistOpen}
+            onClick={openWaitlist}
             className="btn-primary flex items-center justify-center gap-3 px-8 py-4 w-full sm:w-auto text-lg"
           >
             Get Early Access
             <ArrowRight size={20} />
           </button>
           <Link
-            to="/explore"
+            href="/explore"
             className="btn-secondary flex items-center justify-center gap-3 px-8 py-4 w-full sm:w-auto text-lg"
           >
             <MapPin size={20} />

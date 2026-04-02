@@ -1,8 +1,10 @@
+'use client';
+
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Shield, Lock, Eye, CheckCircle2, AlertTriangle, MessageSquare, Zap } from 'lucide-react';
+import { Shield, Lock, CheckCircle2, AlertTriangle, MessageSquare, Zap } from 'lucide-react';
 
-export default function Security() {
+export default function SecurityPage() {
   const securityFeatures = [
     {
       title: "🔒 Data Security",
@@ -40,7 +42,7 @@ export default function Security() {
   ];
 
   return (
-    <div className="pt-32 pb-24 min-h-screen relative overflow-hidden">
+    <div className="pt-32 pb-24 min-h-screen bg-brand-900 relative overflow-hidden">
       {/* Background Glows */}
       <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-accent-neon/5 blur-[120px] rounded-full -translate-y-1/2 -translate-x-1/2" />
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-accent-gold/5 blur-[120px] rounded-full translate-y-1/2 translate-x-1/2" />
@@ -90,7 +92,6 @@ export default function Security() {
           ))}
         </div>
 
-        {/* Disclaimer & Report */}
         <div className="mt-12 space-y-8">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -123,6 +124,7 @@ export default function Security() {
               <a 
                 href="https://wa.me/918474972007" 
                 target="_blank"
+                rel="noopener noreferrer"
                 className="btn-primary py-3 px-6 flex items-center gap-2 font-bold"
               >
                 <MessageSquare size={18} /> WhatsApp Support

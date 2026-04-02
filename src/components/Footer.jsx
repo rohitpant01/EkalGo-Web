@@ -1,9 +1,13 @@
+'use client';
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import Logo from './Logo';
 import { Mail, Github, Twitter, Instagram, MessageSquare, Shield, Lock } from 'lucide-react';
+import { useModal } from '@/context/ModalContext';
 
-export default function Footer({ onWaitlistOpen }) {
+export default function Footer() {
+  const { openWaitlist } = useModal();
   return (
     <footer className="py-20 border-t border-white/5 bg-brand-900 relative overflow-hidden"
       style={{ background: 'var(--brand-900)' }}>
@@ -44,10 +48,10 @@ export default function Footer({ onWaitlistOpen }) {
           <div className="lg:col-span-2 space-y-6">
             <h4 className="text-[10px] font-bold text-white uppercase tracking-[0.2em] font-display">Platform</h4>
             <div className="flex flex-col gap-4">
-              <Link to="/explore" className="text-sm text-blue-100/40 hover:text-white transition-colors">Discovery Engine</Link>
-              <Link to="/ai-planner" className="text-sm text-blue-100/40 hover:text-white transition-colors">AI Route Planner</Link>
-              <Link to="/safety" className="text-sm text-blue-100/40 hover:text-white transition-colors">Safety Index</Link>
-              <button onClick={onWaitlistOpen} className="text-sm text-blue-100/40 hover:text-accent-gold transition-colors text-left">Early Access</button>
+              <Link href="/explore" className="text-sm text-blue-100/40 hover:text-white transition-colors">Discovery Engine</Link>
+              <Link href="/ai-planner" className="text-sm text-blue-100/40 hover:text-white transition-colors">AI Route Planner</Link>
+              <Link href="/safety" className="text-sm text-blue-100/40 hover:text-white transition-colors">Safety Index</Link>
+              <button onClick={openWaitlist} className="text-sm text-blue-100/40 hover:text-accent-gold transition-colors text-left">Early Access</button>
             </div>
           </div>
 
@@ -55,13 +59,13 @@ export default function Footer({ onWaitlistOpen }) {
           <div className="lg:col-span-2 space-y-6">
             <h4 className="text-[10px] font-bold text-white uppercase tracking-[0.2em] font-display">Trust Center</h4>
             <div className="flex flex-col gap-4">
-              <Link to="/privacy" className="text-sm text-blue-100/40 hover:text-white transition-colors flex items-center gap-2">
+              <Link href="/privacy" className="text-sm text-blue-100/40 hover:text-white transition-colors flex items-center gap-2">
                 <Lock size={14} /> Privacy
               </Link>
-              <Link to="/security" className="text-sm text-blue-100/40 hover:text-white transition-colors flex items-center gap-2">
+              <Link href="/security" className="text-sm text-blue-100/40 hover:text-white transition-colors flex items-center gap-2">
                 <Shield size={14} /> Security
               </Link>
-              <a href="https://wa.me/918474972007" className="text-sm text-blue-100/40 hover:text-accent-teal transition-colors flex items-center gap-2">
+              <a href="https://wa.me/918474972007" target="_blank" rel="noopener noreferrer" className="text-sm text-blue-100/40 hover:text-accent-teal transition-colors flex items-center gap-2">
                 <MessageSquare size={14} /> Support
               </a>
             </div>
@@ -71,7 +75,7 @@ export default function Footer({ onWaitlistOpen }) {
           <div className="lg:col-span-3 space-y-6 text-center lg:text-right">
             <h4 className="text-[10px] font-bold text-white uppercase tracking-[0.2em] font-display">Get in Touch</h4>
             <div className="space-y-4">
-              <p className="text-sm text-blue-100/60 transition-colors">ekalgo.app@gmail.com</p>
+              <a href="mailto:ekalgo.app@gmail.com" className="text-sm text-blue-100/60 hover:text-accent-gold transition-colors block">ekalgo.app@gmail.com</a>
               <div className="flex items-center justify-center lg:justify-end gap-3 font-display">
                 {[Twitter, Instagram, Github].map((Icon, i) => (
                   <button key={i}

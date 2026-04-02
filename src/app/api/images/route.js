@@ -1,13 +1,12 @@
+import { NextResponse } from 'next/server';
 import axios from 'axios';
 
-export default async function handler(req, res) {
-  if (req.method !== 'GET') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
+export async function GET(req) {
+  const { searchParams } = new URL(req.url);
+  const query = searchParams.get('query');
 
-  const { query } = req.query;
   if (!query) {
-    return res.status(400).json({ error: 'Query parameter is required' });
+    return NextResponse.json({ error: 'Query parameter is required' }, { status: 400 });
   }
 
   try {
@@ -19,7 +18,7 @@ export default async function handler(req, res) {
           headers: { Authorization: PEXELS_KEY }
         });
         if (response.data?.photos?.length > 0) {
-          return res.status(200).json({ url: response.data.photos[0].src.large });
+          return NextResponse.json({ url: response.data.photos[0].src.large });
         }
       } catch (err) {
         console.warn('Pexels search failed:', err.message);
@@ -32,16 +31,16 @@ export default async function handler(req, res) {
       try {
         const response = await axios.get(`https://pixabay.com/api/?key=${PIXABAY_KEY}&q=${encodeURIComponent(query)}&image_type=photo&per_page=3&safesearch=true`);
         if (response.data?.hits?.length > 0) {
-          return res.status(200).json({ url: response.data.hits[0].largeImageURL });
+          return NextResponse.json({ url: response.data.hits[0].largeImageURL });
         }
       } catch (err) {
         console.warn('Pixabay search failed:', err.message);
       }
     }
 
-    return res.status(404).json({ error: 'No images found' });
+    return NextResponse.json({ error: 'No images found' }, { status: 404 });
   } catch (error) {
     console.error('Image API error:', error.message);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

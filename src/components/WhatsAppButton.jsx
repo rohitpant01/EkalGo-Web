@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
@@ -15,7 +17,7 @@ export default function WhatsAppButton() {
       animate={{ opacity: 1, scale: 1, y: 0 }}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
-      className="fixed bottom-8 right-8 z-[100] group"
+      className="fixed bottom-8 right-8 z-40 group"
     >
       {/* Outer Pulse */}
       <div className="absolute inset-0 bg-[#25D366] rounded-full blur-[10px] opacity-40 group-hover:opacity-80 animate-pulse" />

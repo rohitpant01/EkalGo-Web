@@ -1,15 +1,19 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Compass, Sparkles, MapPin, Calendar, Wallet, Loader2, ArrowRight, Share2, RefreshCcw } from 'lucide-react';
-import { useItinerary } from '../hooks/useItinerary';
-import Itinerary from '../components/Itinerary';
-import SearchBar from '../components/SearchBar';
-import WaitlistModal from '../components/WaitlistModal';
+import { Compass, Sparkles, MapPin, Calendar, Wallet, Loader2, RefreshCcw } from 'lucide-react';
+import { useItinerary } from '@/hooks/useItinerary';
+import Itinerary from '@/components/Itinerary';
+import SearchBar from '@/components/SearchBar';
+import WaitlistModal from '@/components/WaitlistModal';
 
-export default function AIPlanner() {
+import { useModal } from '@/context/ModalContext';
+
+export default function AIPlannerPage() {
+  const { openWaitlist } = useModal();
   const { itinerary, loading, error, query, enriching, search, reset } = useItinerary();
   const [showInput, setShowInput] = useState(true);
-  const [isWaitlistOpen, setIsWaitlistOpen] = useState(false);
 
   useEffect(() => {
     if (itinerary) {
@@ -30,7 +34,7 @@ export default function AIPlanner() {
     const shareData = {
       title: itinerary?.title || 'My EkalGo Trip',
       text: `Check out my AI-planned trip to ${itinerary?.title}: ${itinerary?.summary}`,
-      url: window.location.href,
+      url: typeof window !== 'undefined' ? window.location.href : '',
     };
 
     try {
@@ -47,12 +51,10 @@ export default function AIPlanner() {
 
   return (
     <div className="min-h-screen pt-24 pb-20 bg-brand-900 overflow-hidden relative">
-      {/* Background Glow */}
       <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-accent-gold/5 blur-[120px] pointer-events-none rounded-full" />
       <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-accent-neon/5 blur-[120px] pointer-events-none rounded-full" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
         <AnimatePresence mode="wait">
           {showInput ? (
             <motion.div
@@ -84,9 +86,7 @@ export default function AIPlanner() {
 
               <div className="glass-panel p-8 md:p-12 relative overflow-hidden group">
                 <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-accent-gold/50 to-transparent" />
-                
                 <SearchBar onSearch={handleSearch} isLoading={loading} />
-                
                 <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 opacity-50 group-hover:opacity-100 transition-opacity">
                   <div className="flex items-center gap-3 text-sm text-gray-400">
                     <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-accent-gold">
@@ -147,8 +147,6 @@ export default function AIPlanner() {
                   <Itinerary 
                     itinerary={itinerary} 
                     enriching={enriching} 
-                    onWaitlistOpen={() => setIsWaitlistOpen(true)} 
-                    onLockedOpen={() => setIsWaitlistOpen(true)} 
                     onShare={handleShare} 
                   />
                </div>
@@ -172,11 +170,6 @@ export default function AIPlanner() {
               </div>
            </motion.div>
         )}
-
-        <WaitlistModal 
-          isOpen={isWaitlistOpen}
-          onClose={() => setIsWaitlistOpen(false)}
-        />
 
       </div>
     </div>

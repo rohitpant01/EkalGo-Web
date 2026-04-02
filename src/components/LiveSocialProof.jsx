@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Users, Sparkles, Heart, Zap } from 'lucide-react';
@@ -19,7 +21,7 @@ export default function LiveSocialProof() {
     const showNext = () => {
       setCurrent(NOTIFICATIONS[index]);
       setIndex((prev) => (prev + 1) % NOTIFICATIONS.length);
-      
+
       // Stay visible for 4 seconds
       setTimeout(() => {
         setCurrent(null);
@@ -41,7 +43,7 @@ export default function LiveSocialProof() {
   }, [index]);
 
   return (
-    <div className="fixed bottom-6 left-6 z-50 pointer-events-none select-none hidden md:block">
+    <div className="fixed bottom-6 left-6 z-40 pointer-events-none select-none hidden md:block">
       <AnimatePresence>
         {current && (
           <motion.div
@@ -63,7 +65,7 @@ export default function LiveSocialProof() {
                 {current.text}
               </span>
             </div>
-            
+
             {/* Pulsing indicator */}
             <div className="absolute -top-1 -right-1 flex h-3 w-3">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>

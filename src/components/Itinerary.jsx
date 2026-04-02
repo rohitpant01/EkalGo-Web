@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import PlaceCard from './PlaceCard';
-import PreviewModal from './PreviewModal';
+import { useModal } from '@/context/ModalContext';
 
 const DIFF_COLORS = {
   Easy: { bg: 'rgba(46,204,113,0.15)', text: '#2ECC71' },
@@ -13,8 +13,8 @@ const DIFF_COLORS = {
   Challenging: { bg: 'rgba(255,107,53,0.15)', text: '#F59E0B' },
 };
 
-export default function Itinerary({ itinerary, onShare, onWaitlistOpen }) {
-  const [previewOpen, setPreviewOpen] = useState(false);
+export default function Itinerary({ itinerary, onShare }) {
+  const { openWaitlist, openPreview } = useModal();
 
   if (!itinerary) return null;
 
@@ -76,7 +76,7 @@ export default function Itinerary({ itinerary, onShare, onWaitlistOpen }) {
                 <motion.button 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => setPreviewOpen(true)}
+                  onClick={() => openPreview({ itinerary })}
                   className="flex-1 sm:flex-none px-6 py-4 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm text-ocean-900 transition-all shadow-glow-amber whitespace-nowrap"
                   style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}
                 >
@@ -139,7 +139,7 @@ export default function Itinerary({ itinerary, onShare, onWaitlistOpen }) {
               {/* Mystery Card */}
               <motion.div 
                 whileHover={{ scale: 1.02 }}
-                onMouseDown={() => setPreviewOpen(true)}
+                onMouseDown={() => openPreview({ itinerary })}
                 className="relative h-[24rem] sm:h-[28rem] rounded-[2rem] border border-dashed border-white/10 flex flex-col items-center justify-center text-center p-8 cursor-pointer overflow-hidden group"
               >
                  <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent group-hover:from-amber-500/10 transition-colors" />
@@ -186,7 +186,7 @@ export default function Itinerary({ itinerary, onShare, onWaitlistOpen }) {
             <motion.button
               whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(255,107,53,0.3)' }}
               whileTap={{ scale: 0.95 }}
-              onClick={onWaitlistOpen}
+              onClick={openWaitlist}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 sm:py-5 rounded-xl sm:rounded-[1.5rem] font-bold text-xs sm:text-sm text-ocean-900 transition-all shadow-2xl"
               style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}>
               <Download size={18} />
@@ -195,13 +195,6 @@ export default function Itinerary({ itinerary, onShare, onWaitlistOpen }) {
           </div>
         </motion.div>
 
-        {/* Global Preview Modal */}
-        <PreviewModal 
-          isOpen={previewOpen} 
-          onClose={() => setPreviewOpen(false)} 
-          itinerary={itinerary}
-          onWaitlistOpen={onWaitlistOpen}
-        />
 
       </motion.div>
     </section>

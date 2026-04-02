@@ -1,5 +1,8 @@
+'use client';
+
 import React from 'react';
 import { X, Download, Star, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { redirectToApp } from '../utils/redirect';
 
 const FEATURES = [
@@ -23,12 +26,16 @@ export default function LockedModal({ isOpen, onClose, onWaitlistOpen }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop overflow-y-auto"
+    <div className="fixed inset-0 z-[9999] flex items-start justify-center p-4 pt-[120px] modal-backdrop overflow-y-auto"
       data-lenis-prevent
       style={{ background: 'rgba(1,13,22,0.95)', backdropFilter: 'blur(16px)' }}
       onClick={(e) => e.target === e.currentTarget && onClose()}>
 
-      <div className="relative w-full max-w-lg rounded-3xl overflow-hidden animate-slide-up"
+      <motion.div
+        initial={{ opacity: 0, y: -20, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: -20, scale: 0.95 }}
+        className="relative w-full max-w-lg rounded-3xl overflow-hidden"
         style={{ background: 'linear-gradient(160deg, #043358 0%, #021A2C 100%)', border: '1px solid rgba(228,178,80,0.2)' }}>
 
         {/* Top glow */}
@@ -36,10 +43,6 @@ export default function LockedModal({ isOpen, onClose, onWaitlistOpen }) {
           style={{ background: 'radial-gradient(ellipse, #F9A826, transparent 70%)' }} />
 
         {/* Close */}
-        <button onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-xl text-blue-200/40 hover:text-white hover:bg-white/10 transition-all z-10">
-          <X size={18} />
-        </button>
 
         <div className="relative p-8">
           {/* Header */}
@@ -99,7 +102,13 @@ export default function LockedModal({ isOpen, onClose, onWaitlistOpen }) {
             Free download • iOS &amp; Android
           </p>
         </div>
-      </div>
+        
+        {/* Close Button moved to end for stacking */}
+        <button onClick={onClose}
+          className="absolute top-4 right-4 p-2 rounded-xl text-blue-200/40 hover:text-white hover:bg-white/10 transition-all z-[200]">
+          <X size={18} />
+        </button>
+      </motion.div>
     </div>
   );
 }

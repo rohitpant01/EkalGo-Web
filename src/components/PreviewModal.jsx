@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Sparkles, Lock, Map, Wallet, Zap, Calendar, MapPin, Users, ArrowRight, Loader2, CheckCircle2 } from 'lucide-react';
 import { generatePreviewTeaser } from '../services/api';
+import { useModal } from '@/context/ModalContext';
 
 const THINKING_STEPS = [
   "Connecting to EkalGo Intelligence...",
@@ -10,8 +11,8 @@ const THINKING_STEPS = [
   "Optimizing travel logistics...",
   "Finalizing your premium itinerary..."
 ];
-
-export default function PreviewModal({ isOpen, onClose, destination, itinerary, onWaitlistOpen }) {
+export default function PreviewModal({ isOpen, onClose, destination, itinerary }) {
+  const { openWaitlist } = useModal();
   const [status, setStatus] = useState('thinking');
   const [stepIndex, setStepIndex] = useState(0);
   const [previewData, setPreviewData] = useState(null);
@@ -74,7 +75,9 @@ export default function PreviewModal({ isOpen, onClose, destination, itinerary, 
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 outline-none">
+      <div className="fixed inset-0 z-[9999] flex items-start justify-center p-4 sm:p-6 pt-[120px] outline-none overflow-y-auto"
+        data-lenis-prevent
+      >
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -84,18 +87,11 @@ export default function PreviewModal({ isOpen, onClose, destination, itinerary, 
         />
         
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          initial={{ opacity: 0, scale: 0.9, y: -20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.9, y: 20 }}
+          exit={{ opacity: 0, scale: 0.9, y: -20 }}
           className="relative w-full max-w-2xl max-h-[85vh] overflow-hidden glass-panel border border-white/10 shadow-3xl shadow-glow-gold/10 flex flex-col pt-4 mx-4"
         >
-          {/* Close Button */}
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 z-[110] p-2 rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-all backdrop-blur-md border border-white/5"
-          >
-            <X size={20} />
-          </button>
 
           <div 
             data-lenis-prevent
@@ -281,7 +277,7 @@ export default function PreviewModal({ isOpen, onClose, destination, itinerary, 
                        </p>
                        
                        <button
-                         onClick={() => { onClose(); onWaitlistOpen(); }}
+                         onClick={() => { onClose(); openWaitlist(); }}
                          className="btn-primary py-4 px-10 flex items-center gap-4 font-bold group shadow-2xl relative overflow-hidden"
                        >
                           <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12" />
@@ -314,6 +310,14 @@ export default function PreviewModal({ isOpen, onClose, destination, itinerary, 
               </div>
             )}
           </div>
+
+          {/* Close Button moved to end for stacking */}
+          <button
+            onClick={onClose}
+            className="absolute top-6 right-6 z-[200] p-2.5 rounded-full bg-black/60 hover:bg-white/10 text-white transition-all backdrop-blur-md border border-white/10 shadow-xl"
+          >
+            <X size={24} />
+          </button>
         </motion.div>
       </div>
     </AnimatePresence>

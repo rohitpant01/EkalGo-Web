@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Lock, Sparkles, Map, Wallet, Zap } from 'lucide-react';
+import { useModal } from '@/context/ModalContext';
 
 const FEATURES = [
   {
@@ -25,7 +26,8 @@ const FEATURES = [
   }
 ];
 
-export default function FeatureTeaser({ onLockedClick }) {
+export default function FeatureTeaser() {
+  const { openWaitlist } = useModal();
   return (
     <div 
       className="w-full overflow-x-auto pb-8 no-scrollbar"
@@ -36,7 +38,7 @@ export default function FeatureTeaser({ onLockedClick }) {
           <motion.div
             key={feature.title}
             whileHover={{ y: -5, scale: 1.02 }}
-            onClick={onLockedClick}
+            onClick={openWaitlist}
             className="w-72 glass-panel p-6 border border-white/5 cursor-pointer group relative overflow-hidden"
           >
              <div className="absolute inset-0 bg-brand-900/40 backdrop-blur-md opacity-60 pointer-events-none" />

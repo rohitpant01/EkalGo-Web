@@ -2,15 +2,18 @@ import React from 'react';
 import { Download, Star, ArrowRight, Smartphone } from 'lucide-react';
 import { redirectToPlayStore, redirectToAppStore } from '../utils/redirect';
 
-export default function AppCTA({ onWaitlistOpen }) {
+import { useModal } from '@/context/ModalContext';
+
+export default function AppCTA() {
+  const { openWaitlist } = useModal();
   const handleAndroid = () => {
     const ok = redirectToPlayStore();
-    if (!ok) onWaitlistOpen();
+    if (!ok) openWaitlist();
   };
 
   const handleIOS = () => {
     const ok = redirectToAppStore();
-    if (!ok) onWaitlistOpen();
+    if (!ok) openWaitlist();
   };
 
   return (

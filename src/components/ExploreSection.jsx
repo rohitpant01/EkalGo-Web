@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Loader2, Star } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { getPlaceWithPhoto } from '../services/api';
 
 const ALL_DESTINATIONS = [
@@ -91,7 +91,7 @@ export default function ExploreSection() {
             transition={{ delay: 0.2 }}
           >
             <Link 
-              to="/explore"
+              href="/explore"
               className="flex items-center gap-2 text-accent-neon hover:text-white transition-colors font-medium btn-secondary border-accent-neon/30 hover:border-accent-neon"
             >
               View all places <MapPin className="ml-1" size={16} />
