@@ -2,6 +2,8 @@ import React from 'react';
 import { Compass, MapPin, Sparkles, Shield, Clock, TrendingUp, HelpCircle, ArrowRight, Zap, Camera, Coffee } from 'lucide-react';
 import Link from 'next/link';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import ShareButtons from '@/components/ShareButtons';
+import LiveSocialProof from '@/components/LiveSocialProof';
 import WaitlistCTA from '@/components/WaitlistCTA';
 import destinationsData from '@/data/destinations.json';
 
@@ -182,6 +184,21 @@ export default async function ItineraryDeepDivePage({ params }) {
         </div>
       </section>
 
+      {/* Viral Sharing */}
+      <section className="py-20 max-w-7xl mx-auto px-6 text-center border-t border-white/5">
+        <div className="space-y-8">
+          <h3 className="text-xl font-bold font-display">Share this Itinerary</h3>
+          <div className="flex justify-center">
+            <ShareButtons 
+               url={`/itinerary/${citySlug}/3-day-trip`} 
+               title={`Ultimate 3-Day trip in ${city.name}`} 
+               city={city.name} 
+            />
+          </div>
+        </div>
+      </section>
+
+      <LiveSocialProof city={city.name} />
       <WaitlistCTA />
     </div>
   );

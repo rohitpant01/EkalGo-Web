@@ -5,6 +5,8 @@ import Footer from '@/components/Footer';
 import WaitlistCTA from '@/components/WaitlistCTA';
 import Link from 'next/link';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import ShareButtons from '@/components/ShareButtons';
+import LiveSocialProof from '@/components/LiveSocialProof';
 import destinationsData from '@/data/destinations.json';
 
 export async function generateStaticParams() {
@@ -132,6 +134,21 @@ export default async function GetawaysPage({ params }) {
          </div>
       </section>
 
+      {/* Viral Sharing */}
+      <section className="py-20 max-w-7xl mx-auto px-6 text-center border-t border-white/5">
+        <div className="space-y-8">
+          <h3 className="text-xl font-bold font-display">Share these Getaways</h3>
+          <div className="flex justify-center">
+            <ShareButtons 
+               url={`/getaways/from-${citySlug}`} 
+               title={`15+ Weekend Getaways from ${city.name}`} 
+               city={city.name} 
+            />
+          </div>
+        </div>
+      </section>
+
+      <LiveSocialProof city={city.name} />
       <WaitlistCTA />
     </div>
   );

@@ -13,14 +13,35 @@ const NOTIFICATIONS = [
   { id: 6, text: "5 travelers just joined the Manali waitlist", icon: <Users size={14} className="text-teal-400" /> },
 ];
 
-export default function LiveSocialProof() {
+export default function LiveSocialProof({ city = "" }) {
   const [current, setCurrent] = useState(null);
   const [index, setIndex] = useState(0);
 
+  const getNotifications = () => {
+    const base = [
+      { id: 1, text: "Rahul just planned a Ladakh trip", icon: <Zap size={14} className="text-amber-400" /> },
+      { id: 2, text: "12 people exploring solo in Goa now", icon: <Users size={14} className="text-teal-400" /> },
+      { id: 3, text: "Aisha unlocked a secret beach in Varkala", icon: <Sparkles size={14} className="text-blue-400" /> },
+      { id: 4, text: "Someone just matched for a Spiti trek", icon: <Heart size={14} className="text-pink-400" /> },
+      { id: 5, text: "New offbeat route revealed for Rajasthan", icon: <Sparkles size={14} className="text-amber-400" /> },
+      { id: 6, text: "5 travelers just joined the waitlist", icon: <Users size={14} className="text-teal-400" /> },
+    ];
+
+    if (city) {
+      base.push(
+        { id: 7, text: `3 travelers viewed ${city} in last hour`, icon: <Zap size={14} className="text-accent-teal" /> },
+        { id: 8, text: `Someone from Mumbai exploring ${city} now`, icon: <Users size={14} className="text-accent-gold" /> }
+      );
+    }
+    return base;
+  };
+
+  const notifications = getNotifications();
+
   useEffect(() => {
     const showNext = () => {
-      setCurrent(NOTIFICATIONS[index]);
-      setIndex((prev) => (prev + 1) % NOTIFICATIONS.length);
+      setCurrent(notifications[index]);
+      setIndex((prev) => (prev + 1) % notifications.length);
 
       // Stay visible for 4 seconds
       setTimeout(() => {
@@ -34,13 +55,13 @@ export default function LiveSocialProof() {
     // Loop every 8-12 seconds
     const interval = setInterval(() => {
       showNext();
-    }, 10000);
+    }, 12000);
 
     return () => {
       clearTimeout(initialTimeout);
       clearInterval(interval);
     };
-  }, [index]);
+  }, [index, city]);
 
   return (
     <div className="fixed bottom-6 left-6 z-40 pointer-events-none select-none hidden md:block">

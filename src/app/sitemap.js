@@ -9,7 +9,8 @@ const STATIC_ROUTES = [
   '/safety',
   '/pricing',
   '/privacy',
-  '/security'
+  '/security',
+  '/top-destinations-2026'
 ];
 
 export default async function sitemap() {

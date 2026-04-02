@@ -1,9 +1,8 @@
 'use client';
 
 import React from 'react';
-import { X, Download, Star, ArrowRight } from 'lucide-react';
+import { X, Sparkles, Star, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { redirectToApp } from '../utils/redirect';
 
 const FEATURES = [
   { icon: '🗺️', title: 'Complete Itineraries', desc: 'Full day-by-day plans with unlimited places' },
@@ -16,14 +15,6 @@ const FEATURES = [
 
 export default function LockedModal({ isOpen, onClose, onWaitlistOpen }) {
   if (!isOpen) return null;
-
-  const handleDownload = () => {
-    const ok = redirectToApp();
-    if (!ok) {
-      onClose();
-      setTimeout(onWaitlistOpen, 100);
-    }
-  };
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-start justify-center p-4 pt-16 sm:pt-[120px] modal-backdrop overflow-y-auto"
@@ -42,32 +33,25 @@ export default function LockedModal({ isOpen, onClose, onWaitlistOpen }) {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-32 opacity-20 pointer-events-none"
           style={{ background: 'radial-gradient(ellipse, #F9A826, transparent 70%)' }} />
 
-        {/* Close */}
-
         <div className="relative p-8">
           {/* Header */}
-          <div className="text-center mb-8">
-            <div className="text-5xl mb-4">🚀</div>
-            <h2 className="font-display text-2xl font-bold text-white mb-2">
-              Unlock Full Experience
+          <div className="text-center mb-8 text-white">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-gold/10 border border-accent-gold/20 mb-6 font-mono text-[10px] uppercase tracking-widest text-accent-gold">
+               <Star size={12} className="fill-accent-gold" />
+               Beta Access 2026
+            </div>
+            <h2 className="font-display text-2xl font-bold mb-2 text-white">
+              Join the Exclusive Beta
             </h2>
             <p className="text-blue-200/50 text-sm">
-              Get the complete EkalGo experience in the app
+              EkalGo App is launching soon. Get early access to the full AI travel suite before the public release.
             </p>
-
-            {/* Stars */}
-            <div className="flex items-center justify-center gap-1 mt-3">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} size={14} className="text-amber-400 fill-amber-400" />
-              ))}
-              <span className="text-xs text-blue-200/40 ml-2">4.9 • 10K+ travelers</span>
-            </div>
           </div>
 
           {/* Feature grid */}
           <div className="grid grid-cols-2 gap-3 mb-8">
             {FEATURES.map((f) => (
-              <div key={f.title} className="flex items-start gap-3 p-3 rounded-xl"
+              <div key={f.title} className="flex items-start gap-3 p-3 rounded-xl hover:bg-white/[0.05] transition-colors"
                 style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)' }}>
                 <span className="text-xl flex-shrink-0">{f.icon}</span>
                 <div>
@@ -81,29 +65,22 @@ export default function LockedModal({ isOpen, onClose, onWaitlistOpen }) {
           {/* CTAs */}
           <div className="space-y-3">
             <button
-              onClick={handleDownload}
+              onClick={() => { onClose(); onWaitlistOpen(); }}
               className="w-full flex items-center justify-center gap-3 py-4 rounded-2xl font-bold text-ocean-900 transition-all hover:scale-[1.02] active:scale-[0.98]"
               style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}>
-              <Download size={18} />
-              Download EkalGo App
+              <Sparkles size={18} />
+              Claim Early Beta Access
               <ArrowRight size={16} />
-            </button>
-
-            <button
-              onClick={() => { onClose(); onWaitlistOpen(); }}
-              className="w-full py-3.5 rounded-2xl text-sm font-medium text-white/60 hover:text-white transition-all hover:bg-white/5"
-              style={{ border: '1px solid rgba(255,255,255,0.08)' }}>
-              Join Waitlist Instead
             </button>
           </div>
 
           {/* Fine print */}
-          <p className="text-center text-xs text-blue-200/30 mt-4">
-            Free download • iOS &amp; Android
+          <p className="text-center text-xs text-blue-200/30 mt-6">
+            Limited slots available • Coming soon to iOS & Android
           </p>
         </div>
         
-        {/* Close Button moved to end for stacking */}
+        {/* Close Button */}
         <button onClick={onClose}
           className="absolute top-4 right-4 p-2 rounded-xl text-blue-200/40 hover:text-white hover:bg-white/10 transition-all z-[200]">
           <X size={18} />

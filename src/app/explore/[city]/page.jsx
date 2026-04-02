@@ -4,6 +4,8 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WaitlistCTA from '@/components/WaitlistCTA';
 import Link from 'next/link';
+import ShareButtons from '@/components/ShareButtons';
+import LiveSocialProof from '@/components/LiveSocialProof';
 
 export async function generateMetadata({ params }) {
   const city = params.city.charAt(0).toUpperCase() + params.city.slice(1);
@@ -151,6 +153,21 @@ export default function CityPage({ params }) {
         </div>
       </section>
 
+      {/* Viral Sharing */}
+      <section className="py-20 max-w-7xl mx-auto px-6 text-center border-t border-white/5">
+        <div className="space-y-8">
+          <h3 className="text-xl font-bold font-display">Share this {city} Guide</h3>
+          <div className="flex justify-center">
+            <ShareButtons 
+               url={`/explore/${params.city}`} 
+               title={`AI Travel Guide for ${city}`} 
+               city={city} 
+            />
+          </div>
+        </div>
+      </section>
+
+      <LiveSocialProof city={city} />
       <WaitlistCTA />
     </div>
   );
