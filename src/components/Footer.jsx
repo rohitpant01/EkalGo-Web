@@ -103,9 +103,8 @@ export default function Footer() {
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
               <div className="w-1 h-1 rounded-full bg-accent-gold" />
-              <span className="text-[10px] text-blue-100/40 uppercase tracking-widest font-mono">Build alpha_1.0_ind</span>
+              <span className="text-[10px] text-blue-100/40 uppercase tracking-widest font-mono">Made by Team EkalGo India</span>
             </div>
-            <span className="text-[10px] text-blue-100/40 uppercase tracking-widest font-mono">Made in India</span>
           </div>
         </div>
       </div>
