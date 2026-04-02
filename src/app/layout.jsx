@@ -10,9 +10,15 @@ import { Toaster } from 'react-hot-toast';
 import ClientLayout from '@/components/ClientLayout';
 
 export const metadata = {
-  title: 'EkalGo — Travel Together, Explore Freely',
-  description: 'EkalGo is an AI-powered travel assistant that helps you discover hidden gems and create personalized itineraries.',
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
+  title: "EkalGo — Discover Legendary Routes & Hidden Gems",
+  description: "EkalGo is an AI-powered travel assistant that creates personalized itineraries and finds off-beat destinations for the modern explorer.",
+  keywords: ["nearby places", "travel itineraries", "AI travel planner", "hidden gems India", "solo travel"],
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({ children }) {
