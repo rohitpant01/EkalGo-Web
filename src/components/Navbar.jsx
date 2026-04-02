@@ -42,11 +42,11 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 px-6 py-4 sm:py-5 border-b border-white/5 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 h-20 border-b border-white/5 flex items-center ${
         scrolled ? 'bg-[#010912]/95 backdrop-blur-xl shadow-2xl' : 'bg-[#020C16]/80 backdrop-blur-md'
       }`}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <div className="w-full max-w-7xl mx-auto flex items-center justify-between">
         {/* Left: Logo */}
         <div className="flex-shrink-0">
           <Link href="/" className="transition-opacity hover:opacity-80">

@@ -12,6 +12,7 @@ import ClientLayout from '@/components/ClientLayout';
 export const metadata = {
   title: 'EkalGo — Travel Together, Explore Freely',
   description: 'EkalGo is an AI-powered travel assistant that helps you discover hidden gems and create personalized itineraries.',
+  viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
 };
 
 export default function RootLayout({ children }) {
@@ -21,7 +22,9 @@ export default function RootLayout({ children }) {
         <ClientLayout>
           <Toaster position="top-right" />
           <Navbar />
-          <main>{children}</main>
+          <main className="pt-20 pb-32 sm:pb-40 min-h-screen">
+            {children}
+          </main>
           <Footer />
           <LiveSocialProof />
           <WhatsAppButton />

@@ -90,7 +90,7 @@ export default function PreviewModal({ isOpen, onClose, destination, itinerary }
           initial={{ opacity: 0, scale: 0.9, y: -20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: -20 }}
-          className="relative w-full max-w-2xl max-h-[92vh] overflow-hidden glass-panel border border-white/10 shadow-3xl shadow-glow-gold/10 flex flex-col pt-4 mx-4"
+          className="relative w-full max-w-2xl max-h-[calc(100vh-120px)] overflow-hidden glass-panel border border-white/10 shadow-3xl shadow-glow-gold/10 flex flex-col pt-4 mx-4"
         >
 
           <div 
