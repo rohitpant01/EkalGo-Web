@@ -1,32 +1,65 @@
+import destinationsData from '@/data/destinations.json';
+
 const BASE_URL = 'https://ekalgo.com';
 
-const DESTINATIONS = [
-  'goa', 'varkala', 'gokarna', 'manali', 'ladakh', 'spiti-valley',
-  'udaipur', 'jaipur', 'hampi', 'munnar', 'waynad', 'coorg',
-  'delhi', 'agra', 'mumbai', 'bangalore', 'rishikesh', 'pondicherry'
+const STATIC_ROUTES = [
+  '',
+  '/explore',
+  '/ai-planner',
+  '/safety',
+  '/pricing',
+  '/privacy',
+  '/security'
 ];
 
 export default async function sitemap() {
-  const staticRoutes = ['', '/explore', '/ai-planner', '/safety', '/pricing', '/privacy', '/security'].map((route) => ({
+  // 1. Core Static Pages
+  const staticRoutes = STATIC_ROUTES.map((route) => ({
     url: `${BASE_URL}${route}`,
     lastModified: new Date().toISOString(),
     changeFrequency: 'weekly',
     priority: route === '' ? 1 : 0.8,
   }));
 
-  const destinationRoutes = DESTINATIONS.map((city) => ({
-    url: `${BASE_URL}/explore/${city}`,
+  const destinations = destinationsData.destinations;
+
+  // 2. City Explore Hubs (/explore/[city])
+  const destinationRoutes = destinations.map((city) => ({
+    url: `${BASE_URL}/explore/${city.slug}`,
+    lastModified: new Date().toISOString(),
+    changeFrequency: 'weekly',
+    priority: 0.7,
+  }));
+
+  // 3. Hidden Gems Silo (/hidden-gems/[city])
+  const hiddenGemsRoutes = destinations.map((city) => ({
+    url: `${BASE_URL}/hidden-gems/${city.slug}`,
     lastModified: new Date().toISOString(),
     changeFrequency: 'weekly',
     priority: 0.6,
   }));
 
-  const itineraryRoutes = DESTINATIONS.map((city) => ({
-    url: `${BASE_URL}/explore/${city}/itinerary/3-day`,
+  // 4. Weekend Getaways Silo (/getaways/from-[city])
+  const getawaysRoutes = destinations.map((city) => ({
+    url: `${BASE_URL}/getaways/from-${city.slug}`,
+    lastModified: new Date().toISOString(),
+    changeFrequency: 'weekly',
+    priority: 0.6,
+  }));
+
+  // 5. Advanced Itinerary Silo (/itinerary/[city]/[duration])
+  const itineraryRoutes = destinations.map((city) => ({
+    url: `${BASE_URL}/itinerary/${city.slug}/3-day-trip`,
     lastModified: new Date().toISOString(),
     changeFrequency: 'monthly',
     priority: 0.5,
   }));
 
-  return [...staticRoutes, ...destinationRoutes, ...itineraryRoutes];
+  return [
+    ...staticRoutes,
+    ...destinationRoutes,
+    ...hiddenGemsRoutes,
+    ...getawaysRoutes,
+    ...itineraryRoutes
+  ];
 }

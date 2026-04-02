@@ -1,0 +1,134 @@
+{
+  "destinations": [
+    {
+      "slug": "goa",
+      "name": "Goa",
+      "state": "Goa",
+      "category": "Beach",
+      "tagline": "The Coastal Zen & Party Capital",
+      "best_time": "November to February",
+      "hidden_gems": ["Cola Beach", "Devil's Canyon", "Kuske Waterfall", "Butterfly Beach"],
+      "getaways": ["Gokarna", "Vengurla", "Tarkarli"],
+      "faq": [
+        { "q": "What is the best hidden beach in Goa?", "a": "Butterfly beach is a secluded gem only accessible by boat or trek from Palolem." }
+      ]
+    },
+    {
+      "slug": "lehandladakh",
+      "name": "Leh & Ladakh",
+      "state": "Ladakh",
+      "category": "High-Altitude",
+      "tagline": "The Land of High Passes",
+      "best_time": "May to September",
+      "hidden_gems": ["Turtuk Village", "Pangong Remote Tents", "Nubra Hidden Gompas"],
+      "getaways": ["Srinagar", "Kargil", "Spiti"],
+      "faq": [
+        { "q": "Is a permit required for Leh Ladakh?", "a": "Yes, an Inner Line Permit (ILP) is mandatory for domestic and international tourists." }
+      ]
+    },
+    {
+      "slug": "manali",
+      "name": "Manali",
+      "state": "Himachal Pradesh",
+      "category": "Mountains",
+      "tagline": "The Valley of the Gods",
+      "best_time": "October to June",
+      "hidden_gems": ["Jogini Falls", "Old Manali Trails", "Solang Remote Valleys"],
+      "getaways": ["Kasol", "Shimla", "Spiti Valley"],
+      "faq": [
+        { "q": "Can we visit Manali in winter?", "a": "Yes, Manali is spectacular in winter, especially for snow activities from December to February." }
+      ]
+    },
+    {
+      "slug": "udaipur",
+      "name": "Udaipur",
+      "state": "Rajasthan",
+      "category": "Heritage",
+      "tagline": "The City of Lakes",
+      "best_time": "September to March",
+      "hidden_gems": ["Badi Lake", "Sajjangarh Wildlife Sanctuary", "Traditional Haveli Stays"],
+      "getaways": ["Mount Abu", "Jodhpur", "Kumbhalgarh"],
+      "faq": [
+        { "q": "How many days are enough for Udaipur?", "a": "A 3-day itinerary is perfect to cover the major lakes and palaces comfortably." }
+      ]
+    },
+    {
+      "slug": "mumbai",
+      "name": "Mumbai",
+      "state": "Maharashtra",
+      "category": "Metropolis",
+      "tagline": "The City of Dreams",
+      "best_time": "October to March",
+      "hidden_gems": ["Kanheri Caves", "Gilbert Hill", "Worli Koliwada"],
+      "getaways": ["Lonavala", "Khandala", "Alibaug", "Matheran"],
+      "faq": [
+        { "q": "Best weekend getaways from Mumbai?", "a": "Lonavala and Alibaug are the top choices for a quick 2-day trip." }
+      ]
+    },
+    {
+      "slug": "delhi",
+      "name": "Delhi",
+      "state": "NCR",
+      "category": "Culture",
+      "tagline": "The Heart of India",
+      "best_time": "October to March",
+      "hidden_gems": ["Agrasen ki Baoli", "Mehrauli Archaeological Park", "Majnu ka Tilla"],
+      "getaways": ["Agra", "Jaipur", "Rishikesh", "Mussoorie"],
+      "faq": [
+        { "q": "What is the best 1-day itinerary for Delhi?", "a": "Start with Old Delhi's heritage followed by a visit to Rajpath and ending at Lotus Temple." }
+      ]
+    },
+    {
+      "slug": "rishikesh",
+      "name": "Rishikesh",
+      "state": "Uttarakhand",
+      "category": "Spiritual",
+      "tagline": "The Yoga Capital of the World",
+      "best_time": "September to June",
+      "hidden_gems": ["Secret Waterfall Trek", "Beatles Ashram Private Nodes", "Neer Garh Trails"],
+      "getaways": ["Haridwar", "Mussoorie", "Dehradun"],
+      "faq": [
+        { "q": "Is Rishikesh safe for solo travel?", "a": "Rishikesh is one of the safest and most welcoming cities in India for solo travelers." }
+      ]
+    },
+    {
+      "slug": "hampi",
+      "name": "Hampi",
+      "state": "Karnataka",
+      "category": "Heritage",
+      "tagline": "The Relic of Vijayanagara",
+      "best_time": "October to February",
+      "hidden_gems": ["Hippie Island Remote Boulders", "Anegundi Village", "Sanapur Lake"],
+      "getaways": ["Badami", "Gokarna", "Bangalore"],
+      "faq": [
+        { "q": "How to reach Hampi from Bangalore?", "a": "The best way is an overnight train or a 6-hour drive via NH48." }
+      ]
+    },
+    {
+      "slug": "bangalore",
+      "name": "Bangalore",
+      "state": "Karnataka",
+      "category": "Modern",
+      "tagline": "The Silicon Valley of India",
+      "best_time": "All year round",
+      "hidden_gems": ["Turahalli Forest", "Bannerghatta Remote Safari", "Nandi Hills Secret Sunset Nodes"],
+      "getaways": ["Mysore", "Coorg", "Wayanad", "Chikmagalur"],
+      "faq": [
+        { "q": "Best time to visit Nandi Hills?", "a": "Reach by 5:30 AM to witness the famous sunrise above the clouds." }
+      ]
+    },
+    {
+      "slug": "munnar",
+      "name": "Munnar",
+      "state": "Kerala",
+      "category": "Nature",
+      "tagline": "The Tea Garden Oasis",
+      "best_time": "September to May",
+      "hidden_gems": ["Top Station Sunrise", "Pothamedu Viewpoint", "Lockhart Gap"],
+      "getaways": ["Alleppey", "Thekkady", "Kochi"],
+      "faq": [
+        { "q": "Is Munnar good for honeymoon?", "a": "Munnar is the most popular romantic destination in South India because of its mist-covered hills." }
+      ]
+    }
+  ]
+}
