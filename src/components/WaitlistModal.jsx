@@ -42,7 +42,7 @@ export default function WaitlistModal({ isOpen, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-start justify-center p-4 pt-[120px] modal-backdrop overflow-y-auto"
+    <div className="fixed inset-0 z-[9999] flex items-start justify-center p-4 pt-16 sm:pt-[120px] modal-backdrop overflow-y-auto"
       data-lenis-prevent
       style={{ background: 'rgba(1,13,22,0.95)', backdropFilter: 'blur(16px)' }}
       onClick={(e) => e.target === e.currentTarget && handleClose()}>

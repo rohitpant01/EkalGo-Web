@@ -75,7 +75,7 @@ export default function PreviewModal({ isOpen, onClose, destination, itinerary }
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-[9999] flex items-start justify-center p-4 sm:p-6 pt-[120px] outline-none overflow-y-auto"
+      <div className="fixed inset-0 z-[9999] flex items-start justify-center p-4 sm:p-6 pt-16 sm:pt-[120px] outline-none overflow-y-auto"
         data-lenis-prevent
       >
         <motion.div
@@ -90,12 +90,12 @@ export default function PreviewModal({ isOpen, onClose, destination, itinerary }
           initial={{ opacity: 0, scale: 0.9, y: -20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: -20 }}
-          className="relative w-full max-w-2xl max-h-[85vh] overflow-hidden glass-panel border border-white/10 shadow-3xl shadow-glow-gold/10 flex flex-col pt-4 mx-4"
+          className="relative w-full max-w-2xl max-h-[92vh] overflow-hidden glass-panel border border-white/10 shadow-3xl shadow-glow-gold/10 flex flex-col pt-4 mx-4"
         >
 
           <div 
             data-lenis-prevent
-            className="flex-1 overflow-y-auto custom-scrollbar p-6 sm:p-10 pb-24"
+            className="flex-1 overflow-y-auto custom-scrollbar p-6 sm:p-10 pb-32"
           >
             {status === 'thinking' || !previewData ? (
               <div className="h-full min-h-[400px] flex flex-col items-center justify-center text-center space-y-8 py-12">
@@ -251,7 +251,7 @@ export default function PreviewModal({ isOpen, onClose, destination, itinerary }
                 </div>
 
                 {/* Section 2: Blurred AI Path */}
-                <div className="relative rounded-2xl border border-white/5 overflow-hidden group/lock">
+                <div className="relative rounded-2xl border border-white/5 overflow-hidden group/lock min-h-[380px] sm:min-h-0">
                    <div className="p-8 space-y-8 blur-md select-none pointer-events-none opacity-20">
                       <div className="space-y-4 text-left">
                          <div className="h-4 w-1/3 bg-white/20 rounded-full" />
@@ -263,26 +263,27 @@ export default function PreviewModal({ isOpen, onClose, destination, itinerary }
                       </div>
                    </div>
 
-                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-900/60 to-brand-900/90 flex flex-col items-center justify-center p-6 text-center">
+                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-900/60 to-brand-900/90 flex flex-col items-center justify-center p-4 sm:p-6 text-center">
                        <motion.div 
                          animate={{ y: [0, -4, 0] }}
                          transition={{ duration: 3, repeat: Infinity }}
-                         className="w-14 h-14 rounded-2xl bg-accent-gold/10 border border-accent-gold/30 flex items-center justify-center text-accent-gold mb-6 shadow-glow-gold/20"
+                         className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-accent-gold/10 border border-accent-gold/30 flex items-center justify-center text-accent-gold mb-4 sm:mb-6 shadow-glow-gold/20"
                        >
-                          <Lock size={26} />
+                          <Lock size={22} className="sm:hidden" />
+                           <Lock size={26} className="hidden sm:block" />
                        </motion.div>
-                       <h3 className="text-2xl font-display font-bold text-white mb-2">AI Optimized Full Path</h3>
-                       <p className="text-sm text-blue-100/50 max-w-xs mx-auto mb-8 font-body leading-relaxed">
+                       <h3 className="text-xl sm:text-2xl font-display font-bold text-white mb-2">AI Optimized Full Path</h3>
+                       <p className="text-xs sm:text-sm text-blue-100/50 max-w-[280px] sm:max-w-xs mx-auto mb-6 sm:mb-8 font-body leading-relaxed">
                           The complete <span className="text-white">Day 3-5</span> route, secret beach access points, and smart budget distributions are generated and ready.
                        </p>
                        
                        <button
                          onClick={() => { onClose(); openWaitlist(); }}
-                         className="btn-primary py-4 px-10 flex items-center gap-4 font-bold group shadow-2xl relative overflow-hidden"
+                         className="btn-primary py-3 sm:py-4 px-8 sm:px-10 flex items-center gap-3 sm:gap-4 font-bold group shadow-2xl relative overflow-hidden text-sm sm:text-base"
                        >
                           <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12" />
-                          <span className="relative z-10">Unlock Full Itinerary</span>
-                          <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform relative z-10" />
+                          <span className="relative z-10">Unlock Itinerary</span>
+                          <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform relative z-10" />
                        </button>
                    </div>
                 </div>

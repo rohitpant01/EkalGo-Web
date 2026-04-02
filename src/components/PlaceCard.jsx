@@ -59,7 +59,7 @@ export default function PlaceCard({ place, locked = false, travelersCount, onCli
         }} />
 
       {/* Image area */}
-      <div className="relative h-48 overflow-hidden bg-ocean-800">
+      <div className={`relative ${locked ? 'h-64 sm:h-48' : 'h-48'} overflow-hidden bg-ocean-800 transition-all duration-500`}>
         {hasPhoto ? (
           <>
             {!imgLoaded && (
@@ -112,33 +112,34 @@ export default function PlaceCard({ place, locked = false, travelersCount, onCli
 
         {/* Locked overlay */}
         {locked && (
-          <div className="absolute inset-0 flex items-center justify-center p-6 text-center">
+          <div className="absolute inset-0 flex items-center justify-center p-4 sm:p-6 text-center">
             <div className="absolute inset-0 bg-brand-900/60 backdrop-blur-xl transition-all group-hover:bg-brand-900/40" />
             
-            <div className="relative z-10 flex flex-col items-center gap-4">
+            <div className="relative z-10 flex flex-col items-center gap-3 sm:gap-4">
               <motion.div 
                 animate={{ scale: [1, 1.1, 1] }}
                 transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                className="w-16 h-16 rounded-full bg-accent-gold/20 flex items-center justify-center border border-accent-gold/40 shadow-glow-gold"
+                className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-accent-gold/20 flex items-center justify-center border border-accent-gold/40 shadow-glow-gold"
               >
-                <Unlock size={28} className="text-accent-gold" />
+                <Unlock size={24} className="text-accent-gold sm:hidden" />
+                <Unlock size={28} className="text-accent-gold hidden sm:block" />
               </motion.div>
               
-              <div className="space-y-2">
-                <h4 className="text-white font-display font-bold text-xl leading-tight">
-                  Available Only <br /> <span className="text-gradient-gold">in the EkalGo App</span>
+              <div className="space-y-1 sm:space-y-2">
+                <h4 className="text-white font-display font-bold text-lg sm:text-xl leading-tight">
+                  Available Only <br className="sm:hidden" /> <span className="text-gradient-gold">in EkalGo App</span>
                 </h4>
-                <p className="text-[10px] text-blue-100/60 font-medium uppercase tracking-[0.2em]">
+                <p className="text-[10px] text-blue-100/60 font-medium uppercase tracking-[0.2em] hidden sm:block">
                   Exclusive Premium Feed
                 </p>
               </div>
 
               <button 
                 onClick={(e) => { e.stopPropagation(); openWaitlist(); }}
-                className="btn-primary py-2.5 px-8 text-xs shadow-glow-gold hover:scale-105 active:scale-95 transition-all font-bold flex items-center gap-2"
+                className="btn-primary py-2 sm:py-2.5 px-6 sm:px-8 text-[10px] sm:text-xs shadow-glow-gold hover:scale-105 active:scale-95 transition-all font-bold flex items-center gap-2"
               >
                 <Zap size={14} fill="currentColor" />
-                Get App Access
+                Get Access
               </button>
             </div>
           </div>
