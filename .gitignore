@@ -16,6 +16,11 @@
 # misc
 .DS_Store
 *.pem
+.antigravity/
+brain/
+antigravity_brain/
+.gemini/
+.antigravityignore
 
 # debug
 npm-debug.log*
