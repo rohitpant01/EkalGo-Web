@@ -10,50 +10,58 @@ const STATIC_ROUTES = [
   '/pricing',
   '/privacy',
   '/security',
-  '/top-destinations-2026'
+  '/top-destinations-2026',
+
+  // 🔥 ADD HUB PAGES
+  '/hidden-gems-india',
+  '/itineraries-india',
+  '/weekend-getaways-india'
 ];
 
 export default async function sitemap() {
-  // 1. Core Static Pages
+  const now = new Date().toISOString();
+
+  // Static routes
   const staticRoutes = STATIC_ROUTES.map((route) => ({
     url: `${BASE_URL}${route}`,
-    lastModified: new Date().toISOString(),
+    lastModified: now,
     changeFrequency: 'weekly',
     priority: route === '' ? 1 : 0.8,
   }));
 
   const destinations = destinationsData.destinations;
 
-  // 2. City Explore Hubs (/explore/[city])
+  // Explore pages
   const destinationRoutes = destinations.map((city) => ({
     url: `${BASE_URL}/explore/${city.slug}`,
-    lastModified: new Date().toISOString(),
+    lastModified: now,
     changeFrequency: 'weekly',
     priority: 0.7,
   }));
 
-  // 3. Hidden Gems Silo (/hidden-gems/[city])
+  // Hidden gems
   const hiddenGemsRoutes = destinations.map((city) => ({
     url: `${BASE_URL}/hidden-gems/${city.slug}`,
-    lastModified: new Date().toISOString(),
+    lastModified: now,
     changeFrequency: 'weekly',
     priority: 0.6,
   }));
 
-  // 4. Weekend Getaways Silo (/getaways/[city]) (Fixed prefix)
+  // ✅ FIXED getaways (match your actual routes)
   const getawaysRoutes = destinations.map((city) => ({
-    url: `${BASE_URL}/getaways/${city.slug}`,
-    lastModified: new Date().toISOString(),
+    url: `${BASE_URL}/getaways/from-${city.slug}`,
+    lastModified: now,
     changeFrequency: 'weekly',
     priority: 0.6,
   }));
 
-  // 5. Multi-Duration Itinerary Silo (/itinerary/[city]/[duration])
+  // Itineraries (multi-duration)
   const durations = ['2-day-trip', '3-day-trip', '5-day-trip'];
+
   const itineraryRoutes = destinations.flatMap((city) =>
     durations.map((duration) => ({
       url: `${BASE_URL}/itinerary/${city.slug}/${duration}`,
-      lastModified: new Date().toISOString(),
+      lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.5,
     }))
@@ -64,6 +72,6 @@ export default async function sitemap() {
     ...destinationRoutes,
     ...hiddenGemsRoutes,
     ...getawaysRoutes,
-    ...itineraryRoutes
+    ...itineraryRoutes,
   ];
 }
