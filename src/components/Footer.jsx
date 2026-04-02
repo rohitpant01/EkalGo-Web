@@ -77,12 +77,18 @@ export default function Footer() {
             <div className="space-y-4">
               <a href="mailto:ekalgo.app@gmail.com" className="text-sm text-blue-100/60 hover:text-accent-gold transition-colors block">ekalgo.app@gmail.com</a>
               <div className="flex items-center justify-center lg:justify-end gap-3 font-display">
-                {[Twitter, Instagram, Github].map((Icon, i) => (
-                  <button key={i}
-                    className="w-10 h-10 rounded-xl flex items-center justify-center text-blue-100/40 hover:text-white hover:bg-white/5 transition-all border border-white/5 bg-brand-800">
-                    <Icon size={18} />
-                  </button>
-                ))}
+                <a href="https://x.com/ekal_go" target="_blank" rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-xl flex items-center justify-center text-blue-100/40 hover:text-white hover:bg-white/5 transition-all border border-white/5 bg-brand-800">
+                  <Twitter size={18} />
+                </a>
+                <a href="https://instagram.com/ekalgo.app" target="_blank" rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-xl flex items-center justify-center text-blue-100/40 hover:text-white hover:bg-white/5 transition-all border border-white/5 bg-brand-800">
+                  <Instagram size={18} />
+                </a>
+                <a href="https://github.com/rohitpant01/EkalGo-Web" target="_blank" rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-xl flex items-center justify-center text-blue-100/40 hover:text-white hover:bg-white/5 transition-all border border-white/5 bg-brand-800">
+                  <Github size={18} />
+                </a>
               </div>
             </div>
           </div>

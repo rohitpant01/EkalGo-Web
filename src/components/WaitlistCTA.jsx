@@ -135,7 +135,13 @@ export default function WaitlistCTA() {
           <div className="mt-8 flex flex-wrap justify-center gap-6 text-sm text-gray-500">
             <span className="flex items-center gap-1.5"><CheckCircle size={14} className="text-accent-teal" /> Free early access</span>
             <span className="flex items-center gap-1.5"><CheckCircle size={14} className="text-accent-teal" /> No spam</span>
-            <span className="flex items-center gap-1.5"><CheckCircle size={14} className="text-accent-teal" /> Cancel anytime</span>
+            <span className="flex items-center gap-1.5 font-bold text-accent-gold"><Mail size={14} /> ekalgo.app@gmail.com</span>
+          </div>
+
+          <div className="mt-6 flex justify-center gap-4">
+             <a href="https://x.com/ekal_go" target="_blank" rel="noopener noreferrer" className="text-blue-100/30 hover:text-accent-gold transition-colors text-xs font-mono uppercase tracking-widest">Twitter (X)</a>
+             <span className="text-white/10">/</span>
+             <a href="https://instagram.com/ekalgo.app" target="_blank" rel="noopener noreferrer" className="text-blue-100/30 hover:text-accent-gold transition-colors text-xs font-mono uppercase tracking-widest">Instagram</a>
           </div>
 
         </motion.div>
