@@ -1,47 +1,28 @@
 'use client';
 
-import React from 'react';
-import Hero from '@/components/Hero';
-import FeaturesGrid from '@/components/FeaturesGrid';
-import HowItWorks from '@/components/HowItWorks';
-import CuriosityExplore from '@/components/CuriosityExplore';
-import SafetySection from '@/components/SafetySection';
-import WaitlistCTA from '@/components/WaitlistCTA';
-import { useModal } from '@/context/ModalContext';
+import React, { useEffect } from 'react';
+import TabSystem from '@/components/layout/TabSystem';
+import Navbar from '@/components/Navbar';
+import { useTabStore } from '@/context/tabStore';
 
 export default function Home() {
-  const { openWaitlist } = useModal();
+  const { addTab, setActiveTab } = useTabStore();
+
+  // Initial setup: If no tabs, add the discover tab
+  useEffect(() => {
+    // This is handled by the initial state in tabStore, 
+    // but we can ensure a consistent experience here.
+  }, []);
+
   return (
-    <div className="page-transition-wrapper">
-      {/* 1. Immersive Hero */}
-      <section id="hero">
-        <Hero />
-      </section>
+    <div className="flex flex-col min-h-screen bg-brand-900 overflow-hidden">
+      {/* Top Navbar - Integrated into SPA */}
+      <Navbar />
       
-      {/* 2. Features Grid */}
-      <section id="features">
-        <FeaturesGrid />
-      </section>
-
-      {/* 3. How It Works Steps */}
-      <section id="how-it-works">
-        <HowItWorks />
-      </section>
-
-      {/* 4. Explore Preview (Curiosity Driven) */}
-      <section id="explore-preview">
-        <CuriosityExplore />
-      </section>
-
-      {/* 5. Safety & Trust */}
-      <section id="safety">
-        <SafetySection />
-      </section>
-
-      {/* 6. Waitlist & CTA */}
-      <section id="cta">
-        <WaitlistCTA />
-      </section>
+      {/* Main SPA Workspace */}
+      <div className="flex-1 mt-20">
+        <TabSystem />
+      </div>
     </div>
   );
 }

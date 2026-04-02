@@ -8,6 +8,7 @@ import LiveSocialProof from '@/components/LiveSocialProof';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import { Toaster } from 'react-hot-toast';
 import ClientLayout from '@/components/ClientLayout';
+import MobileNav from '@/components/layout/MobileNav';
 
 export const metadata = {
   metadataBase: new URL('https://ekalgo.com'),
@@ -71,11 +72,11 @@ export default function RootLayout({ children }) {
         />
         <ClientLayout>
           <Toaster position="top-right" />
-          <Navbar />
-          <main className="pt-20 pb-32 sm:pb-40 min-h-screen">
+          {/* Transitioning to SPA layout - Navbar might be integrated into TabSystem/Sidebar in future steps */}
+          <main className="min-h-screen pb-20 md:pb-0">
             {children}
           </main>
-          <Footer />
+          <MobileNav />
           <LiveSocialProof />
           <WhatsAppButton />
         </ClientLayout>

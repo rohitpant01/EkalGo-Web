@@ -35,7 +35,7 @@ export default function WaitlistCTA() {
   };
 
   return (
-    <section className="py-24 relative overflow-hidden bg-brand-900 border-t border-white/5">
+    <section className="py-8 relative overflow-hidden bg-brand-900 border-t border-white/5">
       {/* Background Glows */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-accent-neon/10 blur-[120px] rounded-full pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[200px] bg-accent-gold/10 blur-[80px] rounded-full pointer-events-none" />

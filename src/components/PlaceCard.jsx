@@ -18,12 +18,65 @@ const TYPE_COLORS = {
 };
 import Link from 'next/link';
 
+import { supabase } from '@/utils/supabase';
+
 export default function PlaceCard({ place, locked = false, travelersCount, onClick, href }) {
   const { openWaitlist } = useModal();
+  const [googlePhoto, setGooglePhoto] = useState(null);
   const [imgError, setImgError] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
   const [scratched, setScratched] = useState(false);
   const [displayTravelersCount, setDisplayTravelersCount] = useState(travelersCount || 10);
+
+  // 1. Google Places Image Hydration & Supabase Caching (Modern V2 API)
+  React.useEffect(() => {
+    const orchestratePhoto = async () => {
+      if (!place.name) return;
+
+      try {
+        // A. Check Supabase Cache First
+        const { data: cached } = await supabase
+          .from('cached_places')
+          .select('photo_url')
+          .eq('place_name', place.name)
+          .single();
+
+        if (cached?.photo_url) {
+          setGooglePhoto(cached.photo_url);
+          return;
+        }
+
+        // B. Fetch from Google if missing (V2 Modern API)
+        if (!window.google) return;
+
+        const { Place } = await window.google.maps.importLibrary("places");
+        const { places } = await Place.searchByText({
+          textQuery: `${place.name} ${place.address || ''}`,
+          fields: ['photos', 'displayName', 'formattedAddress']
+        });
+
+        if (places && places.length > 0 && places[0].photos && places[0].photos.length > 0) {
+          // getURI is the modern v2 method for photos
+          const photoUrl = places[0].photos[0].getURI({ maxWidth: 800, maxHeight: 600 });
+          setGooglePhoto(photoUrl);
+
+          // C. Save to Supabase for future use
+          await supabase.from('cached_places').upsert({
+            place_name: place.name,
+            photo_url: photoUrl,
+            address: places[0].formattedAddress || place.address || '',
+            last_updated: new Date().toISOString()
+          }, { onConflict: 'place_name' });
+        }
+      } catch (err) {
+        console.error("Photo Modern Orchestration Error:", err);
+      }
+    };
+
+    // Small delay to ensure Google SDK is ready on first mount
+    const timer = setTimeout(orchestratePhoto, 1200);
+    return () => clearTimeout(timer);
+  }, [place.name, place.address]);
 
   React.useEffect(() => {
     if (!travelersCount) {
@@ -36,7 +89,7 @@ export default function PlaceCard({ place, locked = false, travelersCount, onCli
 
   // Use a high-quality Unsplash image as a generic fallback if no photo is available or if it fails to load
   const fallbackImage = `https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=600`;
-  const displayPhoto = imgError ? fallbackImage : (place.photoUrl || fallbackImage);
+  const displayPhoto = imgError ? fallbackImage : (googlePhoto || place.photoUrl || fallbackImage);
   const hasPhoto = !!displayPhoto;
 
   const content = (
@@ -50,7 +103,13 @@ export default function PlaceCard({ place, locked = false, travelersCount, onCli
         border: '1px solid rgba(255,255,255,0.06)',
         boxShadow: '0 20px 40px -15px rgba(0,0,0,0.5)',
       }}
-      onClick={!href ? onClick : undefined}
+      onClick={() => {
+        openWaitlist({
+          title: "Detailed Itinerary",
+          description: "For detailed itinerary, download the app or join the waitlist to get the exciting rewards!"
+        });
+        if (onClick) onClick();
+      }}
       onMouseEnter={() => locked && setScratched(true)}
       onMouseLeave={() => locked && setScratched(false)}
     >
@@ -61,7 +120,7 @@ export default function PlaceCard({ place, locked = false, travelersCount, onCli
         }} />
 
       {/* Image area */}
-      <div className={`relative ${locked ? 'h-64 sm:h-48' : 'h-48'} overflow-hidden bg-ocean-800 transition-all duration-500`}>
+      <div className={`relative h-48 overflow-hidden bg-ocean-800 transition-all duration-500`}>
         {hasPhoto ? (
           <>
             {!imgLoaded && (
@@ -74,7 +133,7 @@ export default function PlaceCard({ place, locked = false, travelersCount, onCli
               onError={() => setImgError(true)}
               className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 ${
                 imgLoaded ? 'opacity-100' : 'opacity-0'
-              } ${locked ? 'blur-sm' : ''}`}
+              }`}
             />
           </>
         ) : (
@@ -111,41 +170,6 @@ export default function PlaceCard({ place, locked = false, travelersCount, onCli
           <Users size={13} className="text-accent-teal" />
           {displayTravelersCount} travelers going
         </div>
-
-        {/* Locked overlay */}
-        {locked && (
-          <div className="absolute inset-0 flex items-center justify-center p-4 sm:p-6 text-center">
-            <div className="absolute inset-0 bg-brand-900/60 backdrop-blur-xl transition-all group-hover:bg-brand-900/40" />
-            
-            <div className="relative z-10 flex flex-col items-center gap-3 sm:gap-4">
-              <motion.div 
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-accent-gold/20 flex items-center justify-center border border-accent-gold/40 shadow-glow-gold"
-              >
-                <Unlock size={24} className="text-accent-gold sm:hidden" />
-                <Unlock size={28} className="text-accent-gold hidden sm:block" />
-              </motion.div>
-              
-              <div className="space-y-1 sm:space-y-2">
-                <h4 className="text-white font-display font-bold text-lg sm:text-xl leading-tight">
-                  Available Only <br className="sm:hidden" /> <span className="text-gradient-gold">in EkalGo App</span>
-                </h4>
-                <p className="text-[10px] text-blue-100/60 font-medium uppercase tracking-[0.2em] hidden sm:block">
-                  Exclusive Premium Feed
-                </p>
-              </div>
-
-              <button 
-                onClick={(e) => { e.stopPropagation(); openWaitlist(); }}
-                className="btn-primary py-2 sm:py-2.5 px-6 sm:px-8 text-[10px] sm:text-xs shadow-glow-gold hover:scale-105 active:scale-95 transition-all font-bold flex items-center gap-2"
-              >
-                <Zap size={14} fill="currentColor" />
-                Get Access
-              </button>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Content */}

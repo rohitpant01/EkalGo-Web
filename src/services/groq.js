@@ -57,3 +57,21 @@ export async function generatePreviewTeaser(destination) {
     };
   }
 }
+/**
+ * Extract travel parameters from natural language query
+ */
+export async function extractSearchIntent(query) {
+  try {
+    const response = await axios.post('/api/itinerary', {
+      type: 'intent',
+      query
+    });
+    
+    const data = response.data.choices?.[0]?.message?.content;
+    if (!data) throw new Error('No response from intent API');
+    return { success: true, data: JSON.parse(data) };
+  } catch (err) {
+    console.error('Intent extraction failed:', err.message);
+    return { success: false, error: 'INTENT_EXTRACTION_FAILED' };
+  }
+}

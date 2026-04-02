@@ -4,7 +4,7 @@ import { ShieldCheck, Map, BellRing } from 'lucide-react';
 
 export default function SafetySection() {
   return (
-    <section className="py-24 relative overflow-hidden bg-brand-800">
+    <section id="safety" className="py-8 relative overflow-hidden bg-brand-800">
       <div className="absolute inset-0 bg-glass pointer-events-none opacity-50" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         

@@ -4,6 +4,7 @@ import { Compass, Sparkles, MapPin, ArrowRight } from 'lucide-react';
 import PlaceCard from './PlaceCard';
 import FeatureTeaser from './FeatureTeaser';
 import { useModal } from '@/context/ModalContext';
+import { useTabStore } from '@/context/tabStore';
 
 const DISPLAY_DESTINATIONS = [
   {
@@ -36,15 +37,19 @@ const LOCKED_DESTINATION = {
   duration: "4-5 DAYS"
 };
 
-export default function CuriosityExplore() {
+export default function CuriosityExplore({ onExplore }) {
   const { openWaitlist, openPreview } = useModal();
+  const { addTab, setActiveTab } = useTabStore();
 
   const handlePreview = (dest) => {
-    openPreview({ destination: dest });
+    openWaitlist({
+      title: "Detailed Itinerary",
+      description: "For detailed itinerary, download the app or join the waitlist to get the exciting rewards!"
+    });
   };
 
   return (
-    <section id="explore-preview" className="py-24 relative overflow-hidden bg-brand-900 border-t border-white/5">
+    <section id="explore-preview" className="py-8 relative overflow-hidden bg-brand-900 border-t border-white/5">
       {/* Background Orbs */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent-gold/5 blur-[120px] pointer-events-none rounded-full" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent-neon/5 blur-[120px] pointer-events-none rounded-full" />
@@ -89,7 +94,15 @@ export default function CuriosityExplore() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <button className="flex items-center gap-2 text-white hover:text-accent-gold transition-colors font-medium border border-white/10 px-6 py-3 rounded-full hover:bg-white/5 backdrop-blur-md">
+            <button 
+              onClick={() => {
+                openWaitlist({
+                  title: "Detailed Itinerary",
+                  description: "For detailed itinerary, download the app or join the waitlist to get the exciting rewards!"
+                });
+              }}
+              className="flex items-center gap-2 text-white hover:text-accent-gold transition-colors font-medium border border-white/10 px-6 py-3 rounded-full hover:bg-white/5 backdrop-blur-md shadow-glow-gold/10 active:scale-95 transition-all"
+            >
               View all places <ArrowRight className="ml-1" size={16} />
             </button>
           </motion.div>
@@ -121,7 +134,6 @@ export default function CuriosityExplore() {
           >
             <PlaceCard 
               place={LOCKED_DESTINATION} 
-              locked={true} 
               onClick={() => handlePreview(LOCKED_DESTINATION)}
             />
           </motion.div>

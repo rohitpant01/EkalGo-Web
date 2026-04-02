@@ -3,11 +3,11 @@
 import React from 'react';
 import Link from 'next/link';
 import Logo from './Logo';
-import { Mail, Github, Twitter, Instagram, MessageSquare, Shield, Lock } from 'lucide-react';
+import { Mail, Github, Twitter, Instagram, MessageSquare, Shield, Lock, ScrollText } from 'lucide-react';
 import { useModal } from '@/context/ModalContext';
 
 export default function Footer() {
-  const { openWaitlist } = useModal();
+  const { openWaitlist, openLegal } = useModal();
   return (
     <footer className="py-20 border-t border-white/5 bg-brand-900 relative overflow-hidden"
       style={{ background: 'var(--brand-900)' }}>
@@ -58,13 +58,25 @@ export default function Footer() {
           {/* Legal & Trust */}
           <div className="lg:col-span-2 space-y-6">
             <h4 className="text-[10px] font-bold text-white uppercase tracking-[0.2em] font-display">Trust Center</h4>
-            <div className="flex flex-col gap-4">
-              <Link href="/privacy" className="text-sm text-blue-100/40 hover:text-white transition-colors flex items-center gap-2">
+            <div className="flex flex-col items-start gap-4">
+              <button 
+                onClick={() => openLegal('privacy')}
+                className="text-sm text-blue-100/40 hover:text-white transition-colors flex items-center gap-2"
+              >
                 <Lock size={14} /> Privacy
-              </Link>
-              <Link href="/security" className="text-sm text-blue-100/40 hover:text-white transition-colors flex items-center gap-2">
-                <Shield size={14} /> Security
-              </Link>
+              </button>
+              <button 
+                onClick={() => openLegal('terms')}
+                className="text-sm text-blue-100/40 hover:text-white transition-colors flex items-center gap-2"
+              >
+                <Shield size={14} /> Terms
+              </button>
+              <button 
+                onClick={() => openLegal('cookies')}
+                className="text-sm text-blue-100/40 hover:text-white transition-colors flex items-center gap-2"
+              >
+                <ScrollText size={14} /> Cookies
+              </button>
               <a href="https://wa.me/918474972007" target="_blank" rel="noopener noreferrer" className="text-sm text-blue-100/40 hover:text-accent-teal transition-colors flex items-center gap-2">
                 <MessageSquare size={14} /> Support
               </a>

@@ -5,7 +5,12 @@ import { X, Mail, CheckCircle, ArrowRight, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { addToWaitlist } from '../utils/waitlist';
 
-export default function WaitlistModal({ isOpen, onClose }) {
+export default function WaitlistModal({ 
+  isOpen, 
+  onClose, 
+  title = "Join the Waitlist", 
+  description = "Be the first to know when EkalGo launches. Get exclusive early access + special features." 
+}) {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('idle'); // idle | loading | success | error
   const [errorMsg, setErrorMsg] = useState('');
@@ -68,10 +73,10 @@ export default function WaitlistModal({ isOpen, onClose }) {
                   <Mail size={24} className="text-teal-400" />
                 </div>
                 <h2 className="font-display text-2xl font-bold text-white mb-2">
-                  Join the Waitlist
+                  {title}
                 </h2>
                 <p className="text-blue-200/50 text-sm">
-                  Be the first to know when EkalGo launches. Get exclusive early access + special features.
+                  {description}
                 </p>
               </div>
 

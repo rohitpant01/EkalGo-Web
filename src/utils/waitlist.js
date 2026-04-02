@@ -1,3 +1,4 @@
+import { supabase } from './supabase';
 import emailjs from '@emailjs/browser';
 
 const STORAGE_KEY = 'ekalgo_waitlist';
@@ -11,19 +12,26 @@ export async function addToWaitlist(email) {
   }
 
   try {
+    // 1. Save to Supabase (Primary Persistence)
+    const { error: supabaseError } = await supabase
+      .from('waitlist')
+      .upsert({ email: email.toLowerCase() }, { onConflict: 'email' });
+
+    if (supabaseError) {
+      console.warn("Supabase Save Error:", supabaseError.message);
+    }
+
+    // 2. EmailJS Notification
     const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
     const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
     const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
-
-    if (!serviceId || !templateId || !publicKey) {
-      console.warn("EmailJS environment variables are missing! Notification will not send.");
-    }
 
     const emailJSPromise = (async () => {
       if (!serviceId || !templateId || !publicKey) return;
       return emailjs.send(serviceId, templateId, { user_email: email }, publicKey);
     })();
 
+    // 3. Formspree Notification
     const formspreePromise = fetch('https://formspree.io/f/xvzvqgjl', {
       method: 'POST',
       headers: {
@@ -36,14 +44,15 @@ export async function addToWaitlist(email) {
       })
     });
 
-    // Execute both storage/notification methods simultaneously
+    // Execute notifications simultaneously
     await Promise.allSettled([emailJSPromise, formspreePromise]);
 
+    // 4. Local Storage Backup
     const updated = [...existing, email.toLowerCase()];
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
     return { success: true };
   } catch (error) {
-    console.error("EmailJS Error:", error);
+    console.error("Waitlist Error:", error);
     return { success: false, error: 'Failed to join waitlist. Please try again.' };
   }
 }

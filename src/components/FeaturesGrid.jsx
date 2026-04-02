@@ -56,7 +56,7 @@ const itemVariants = {
 
 export default function FeaturesGrid() {
   return (
-    <section id="planner" className="py-24 relative z-10">
+    <section id="how-it-works" className="py-6 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <motion.h2 
@@ -91,7 +91,8 @@ export default function FeaturesGrid() {
               <motion.div 
                 key={idx}
                 variants={itemVariants}
-                className="glass-panel p-8 group hover:-translate-y-2 transition-transform duration-300 relative overflow-hidden"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="glass-panel p-8 group hover:-translate-y-2 transition-transform duration-300 relative overflow-hidden cursor-pointer"
               >
                 {/* Glow effect on hover */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
