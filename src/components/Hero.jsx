@@ -149,7 +149,7 @@ export default function Hero({ onSearch }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="font-display font-bold text-5xl sm:text-6xl md:text-8xl leading-tight mb-6 max-w-5xl mx-auto drop-shadow-2xl"
+          className="font-display font-bold text-4xl sm:text-6xl md:text-8xl leading-tight mb-6 max-w-5xl mx-auto drop-shadow-2xl"
         >
           <span className="text-white">Plan Smarter.</span>
           <br />
@@ -194,18 +194,20 @@ export default function Hero({ onSearch }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="w-full max-w-md mx-auto mb-12"
+          className="w-full max-w-2xl mx-auto mb-12 px-4"
         >
-          <div className="relative glass-panel rounded-full flex items-center p-2 border border-accent-neon/30 hover:border-accent-neon/60 transition-colors shadow-glow-neon">
-            <div className="pl-4 pr-2">
-              <Search className="text-accent-neon" size={20} />
-            </div>
-            <div className="flex-1 h-12 flex items-center bg-transparent border-none outline-none text-white text-lg font-medium placeholder-gray-500">
-              <span className="text-gray-300">Where to? <span className="text-white">{typedText}</span><span className="animate-pulse">|</span></span>
+          <div className="relative glass-panel rounded-2xl sm:rounded-full flex flex-col sm:flex-row items-center p-3 sm:p-2 border border-accent-neon/30 hover:border-accent-neon/60 transition-colors shadow-glow-neon">
+            <div className="flex items-center w-full sm:w-auto flex-1">
+              <div className="pl-4 pr-2">
+                <Search className="text-accent-neon" size={20} />
+              </div>
+              <div className="flex-1 h-12 flex items-center bg-transparent border-none outline-none text-white text-base sm:text-lg font-medium placeholder-gray-500">
+                <span className="text-gray-300">Where to? <span className="text-white">{typedText}</span><span className="animate-pulse">|</span></span>
+              </div>
             </div>
             <Link 
               href="/ai-planner"
-              className="btn-primary rounded-full px-6 py-3 ml-2 shrink-0 flex items-center gap-2 font-bold"
+              className="btn-primary rounded-xl sm:rounded-full px-8 py-4 sm:py-3 w-full sm:w-auto sm:ml-2 shrink-0 flex items-center justify-center gap-2 font-bold shadow-glow-gold"
             >
               Generate
               <Sparkles size={16} />

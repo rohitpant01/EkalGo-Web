@@ -17,15 +17,16 @@ export default function WhatsAppButton() {
       animate={{ opacity: 1, scale: 1, y: 0 }}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}
-      className="fixed bottom-8 right-8 z-40 group"
+      className="fixed bottom-24 right-4 sm:bottom-8 sm:right-8 z-40 group"
     >
       {/* Outer Pulse */}
       <div className="absolute inset-0 bg-[#25D366] rounded-full blur-[10px] opacity-40 group-hover:opacity-80 animate-pulse" />
       <div className="absolute inset-[-10px] bg-[#25D366]/20 rounded-full blur-[20px] animate-ping" />
 
       {/* Main Button */}
-      <div className="relative w-16 h-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl border border-white/20 overflow-hidden">
-        <MessageCircle size={32} fill="white" className="relative z-10" />
+      <div className="relative w-14 h-14 sm:w-16 sm:h-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl border border-white/20 overflow-hidden">
+        <MessageCircle size={28} fill="white" className="relative z-10 sm:hidden" />
+        <MessageCircle size={32} fill="white" className="relative z-10 hidden sm:block" />
         
         {/* Shine effect */}
         <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12" />
