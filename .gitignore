@@ -54,6 +54,9 @@ walkthrough.md
 implementation_plan.md
 task.md
 tmp/
-*.webp
-*.png
-*.mp4
+
+# Keep essential brand assets (Force Un-ignore)
+!public/*.png
+!public/*.svg
+!public/*.ico
+!public/logo.png
