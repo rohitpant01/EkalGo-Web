@@ -1,23 +1,24 @@
 User-agent: *
 Allow: /
 
-# Allow important SEO pages
-Allow: /hidden-places/
+# Allow real SEO routes
+Allow: /hidden-gems/
 Allow: /itinerary/
-Allow: /places-near/
+Allow: /getaways/
+Allow: /explore/
 
-# Block unnecessary/internal routes
+# Block internal
 Disallow: /api/
 Disallow: /admin/
 
-# Allow search pages for SEO (IMPORTANT)
+# Allow search pages
 Allow: /search
 
-# Optional: prevent parameter spam
+# Prevent junk params
 Disallow: /*?utm=
 Disallow: /*?ref=
 
-# Next.js static (keep allowed for rendering)
+# Next.js static
 Allow: /_next/static/
 
 Sitemap: https://ekalgo.com/sitemap.xml
