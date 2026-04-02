@@ -10,6 +10,7 @@ import { Toaster } from 'react-hot-toast';
 import ClientLayout from '@/components/ClientLayout';
 
 export const metadata = {
+  metadataBase: new URL('https://ekalgo.com'),
   title: "EkalGo — Discover Legendary Routes & Hidden Gems",
   description: "EkalGo is an AI-powered travel assistant that creates personalized itineraries and finds off-beat destinations for the modern explorer.",
   keywords: ["nearby places", "travel itineraries", "AI travel planner", "hidden gems India", "solo travel"],
