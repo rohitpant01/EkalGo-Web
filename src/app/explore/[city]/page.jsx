@@ -1,156 +1,173 @@
 import React from 'react';
-import { Compass, MapPin, Sparkles, Shield, Clock, TrendingUp } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WaitlistCTA from '@/components/WaitlistCTA';
 import Link from 'next/link';
+import { Compass, Sparkles, Shield, Camera, Clock, TrendingUp, HelpCircle } from 'lucide-react';
 import ShareButtons from '@/components/ShareButtons';
 import LiveSocialProof from '@/components/LiveSocialProof';
+import { generateSEOContent } from '@/utils/contentEngine';
+import destinationsData from '@/data/destinations.json';
 
 export async function generateMetadata({ params }) {
-  const city = params.city.charAt(0).toUpperCase() + params.city.slice(1);
+  const { city: cityParam } = await params;
+  const city = cityParam.charAt(0).toUpperCase() + cityParam.slice(1);
   return {
-    title: `${city} AI Travel Guide — Hidden Gems & 3-Day Itinerary | EkalGo`,
-    description: `Discover the best hidden gems and AI-optimized travel routes for ${city}. Plan your perfect trip with EkalGo's advanced travel intelligence.`,
+    title: `Explore ${city} Like a Local: 2026 AI Travel Guide | EkalGo`,
+    description: `The definitive guide to ${city}. Discover hidden gems, top attractions, and local secrets in ${city} with EkalGo AI travel intelligence.`,
+    alternates: {
+       canonical: `https://ekalgo.com/explore/${cityParam}`
+    }
   };
 }
 
-export default function CityPage({ params }) {
-  const city = params.city.charAt(0).toUpperCase() + params.city.slice(1);
-  
-  // Simulated dynamic city data
-  const cityData = {
-    Goa: { tag: 'Coastal Escape', vibe: 'Chill & Party', hidden: 'Cola Beach, Butterfly Beach', budget: '₹2,500 - ₹8,000 / day' },
-    Manali: { tag: 'Mountain Highs', vibe: 'Adventure & Peace', hidden: 'Jogini Falls, Old Manali Trails', budget: '₹1,500 - ₹5,000 / day' },
-    Leh: { tag: 'Extreme Frontier', vibe: 'Spiritual & Rugged', hidden: 'Turtuk Village, Pangong Remote Hubs', budget: '₹3,000 - ₹10,000 / day' },
-    // Default for pSEO
-    default: { tag: 'Legendary Route', vibe: 'Discovery & Culture', hidden: 'Secret local trails & unmapped cafes', budget: 'Moderate' }
-  };
+export async function generateStaticParams() {
+  // Phase A Rollout: First 30 Priority Cities
+  return destinationsData.destinations.slice(0, 30).map((city) => ({
+    city: city.slug,
+  }));
+}
 
-  const data = cityData[city] || cityData.default;
+export default async function CityExplorePage({ params }) {
+  const { city: cityParam } = await params;
+  const citySlug = cityParam.toLowerCase();
+  const cityData = destinationsData.destinations.find(d => d.slug === citySlug);
+
+  if (!cityData) {
+    return <div className="min-h-screen bg-brand-900 flex items-center justify-center text-white">City data not found for SEO.</div>;
+  }
+
+  // Phase 4: Dynamic Quality Content Engine
+  const seo = generateSEOContent(cityData, 'explore');
+
+  const city = cityData.name;
 
   return (
     <div className="min-h-screen bg-brand-900 text-white selection:bg-accent-gold/30">
       
-      {/* Dynamic Hero Section */}
+      <Navbar />
+
+      {/* Hero Section */}
       <section className="relative pt-32 pb-20 overflow-hidden border-b border-white/5">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-accent-neon/10 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-accent-gold/5 blur-[120px] rounded-full pointer-events-none" />
+        
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="flex flex-col items-center text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-gold/10 border border-accent-gold/20 mb-6">
+          <div className="space-y-6 max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-gold/10 border border-accent-gold/20">
               <Sparkles size={14} className="text-accent-gold" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent-gold">{data.tag}</span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent-gold">Official City Hub</span>
             </div>
-            <h1 className="text-5xl md:text-8xl font-display font-bold tracking-tight mb-6">
-              Explore <span className="text-gradient-gold">{city}.</span>
+            
+            <h1 className="text-6xl md:text-9xl font-display font-bold leading-[0.9]">
+              Explore <br />
+              <span className="text-gradient-gold">{city}.</span>
             </h1>
-            <p className="text-blue-100/40 text-lg md:text-xl max-w-2xl mx-auto font-body mb-10 leading-relaxed">
-               AI-optimized routes and hidden discovery for {city}. {data.vibe} centered intelligence for the modern explorer.
+            
+            <p className="text-blue-100/40 text-lg md:text-xl font-body leading-relaxed max-w-xl">
+               {seo.intro}
             </p>
-            <div className="flex flex-wrap justify-center gap-6">
-               <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/5">
-                  <TrendingUp size={16} className="text-accent-teal" />
-                  <span className="text-xs font-bold text-blue-100/60 uppercase tracking-widest">{data.budget}</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Authority Content (Phase 4 Depth) */}
+      <section className="py-24 max-w-7xl mx-auto px-6">
+        <div className="grid lg:grid-cols-12 gap-20">
+          
+          {/* Left Column: Deep Content */}
+          <div className="lg:col-span-8 space-y-20">
+             {seo.blocks.map((block, idx) => (
+                <div key={idx} className="space-y-6">
+                   <h2 className="text-4xl font-display font-bold">{block.title}</h2>
+                   <p className="text-xl text-blue-100/50 leading-relaxed font-body">
+                      {block.text}
+                   </p>
+                </div>
+             ))}
+
+             {/* Local Tip Box */}
+             <div className="p-10 rounded-[2.5rem] bg-accent-gold/5 border border-accent-gold/10 flex items-start gap-8 shadow-2xl relative overflow-hidden group">
+                <div className="w-14 h-14 rounded-2xl bg-accent-gold flex items-center justify-center shrink-0 shadow-glow-gold">
+                   <Shield size={28} className="text-brand-900" />
+                </div>
+                <div className="space-y-3 relative z-10">
+                   <h4 className="text-accent-gold font-bold uppercase tracking-widest text-[10px]">EkalGo Pro Recommendation</h4>
+                   <p className="text-blue-100/80 font-medium italic text-lg leading-relaxed">
+                      "{seo.localTip}"
+                   </p>
+                </div>
+                <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                   <TrendingUp size={120} />
+                </div>
+             </div>
+          </div>
+
+          {/* Right Column: Silo Navigation */}
+          <div className="lg:col-span-4 space-y-8">
+            <div className="glass-panel p-8 space-y-8 sticky top-32">
+               <div className="space-y-2">
+                  <h3 className="text-xl font-bold font-display uppercase tracking-widest text-[10px] text-blue-100/30">City Navigation</h3>
+                  <p className="text-sm font-bold">Deep Dive into {city}</p>
                </div>
-               <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/5">
-                  <Shield size={16} className="text-green-400" />
-                  <span className="text-xs font-bold text-blue-100/60 uppercase tracking-widest">AI Verified</span>
+               
+               <div className="space-y-3">
+                  <Link href={`/hidden-gems/${citySlug}`} className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-accent-gold/30 hover:bg-accent-gold/5 transition-all group">
+                     <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-xl bg-accent-gold/10 flex items-center justify-center text-accent-gold transition-colors group-hover:bg-accent-gold group-hover:text-brand-900">
+                           <Camera size={18} />
+                        </div>
+                        <span className="text-sm font-bold">Hidden Gems</span>
+                     </div>
+                     <span className="text-blue-100/20 text-xs font-mono uppercase tracking-widest">Explore</span>
+                  </Link>
+
+                  <Link href={`/itinerary/${citySlug}/3-day-trip`} className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-accent-teal/30 hover:bg-accent-teal/5 transition-all group">
+                     <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-xl bg-accent-teal/10 flex items-center justify-center text-accent-teal transition-colors group-hover:bg-accent-teal group-hover:text-brand-900">
+                           <Clock size={18} />
+                        </div>
+                        <span className="text-sm font-bold">3-Day Itinerary</span>
+                     </div>
+                     <span className="text-blue-100/20 text-xs font-mono uppercase tracking-widest">Plan</span>
+                  </Link>
+
+                  <Link href={`/getaways/${citySlug}`} className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-accent-neon/30 hover:bg-accent-neon/5 transition-all group">
+                     <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-xl bg-accent-neon/10 flex items-center justify-center text-accent-neon transition-colors group-hover:bg-accent-neon group-hover:text-brand-900">
+                           <TrendingUp size={18} />
+                        </div>
+                        <span className="text-sm font-bold">Weekend Trips</span>
+                     </div>
+                     <span className="text-blue-100/20 text-xs font-mono uppercase tracking-widest">Escapes</span>
+                  </Link>
                </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Programmatic Content Blocks */}
-      <section className="py-24 max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-12 gap-12">
-          
-          {/* Main Info */}
-          <div className="lg:col-span-8 space-y-16">
+      {/* SEO FAQ Section */}
+      <section className="py-24 bg-brand-800/20 border-y border-white/5">
+         <div className="max-w-4xl mx-auto px-6 space-y-12">
+            <div className="text-center space-y-4">
+               <h2 className="text-4xl font-display font-bold">Trip Planning Intelligence</h2>
+               <p className="text-blue-100/40 text-sm">Commonly asked questions curated by AI for travelers heading to {city}.</p>
+            </div>
+            
             <div className="space-y-6">
-               <h2 className="text-3xl font-display font-bold flex items-center gap-4">
-                  <Compass className="text-accent-gold" />
-                  Why Visit {city}?
-               </h2>
-               <div className="glass-panel p-8 space-y-4">
-                 <p className="text-blue-100/60 leading-relaxed">
-                   {city} is more than just a destination; it's a dynamic hub of {data.vibe.toLowerCase()}. 
-                   EkalGo AI has identified 12+ optimized routes ranging from heritage trails to modern niches.
-                 </p>
-                 <div className="p-4 rounded-xl bg-accent-gold/5 border border-accent-gold/20 flex items-start gap-4">
-                    <Sparkles className="text-accent-gold shrink-0 mt-1" size={20} />
-                    <p className="text-sm text-accent-gold font-medium italic">
-                       "AI Insider Insight: Don't miss {data.hidden.split(',')[0]} for the best sunset views in {city}. Most tourists overlook this spot."
+               {seo.faqs.map((item, idx) => (
+                 <div key={idx} className="glass-panel p-8 space-y-3">
+                    <div className="flex items-center gap-4 text-accent-gold">
+                       <HelpCircle size={24} />
+                       <h4 className="font-bold text-xl">{item.q}</h4>
+                    </div>
+                    <p className="pl-10 text-blue-100/40 leading-relaxed text-lg font-body">
+                       {item.a}
                     </p>
                  </div>
-               </div>
+               ))}
             </div>
-
-            <div className="space-y-6">
-               <h2 className="text-3xl font-display font-bold flex items-center gap-4">
-                  <MapPin className="text-accent-neon" />
-                  The Legendary {city} 3-Day Path
-               </h2>
-               <div className="relative border-l border-white/10 ml-4 pb-4 space-y-12">
-                  {[1,2,3].map(day => (
-                    <div key={day} className="relative pl-10 group">
-                      <div className="absolute left-[-17px] top-0 w-8 h-8 rounded-full bg-brand-800 border border-white/10 flex items-center justify-center text-xs font-bold text-accent-neon group-hover:bg-accent-neon group-hover:text-brand-900 transition-all z-10">
-                        {day}
-                      </div>
-                      <h3 className="text-xl font-bold mb-3">Day {day}: AI Optimized {day === 1 ? 'Heritage' : day === 2 ? 'Niches' : 'Off-beat'}</h3>
-                      <p className="text-blue-100/40 text-sm max-w-xl">
-                        {day === 1 ? `Land in ${city} and take the AI-vetted route to the city center. Avoid the standard 11AM traffic peak.` : 
-                         day === 2 ? `Dedicated time for ${data.hidden.split(',')[day-1] || 'Secret Trails'}. Optimized for the best lighting.` : 
-                         `Transition to the final segment. Best time to visit the local markets is suggested as 4PM.`}
-                      </p>
-                    </div>
-                  ))}
-               </div>
-               <div className="pt-6">
-                  <Link 
-                    href={`/explore/${city.toLowerCase()}/itinerary/3-day`}
-                    className="btn-primary py-4 px-10 rounded-full font-bold inline-flex items-center gap-3 shadow-glow-gold"
-                  >
-                    Unlock Full Detailed Itinerary
-                    <Clock size={18} />
-                  </Link>
-               </div>
-            </div>
-          </div>
-
-          {/* Sidebar / Stats */}
-          <div className="lg:col-span-4 space-y-8">
-            <div className="glass-panel p-8 space-y-6">
-               <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-accent-gold">Quick Facts</h4>
-               <div className="space-y-4">
-                  <div className="flex justify-between items-center py-3 border-b border-white/5">
-                     <span className="text-sm text-blue-100/40">Vibe Check</span>
-                     <span className="text-sm font-bold">{data.vibe}</span>
-                  </div>
-                  <div className="flex justify-between items-center py-3 border-b border-white/5">
-                     <span className="text-sm text-blue-100/40">Hidden Gem</span>
-                     <span className="text-sm font-bold">{data.hidden.split(',')[0]}</span>
-                  </div>
-                  <div className="flex justify-between items-center py-3 border-b border-white/5">
-                     <span className="text-sm text-blue-100/40">Safety Index</span>
-                     <span className="text-sm font-bold text-green-400">9.2 / 10</span>
-                  </div>
-               </div>
-            </div>
-
-            <div className="p-8 rounded-3xl bg-gradient-to-br from-brand-800 to-brand-900 border border-accent-gold/20 relative overflow-hidden group">
-               <div className="relative z-10 space-y-4">
-                  <h4 className="text-lg font-bold">Plan with EkalGo App</h4>
-                  <p className="text-sm text-blue-100/40">Get real-time alerts and unmapped pins for {city} directly on your phone.</p>
-                  <button className="w-full btn-secondary py-3 rounded-xl text-sm font-bold group-hover:bg-accent-gold group-hover:text-brand-900 transition-all">
-                    Download for {city}
-                  </button>
-               </div>
-               <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-accent-gold/10 blur-[40px] rounded-full" />
-            </div>
-          </div>
-
-        </div>
+         </div>
       </section>
 
       {/* Viral Sharing */}
@@ -159,7 +176,7 @@ export default function CityPage({ params }) {
           <h3 className="text-xl font-bold font-display">Share this {city} Guide</h3>
           <div className="flex justify-center">
             <ShareButtons 
-               url={`/explore/${params.city}`} 
+               url={`/explore/${citySlug}`} 
                title={`AI Travel Guide for ${city}`} 
                city={city} 
             />
@@ -169,6 +186,7 @@ export default function CityPage({ params }) {
 
       <LiveSocialProof city={city} />
       <WaitlistCTA />
+      <Footer />
     </div>
   );
 }

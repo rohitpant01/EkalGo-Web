@@ -7,10 +7,13 @@ import Link from 'next/link';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import ShareButtons from '@/components/ShareButtons';
 import LiveSocialProof from '@/components/LiveSocialProof';
+import { generateSEOContent } from '@/utils/contentEngine';
 import destinationsData from '@/data/destinations.json';
 
 export async function generateStaticParams() {
-  return destinationsData.destinations.map((city) => ({
+  // Phase A Rollout: First 30 Priority Cities
+  // We scale to 100+ after Google validates the content quality.
+  return destinationsData.destinations.slice(0, 30).map((city) => ({
     city: city.slug,
   }));
 }
@@ -39,11 +42,14 @@ export default async function HiddenGemsPage({ params }) {
     return <div className="min-h-screen bg-brand-900 flex items-center justify-center text-white">City data not found for SEO indexing.</div>;
   }
 
+  // Phase 4: Dynamic Quality Content Engine
+  const seo = generateSEOContent(city, 'hidden-gems');
+
   // FAQ Schema for SEO Rich Snippets
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": city.faq.map(item => ({
+    "mainEntity": seo.faqs.map(item => ({
       "@type": "Question",
       "name": item.q,
       "acceptedAnswer": {
@@ -59,6 +65,8 @@ export default async function HiddenGemsPage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
+
+      <Navbar />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 overflow-hidden border-b border-white/5">
@@ -80,8 +88,33 @@ export default async function HiddenGemsPage({ params }) {
               Hidden Gems in <span className="text-gradient-gold">{city.name}.</span>
             </h1>
             <p className="text-blue-100/40 text-lg md:text-xl max-w-2xl mx-auto font-body leading-relaxed">
-               Avoid the tourist traps. We've used AI to identify {city.hidden_gems.length}+ off-beat locations in {city.name} that most travelers miss.
+               {seo.intro}
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Content Depth Section (Phase 4 Addition) */}
+      <section className="py-24 border-b border-white/5">
+        <div className="max-w-4xl mx-auto px-6 space-y-16">
+          {seo.blocks.map((block, i) => (
+             <div key={i} className="space-y-4">
+                <h2 className="text-3xl font-display font-bold">{block.title}</h2>
+                <p className="text-lg text-blue-100/60 leading-relaxed font-body">
+                   {block.text}
+                </p>
+             </div>
+          ))}
+
+          {/* Local Tip Box */}
+          <div className="p-8 rounded-[2rem] bg-accent-gold/5 border border-accent-gold/20 flex flex-col md:flex-row items-center gap-8 group">
+             <div className="w-16 h-16 rounded-2xl bg-accent-gold flex items-center justify-center shrink-0 shadow-glow-gold">
+                <Shield size={32} className="text-brand-900" />
+             </div>
+             <div className="space-y-2 text-center md:text-left">
+                <h4 className="text-accent-gold font-bold uppercase tracking-widest text-xs">Insider Tip Verified by EkalGo</h4>
+                <p className="text-blue-100/80 font-medium italic">"{seo.localTip}"</p>
+             </div>
           </div>
         </div>
       </section>
@@ -141,7 +174,7 @@ export default async function HiddenGemsPage({ params }) {
             </div>
             
             <div className="space-y-6">
-               {city.faq.map((item, idx) => (
+               {seo.faqs.map((item, idx) => (
                  <div key={idx} className="glass-panel p-6 space-y-3">
                     <div className="flex items-center gap-4 text-accent-gold">
                        <HelpCircle size={18} />
@@ -153,30 +186,6 @@ export default async function HiddenGemsPage({ params }) {
                  </div>
                ))}
             </div>
-         </div>
-      </section>
-
-      {/* Internal Linking Bridge */}
-      <section className="py-24 text-center max-w-4xl mx-auto px-6 space-y-12">
-         <div className="space-y-6">
-            <h2 className="text-3xl font-display font-bold">People Also Explored</h2>
-            <div className="flex flex-wrap justify-center gap-4">
-               {city.getaways.map((getaway, i) => (
-                 <Link 
-                   key={i}
-                   href={`/explore/${getaway.toLowerCase()}`}
-                   className="px-6 py-3 rounded-full bg-white/5 border border-white/5 hover:border-accent-gold/30 hover:text-accent-gold transition-all text-sm font-bold"
-                 >
-                   {getaway} Guide
-                 </Link>
-               ))}
-            </div>
-         </div>
-         <div className="p-12 rounded-[2.5rem] bg-gradient-to-br from-brand-800 to-brand-900 border border-white/5 relative overflow-hidden group">
-            <h3 className="text-2xl font-display font-bold mb-6">Plan your {city.name} trip with AI.</h3>
-            <Link href={`/explore/${citySlug}`} className="btn-primary py-4 px-10 rounded-full font-bold shadow-glow-gold inline-block">
-               Unlock Full {city.name} Itinerary
-            </Link>
          </div>
       </section>
 
@@ -196,6 +205,7 @@ export default async function HiddenGemsPage({ params }) {
 
       <LiveSocialProof city={city.name} />
       <WaitlistCTA />
+      <Footer />
     </div>
   );
 }

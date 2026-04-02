@@ -40,21 +40,24 @@ export default async function sitemap() {
     priority: 0.6,
   }));
 
-  // 4. Weekend Getaways Silo (/getaways/from-[city])
+  // 4. Weekend Getaways Silo (/getaways/[city]) (Fixed prefix)
   const getawaysRoutes = destinations.map((city) => ({
-    url: `${BASE_URL}/getaways/from-${city.slug}`,
+    url: `${BASE_URL}/getaways/${city.slug}`,
     lastModified: new Date().toISOString(),
     changeFrequency: 'weekly',
     priority: 0.6,
   }));
 
-  // 5. Advanced Itinerary Silo (/itinerary/[city]/[duration])
-  const itineraryRoutes = destinations.map((city) => ({
-    url: `${BASE_URL}/itinerary/${city.slug}/3-day-trip`,
-    lastModified: new Date().toISOString(),
-    changeFrequency: 'monthly',
-    priority: 0.5,
-  }));
+  // 5. Multi-Duration Itinerary Silo (/itinerary/[city]/[duration])
+  const durations = ['2-day-trip', '3-day-trip', '5-day-trip'];
+  const itineraryRoutes = destinations.flatMap((city) =>
+    durations.map((duration) => ({
+      url: `${BASE_URL}/itinerary/${city.slug}/${duration}`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    }))
+  );
 
   return [
     ...staticRoutes,

@@ -1,17 +1,25 @@
 import React from 'react';
 import { Compass, MapPin, Sparkles, Shield, Clock, TrendingUp, HelpCircle, ArrowRight, Zap, Camera, Coffee } from 'lucide-react';
 import Link from 'next/link';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import ShareButtons from '@/components/ShareButtons';
 import LiveSocialProof from '@/components/LiveSocialProof';
 import WaitlistCTA from '@/components/WaitlistCTA';
+import { generateSEOContent } from '@/utils/contentEngine';
 import destinationsData from '@/data/destinations.json';
 
 export async function generateStaticParams() {
-  return destinationsData.destinations.map((city) => ({
-    city: city.slug,
-    duration: '3-day-trip',
-  }));
+  // Phase A Rollout: First 30 Priority Cities
+  // Each with 3 durations (2, 3, 5 days) = 90 itinerary pages.
+  const durations = ['2-day-trip', '3-day-trip', '5-day-trip'];
+  return destinationsData.destinations.slice(0, 30).flatMap((city) => 
+    durations.map(duration => ({
+      city: city.slug,
+      duration: duration,
+    }))
+  );
 }
 
 export async function generateMetadata({ params }) {
@@ -39,7 +47,10 @@ export default async function ItineraryDeepDivePage({ params }) {
     return <div className="min-h-screen bg-brand-900 flex items-center justify-center text-white">City data not found for itinerary generation.</div>;
   }
 
-  // Simulated day-by-day itinerary data (In production, this would be AI generated or from a database)
+  // Phase 4: Dynamic Quality Content Engine
+  const seo = generateSEOContent(city, 'itinerary', duration);
+
+  // Simulated day-by-day itinerary data
   const itinerary = [
     {
       day: 1,
@@ -73,6 +84,8 @@ export default async function ItineraryDeepDivePage({ params }) {
   return (
     <div className="min-h-screen bg-brand-900 text-white selection:bg-accent-gold/30">
       
+      <Navbar />
+
       {/* Itinerary Title Section */}
       <section className="relative pt-32 pb-20 overflow-hidden border-b border-white/5">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-accent-gold/5 blur-[120px] rounded-full pointer-events-none" />
@@ -81,7 +94,7 @@ export default async function ItineraryDeepDivePage({ params }) {
             items={[
               { label: 'Explore', href: '/explore' },
               { label: city.name, href: `/explore/${citySlug}` },
-              { label: 'Itinerary', href: `/itinerary/${citySlug}/3-day-trip` }
+              { label: 'Itinerary', href: `/itinerary/${citySlug}/${duration}` }
             ]} 
           />
           <div className="space-y-6">
@@ -95,23 +108,38 @@ export default async function ItineraryDeepDivePage({ params }) {
             <h1 className="text-4xl md:text-7xl font-display font-bold leading-tight">
               A Legendary <span className="text-gradient-gold">{duration.replace('-', ' ')}</span> <br className="hidden md:block" /> in {city.name}.
             </h1>
-            <div className="flex flex-wrap gap-4 pt-4">
-              <div className="text-[10px] font-mono border border-white/5 bg-white/5 px-3 py-1 rounded-full text-blue-100/40">
-                 AI GENERATED PATH
-              </div>
-              <div className="text-[10px] font-mono border border-green-400/20 bg-green-400/5 px-3 py-1 rounded-full text-green-400">
-                 FULLY VERIFIED
-              </div>
-            </div>
+            <p className="text-blue-100/40 text-lg md:text-xl max-w-2xl font-body leading-relaxed pt-4">
+               {seo.intro}
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Main Itinerary Content */}
+      {/* Detailed Analysis Section (Phase 4 Depth) */}
+      <section className="py-24 border-b border-white/5">
+        <div className="max-w-4xl mx-auto px-6 space-y-16">
+          <div className="space-y-4">
+             <h2 className="text-3xl font-display font-bold">{seo.blocks[0].title}</h2>
+             <p className="text-lg text-blue-100/60 leading-relaxed font-body">
+                {seo.blocks[0].text}
+             </p>
+          </div>
+
+          <div className="p-8 rounded-[2rem] bg-accent-gold/5 border border-accent-gold/20 flex flex-col md:flex-row items-center gap-8 shadow-2xl">
+             <div className="w-16 h-16 rounded-2xl bg-accent-gold flex items-center justify-center shrink-0 shadow-glow-gold">
+                <Compass size={32} className="text-brand-900" />
+             </div>
+             <div className="space-y-2">
+                <h4 className="text-accent-gold font-bold uppercase tracking-widest text-xs">AI Insider Recommendation</h4>
+                <p className="text-blue-100/80 font-medium italic">"{seo.localTip}"</p>
+             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Day by Day */}
       <section className="py-24 max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-12 gap-16">
-          
-          {/* Day by Day */}
           <div className="lg:col-span-8 space-y-24 relative before:absolute before:inset-y-0 before:left-[-24px] before:w-[2px] before:bg-gradient-to-b before:from-accent-gold before:to-accent-neon before:opacity-20 ml-6">
             {itinerary.map((day) => (
               <div key={day.day} className="relative">
@@ -122,7 +150,7 @@ export default async function ItineraryDeepDivePage({ params }) {
                 <div className="space-y-8">
                    <div>
                       <h2 className="text-2xl font-display font-bold mb-2">Day {day.day}: {day.theme}</h2>
-                      <p className="text-blue-100/30 text-sm italic">Optimized for {day.day === 1 ? 'immersion' : day.day === 2 ? 'discovery' : 'reflection'} and AI-calculated speed.</p>
+                      <p className="text-blue-100/30 text-sm italic">Optimized for {day.day === 1 ? 'immersion' : day.day === 2 ? 'discovery' : 'reflection'} and AI-calculated efficiency.</p>
                    </div>
 
                    <div className="space-y-10">
@@ -146,7 +174,6 @@ export default async function ItineraryDeepDivePage({ params }) {
             ))}
           </div>
 
-          {/* Sidebar / Conversions */}
           <div className="lg:col-span-4 space-y-8">
              <div className="glass-panel p-8 space-y-6">
                <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-accent-gold">Itinerary Stats</h4>
@@ -158,10 +185,6 @@ export default async function ItineraryDeepDivePage({ params }) {
                   <div className="flex justify-between items-center py-3 border-b border-white/5 text-sm">
                      <span className="text-blue-100/40">Transit Score</span>
                      <span className="font-bold text-green-400">9.4 / 10</span>
-                  </div>
-                  <div className="flex justify-between items-center py-3 border-b border-white/5 text-sm">
-                     <span className="text-blue-100/40">Calories Burned</span>
-                     <span className="font-bold font-mono">850 kcal</span>
                   </div>
                </div>
              </div>
@@ -180,7 +203,6 @@ export default async function ItineraryDeepDivePage({ params }) {
                 <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-accent-gold/10 blur-[40px] rounded-full" />
              </div>
           </div>
-
         </div>
       </section>
 
@@ -190,8 +212,8 @@ export default async function ItineraryDeepDivePage({ params }) {
           <h3 className="text-xl font-bold font-display">Share this Itinerary</h3>
           <div className="flex justify-center">
             <ShareButtons 
-               url={`/itinerary/${citySlug}/3-day-trip`} 
-               title={`Ultimate 3-Day trip in ${city.name}`} 
+               url={`/itinerary/${citySlug}/${duration}`} 
+               title={`Ultimate ${duration.replace('-', ' ')} in ${city.name}`} 
                city={city.name} 
             />
           </div>
@@ -200,6 +222,7 @@ export default async function ItineraryDeepDivePage({ params }) {
 
       <LiveSocialProof city={city.name} />
       <WaitlistCTA />
+      <Footer />
     </div>
   );
 }

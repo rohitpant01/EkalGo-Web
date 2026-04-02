@@ -1,23 +1,25 @@
 import React from 'react';
-import { Camera, Compass, MapPin, Sparkles, Shield, Clock, TrendingUp, HelpCircle, ArrowRight, Zap } from 'lucide-react';
+import { MapPin, Zap, Clock, ArrowRight, Shield, Compass, Camera } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import WaitlistCTA from '@/components/WaitlistCTA';
-import Link from 'next/link';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import ShareButtons from '@/components/ShareButtons';
 import LiveSocialProof from '@/components/LiveSocialProof';
+import WaitlistCTA from '@/components/WaitlistCTA';
+import { generateSEOContent } from '@/utils/contentEngine';
 import destinationsData from '@/data/destinations.json';
+import Link from 'next/link';
 
 export async function generateStaticParams() {
-  return destinationsData.destinations.map((city) => ({
-    city: `from-${city.slug}`,
+  // Phase A Rollout: First 30 Priority Cities
+  return destinationsData.destinations.slice(0, 30).map((city) => ({
+    city: city.slug,
   }));
 }
 
 export async function generateMetadata({ params }) {
   const { city: cityParam } = await params;
-  const citySlug = cityParam.replace('from-', '').toLowerCase();
+  const citySlug = cityParam.toLowerCase();
   const city = destinationsData.destinations.find(d => d.slug === citySlug) || { name: citySlug.charAt(0).toUpperCase() + citySlug.slice(1), getaways: [] };
   const topGetaway = city.getaways?.[0] || 'nearby spots';
   
@@ -25,23 +27,28 @@ export async function generateMetadata({ params }) {
     title: `15+ Weekend Getaways from ${city.name} (Short Trips 2026) | EkalGo`,
     description: `Ultimate list of best weekend getaways from ${city.name} - including ${topGetaway} and other hill stations and heritage spots for your next quick escape.`,
     alternates: {
-       canonical: `https://ekalgo.com/getaways/from-${citySlug}`
+       canonical: `https://ekalgo.com/getaways/${citySlug}`
     }
   };
 }
 
 export default async function GetawaysPage({ params }) {
   const { city: cityParam } = await params;
-  const citySlug = cityParam.replace('from-', '').toLowerCase();
+  const citySlug = cityParam.toLowerCase();
   const city = destinationsData.destinations.find(d => d.slug === citySlug);
 
   if (!city) {
     return <div className="min-h-screen bg-brand-900 flex items-center justify-center text-white">Base city not found for getaways generation.</div>;
   }
 
+  // Phase 4: Dynamic Quality Content Engine
+  const seo = generateSEOContent(city, 'getaways');
+
   return (
     <div className="min-h-screen bg-brand-900 text-white selection:bg-accent-gold/30">
       
+      <Navbar />
+
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 overflow-hidden border-b border-white/5">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-accent-teal/5 blur-[120px] rounded-full pointer-events-none" />
@@ -50,7 +57,7 @@ export default async function GetawaysPage({ params }) {
             items={[
               { label: 'Explore', href: '/explore' },
               { label: city.name, href: `/explore/${citySlug}` },
-              { label: 'Getaways', href: `/getaways/from-${citySlug}` }
+              { label: 'Getaways', href: `/getaways/${citySlug}` }
             ]} 
           />
           <div className="text-center space-y-6">
@@ -62,8 +69,30 @@ export default async function GetawaysPage({ params }) {
               Getaways from <span className="text-gradient-gold">{city.name}.</span>
             </h1>
             <p className="text-blue-100/40 text-lg md:text-xl max-w-2xl mx-auto font-body leading-relaxed">
-               Escaping {city.name} for the weekend? AI has curated the top proximity-vetted destinations for your next 48-hour adventure.
+               {seo.intro}
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Content Depth Section (Phase 4 Addition) */}
+      <section className="py-24 border-b border-white/5">
+        <div className="max-w-4xl mx-auto px-6 space-y-16">
+          <div className="space-y-4">
+             <h2 className="text-3xl font-display font-bold">{seo.blocks[1].title}</h2>
+             <p className="text-lg text-blue-100/60 leading-relaxed font-body">
+                {seo.blocks[1].text}
+             </p>
+          </div>
+
+          <div className="p-8 rounded-[2rem] bg-accent-teal/5 border border-accent-teal/20 flex flex-col md:flex-row items-center gap-8 group">
+             <div className="w-16 h-16 rounded-2xl bg-accent-teal flex items-center justify-center shrink-0 shadow-glow-teal">
+                <Shield size={32} className="text-brand-900" />
+             </div>
+             <div className="space-y-2">
+                <h4 className="text-accent-teal font-bold uppercase tracking-widest text-xs">Verified Local Insight</h4>
+                <p className="text-blue-100/80 font-medium italic">"{seo.localTip}"</p>
+             </div>
           </div>
         </div>
       </section>
@@ -82,31 +111,17 @@ export default async function GetawaysPage({ params }) {
                        <h3 className="text-3xl font-display font-bold">{getaway.name}</h3>
                     </div>
                     <p className="text-blue-100/40 text-lg">
-                      {getaway.tagline}. Perfect for a 2-day escape from {city.name}.
+                      {getaway.tagline}. Perfect for a quick recharge escape from {city.name}.
                     </p>
-                    <div className="flex flex-wrap gap-4">
-                       <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/5">
-                          <Clock size={16} className="text-accent-teal" />
-                          <span className="text-xs font-bold text-blue-100/60 uppercase tracking-widest text-[10px]">Optimal Timing: {getaway.best_time || 'Weekend'}</span>
-                       </div>
-                    </div>
-                    <div className="pt-6">
+                    <div className="flex flex-wrap gap-4 pt-6">
                        <Link 
                          href={`/explore/${getawaySlug.toLowerCase().replace(/\s+/g, '-')}`}
                          className="btn-primary py-3 px-8 rounded-full font-bold inline-flex items-center gap-3 transition-transform group-hover:scale-105"
                        >
-                         View Full 2-Day Itinerary
+                         View Full Guide
                          <ArrowRight size={18} />
                        </Link>
                     </div>
-                  </div>
-                  <div className="lg:w-1/3 w-full aspect-square md:aspect-video lg:aspect-square rounded-3xl bg-white/5 border border-white/5 flex items-center justify-center relative overflow-hidden group-hover:border-accent-gold/20 transition-all">
-                     <Sparkles size={48} className="text-white/10 group-hover:text-accent-gold/20 transition-all duration-700" />
-                     <div className="absolute inset-0 bg-gradient-to-t from-brand-900 to-transparent" />
-                     <div className="absolute bottom-6 left-6 flex items-center gap-2">
-                        <TrendingUp size={16} className="text-accent-neon" />
-                        <span className="text-[10px] font-bold text-accent-neon uppercase tracking-widest">Trending Choice</span>
-                     </div>
                   </div>
                 </div>
               </div>
@@ -140,7 +155,7 @@ export default async function GetawaysPage({ params }) {
           <h3 className="text-xl font-bold font-display">Share these Getaways</h3>
           <div className="flex justify-center">
             <ShareButtons 
-               url={`/getaways/from-${citySlug}`} 
+               url={`/getaways/${citySlug}`} 
                title={`15+ Weekend Getaways from ${city.name}`} 
                city={city.name} 
             />
@@ -150,6 +165,7 @@ export default async function GetawaysPage({ params }) {
 
       <LiveSocialProof city={city.name} />
       <WaitlistCTA />
+      <Footer />
     </div>
   );
 }
