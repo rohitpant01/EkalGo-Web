@@ -153,6 +153,7 @@ export default function ExplorePage() {
                       transition={{ delay: idx * 0.1 }}
                     >
                       <PlaceCard 
+                        href={`/explore/${(place.title || '').toLowerCase().replace(/\s+/g, '-')}`}
                         onClick={() => handlePreview(place)}
                         place={{
                           name: place.title || place.name || 'Premium Route',

@@ -16,7 +16,9 @@ const TYPE_COLORS = {
   restaurant: { bg: 'rgba(255,107,53,0.15)', text: '#F59E0B', label: '🍽️ Food' },
   default: { bg: 'rgba(45,212,191,0.15)', text: '#2DD4BF', label: '📍 Place' },
 };
-export default function PlaceCard({ place, locked = false, travelersCount, onClick }) {
+import Link from 'next/link';
+
+export default function PlaceCard({ place, locked = false, travelersCount, onClick, href }) {
   const { openWaitlist } = useModal();
   const [imgError, setImgError] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
@@ -37,7 +39,7 @@ export default function PlaceCard({ place, locked = false, travelersCount, onCli
   const displayPhoto = imgError ? fallbackImage : (place.photoUrl || fallbackImage);
   const hasPhoto = !!displayPhoto;
 
-  return (
+  const content = (
     <motion.div
       whileHover={{ y: -8, scale: 1.02 }}
       className={`group relative rounded-3xl overflow-hidden transition-all duration-500 cursor-pointer ${
@@ -48,7 +50,7 @@ export default function PlaceCard({ place, locked = false, travelersCount, onCli
         border: '1px solid rgba(255,255,255,0.06)',
         boxShadow: '0 20px 40px -15px rgba(0,0,0,0.5)',
       }}
-      onClick={onClick}
+      onClick={!href ? onClick : undefined}
       onMouseEnter={() => locked && setScratched(true)}
       onMouseLeave={() => locked && setScratched(false)}
     >
@@ -208,4 +210,10 @@ export default function PlaceCard({ place, locked = false, travelersCount, onCli
       </div>
     </motion.div>
   );
+
+  if (href) {
+    return <Link href={href}>{content}</Link>;
+  }
+
+  return content;
 }
