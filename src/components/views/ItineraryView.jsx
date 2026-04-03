@@ -1,16 +1,17 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Calendar, Clock, DollarSign, Thermometer, Zap,
   Lock, Share2, Download, Sparkles, MapPin, Eye, Users, ArrowLeft,
-  MessageCircle, CheckSquare
+  MessageCircle, CheckSquare, Loader2
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import PlaceCard from '../PlaceCard';
 import SmartInsights from '../social/SmartInsights';
 import { useModal } from '@/context/ModalContext';
 import { useTabStore } from '@/context/tabStore';
+import { saveItinerary } from '@/utils/itineraryPersistence';
 
 const DIFF_COLORS = {
   Easy: { bg: 'rgba(46,204,113,0.15)', text: '#2ECC71' },
@@ -19,8 +20,9 @@ const DIFF_COLORS = {
 };
 
 export default function ItineraryView({ data }) {
-  const { openWaitlist, openPreview } = useModal();
-  const { removeTab, activeTabId } = useTabStore();
+  const { openWaitlist, openPreview, openShare } = useModal();
+  const { removeTab, activeTabId, tabs, updateTab } = useTabStore();
+  const [isSaving, setIsSaving] = useState(false);
   
   const itinerary = data;
 
@@ -31,6 +33,39 @@ export default function ItineraryView({ data }) {
   );
 
   const diffStyle = DIFF_COLORS[itinerary.difficulty] || DIFF_COLORS.Easy;
+
+  const onShare = async () => {
+    if (isSaving) return;
+    
+    let currentId = itinerary.id;
+    
+    // If no ID, it's newly generated, save it first
+    if (!currentId) {
+      setIsSaving(true);
+      const newId = await saveItinerary(itinerary);
+      setIsSaving(false);
+      
+      if (!newId) return; // Error handling
+      currentId = newId;
+      
+      // Update the tab state so it has the ID for future clicks
+      const activeTab = tabs.find(t => t.id === activeTabId);
+      if (activeTab) {
+        updateTab(activeTabId, {
+          ...activeTab,
+          data: { ...activeTab.data, id: newId }
+        });
+      }
+    }
+
+    const shareUrl = `${window.location.origin}/itinerary/${currentId}`;
+    
+    openShare({
+      title: 'Check out this travel plan on EkalGo',
+      text: 'I found this amazing itinerary, you should check it out!',
+      url: shareUrl
+    });
+  };
 
   const openSocial = (type) => {
     // These features are currently locked behind the waitlist
@@ -63,8 +98,12 @@ export default function ItineraryView({ data }) {
                <CheckSquare size={14} />
                Shared Items
             </button>
-            <button className="p-2 rounded-xl bg-white/5 text-white/40 hover:text-white transition-colors">
-               <Share2 size={16} />
+            <button 
+              onClick={onShare}
+              disabled={isSaving}
+              className="p-2 rounded-xl bg-white/5 text-white/40 hover:text-white transition-colors disabled:opacity-50"
+            >
+               {isSaving ? <Loader2 size={16} className="animate-spin" /> : <Share2 size={16} />}
             </button>
          </div>
       </div>

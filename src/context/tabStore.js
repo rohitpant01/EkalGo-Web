@@ -95,6 +95,12 @@ export const useTabStore = create(
         set((state) => ({
           tabs: state.tabs.map(t => t.id === tabId ? { ...t, pinned: false } : t)
         }));
+      },
+
+      updateTab: (tabId, updates) => {
+        set((state) => ({
+          tabs: state.tabs.map(t => t.id === tabId ? { ...t, ...updates } : t)
+        }));
       }
     }),
     {
