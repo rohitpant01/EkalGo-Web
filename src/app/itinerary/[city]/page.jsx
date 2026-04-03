@@ -1,6 +1,6 @@
-import React from 'react';
 import { fetchItineraryById } from '@/utils/itineraryPersistence';
 import SharedItineraryView from '@/components/views/SharedItineraryView';
+import destinationsData from '@/data/destinations.json';
 
 export async function generateMetadata({ params }) {
   const { city: cityId } = await params;
@@ -41,11 +41,44 @@ export default async function SharedItineraryPage({ params }) {
   const itineraryData = await fetchItineraryById(cityId);
   const error = !itineraryData;
 
+  // SEO: FAQ Schema Extraction
+  let jsonLd = null;
+  if (itineraryData) {
+    const currentDest = destinationsData.destinations.find(
+      d => d.name.toLowerCase() === itineraryData.location?.toLowerCase() || 
+           d.slug.toLowerCase() === itineraryData.location?.toLowerCase() ||
+           d.name.toLowerCase() === itineraryData.title?.toLowerCase()
+    );
+
+    if (currentDest?.faq) {
+      jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": currentDest.faq.map(item => ({
+          "@type": "Question",
+          "name": item.q,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": item.a
+          }
+        }))
+      };
+    }
+  }
+
   return (
-    <SharedItineraryView 
-      itineraryData={itineraryData} 
-      cityId={cityId} 
-      error={error} 
-    />
+    <>
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
+      <SharedItineraryView 
+        itineraryData={itineraryData} 
+        cityId={cityId} 
+        error={error} 
+      />
+    </>
   );
 }

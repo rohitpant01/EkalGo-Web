@@ -27,13 +27,24 @@ export default function sitemap() {
     }))
   );
 
-  // Vibe Pages (Phase B)
-  const vibePages = destinationsData.destinations.map((city) => ({
+  // Vibe Pages (Phase B - Index Explosion)
+  const vibes = ['solo', 'romantic', 'budget'];
+  const vibePages = destinationsData.destinations.flatMap((city) =>
+    vibes.map((vibe) => ({
+      url: `${baseUrl}/explore/${city.slug}/${vibe}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    }))
+  );
+
+  // Pillar City Pages
+  const cityPages = destinationsData.destinations.map((city) => ({
     url: `${baseUrl}/explore/${city.slug}`,
     lastModified: new Date(),
     changeFrequency: 'weekly',
     priority: 0.9,
   }));
 
-  return [...staticPages, ...vibePages, ...itineraryPages];
+  return [...staticPages, ...cityPages, ...vibePages, ...itineraryPages];
 }

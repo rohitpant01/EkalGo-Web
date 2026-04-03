@@ -21,17 +21,30 @@ export function generateSEOContent(cityData, type, duration = "3-day-trip") {
   const vibe = vibe_keywords ? vibe_keywords.join(" and ") : "discovery";
 
   // 1. Meta Data
-  const title = type === 'itinerary' 
-    ? `Ultimate ${duration.replace('-', ' ')} in ${city}: AI-Optimized Route & Hidden Gems`
-    : type === 'hidden-gems'
-    ? `7+ Hidden Gems in ${city} You Must Explore (Avoid the Crowds 2026)`
-    : type === 'getaways'
-    ? `Best Weekend Getaways from ${city} Within 300km (Updated Guide)`
-    : `Explore ${city}: The Definitive Travel Guide for the Modern Explorer`;
-
-  const meta = type === 'itinerary'
-    ? `Plan your perfect ${duration.replace('-', ' ')} in ${city} with our AI-vetted day-by-day plan. Includes ${local_food}, hidden spots, and transit tips.`
-    : `Discover the best hidden places in ${city}. Avoid tourist traps and explore the ${vibe} side of ${city} with EkalGo AI travel intelligence.`;
+  let title, meta;
+  
+  if (type === 'itinerary') {
+    title = `Ultimate ${duration.replace('-', ' ')} in ${city}: AI-Optimized Route & Hidden Gems`;
+    meta = `Plan your perfect ${duration.replace('-', ' ')} in ${city} with our AI-vetted day-by-day plan. Includes ${local_food}, hidden spots, and transit tips.`;
+  } else if (type === 'hidden-gems') {
+    title = `7+ Hidden Gems in ${city} You Must Explore (Avoid the Crowds 2026)`;
+    meta = `Discover the best hidden places in ${city}. Avoid tourist traps and explore the ${vibe} side of ${city} with EkalGo AI travel intelligence.`;
+  } else if (type === 'getaways') {
+    title = `Best Weekend Getaways from ${city} Within 300km (Updated Guide)`;
+    meta = `Plan your next escape from ${city} with these AI-analyzed nearby destinations. Adventure, nature, and heritage nodes within reach.`;
+  } else if (type === 'solo') {
+    title = `Solo Travel in ${city}: Safe Routes, Best Hostels & AI Tips | EkalGo`;
+    meta = `Explore ${city} solo with confidence. AI-optimized solo routes, female-safe zones, and the best artisanal cafes for working nomads.`;
+  } else if (type === 'romantic') {
+    title = `The Romantic's Guide to ${city}: 2026's Best Hidden Date Spots`;
+    meta = `Discover the most romantic corners of ${city}. From sunset viewpoints to heritage stays, plan your perfect couple's resonance in ${city}.`;
+  } else if (type === 'budget') {
+    title = `Explore ${city} on a Budget: AI Hacks for High-Impact, Low-Cost Travel`;
+    meta = `Travel smarter to ${city} without overspending. Budget transit nodes, local food circuits, and free hidden gems identified by AI.`;
+  } else {
+    title = `Explore ${city}: The Definitive Travel Guide for the Modern Explorer`;
+    meta = `The ultimate guide to ${city}. Discover hidden gems, top attractions, and local secrets in ${city} with EkalGo AI travel intelligence.`;
+  }
 
   // 2. Intro Generation (Uniqueness Variation Logic)
   const introFn = INTRO_TEMPLATES[Math.floor(Math.random() * INTRO_TEMPLATES.length)];

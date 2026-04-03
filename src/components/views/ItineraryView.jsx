@@ -4,14 +4,16 @@ import React, { useState } from 'react';
 import {
   Calendar, Clock, DollarSign, Thermometer, Zap,
   Lock, Share2, Download, Sparkles, MapPin, Eye, Users, ArrowLeft,
-  MessageCircle, CheckSquare, Loader2
+  MessageCircle, CheckSquare, Loader2, HelpCircle
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import PlaceCard from '../PlaceCard';
 import SmartInsights from '../social/SmartInsights';
+import NearbyDestinations from '../NearbyDestinations';
 import { useModal } from '@/context/ModalContext';
 import { useTabStore } from '@/context/tabStore';
 import { saveItinerary } from '@/utils/itineraryPersistence';
+import destinationsData from '@/data/destinations.json';
 
 const DIFF_COLORS = {
   Easy: { bg: 'rgba(46,204,113,0.15)', text: '#2ECC71' },
@@ -25,6 +27,12 @@ export default function ItineraryView({ data }) {
   const [isSaving, setIsSaving] = useState(false);
   
   const itinerary = data;
+
+  const currentDest = destinationsData.destinations.find(
+    d => d.name.toLowerCase() === itinerary?.location?.toLowerCase() || 
+         d.slug.toLowerCase() === itinerary?.location?.toLowerCase() ||
+         d.name.toLowerCase() === itinerary?.title?.toLowerCase()
+  );
 
   if (!itinerary) return (
     <div className="p-20 text-center text-white/20 uppercase tracking-widest text-xs font-bold">
@@ -171,6 +179,26 @@ export default function ItineraryView({ data }) {
           ))}
         </div>
 
+        {/* FAQ Context Layer (Phase 2 SEO) */}
+        {currentDest?.faq && currentDest.faq.length > 0 && (
+          <section className="py-12 border-t border-white/5">
+            <div className="flex items-center gap-3 mb-8">
+               <div className="w-10 h-10 rounded-xl bg-accent-gold/10 flex items-center justify-center text-accent-gold">
+                  <HelpCircle size={20} />
+               </div>
+               <h3 className="text-xl font-bold text-white uppercase tracking-tight">Traveler Intelligence</h3>
+            </div>
+            <div className="grid gap-6">
+               {currentDest.faq.map((item, fIdx) => (
+                 <div key={fIdx} className="p-8 rounded-[2rem] bg-white/[0.02] border border-white/5 space-y-3">
+                    <h4 className="text-white font-bold">{item.q}</h4>
+                    <p className="text-white/40 text-sm italic leading-relaxed">{item.a}</p>
+                 </div>
+               ))}
+            </div>
+          </section>
+        )}
+
         {/* CTA */}
         <section className="bg-accent-gold/[0.03] border border-accent-gold/20 p-12 rounded-[3rem] text-center space-y-6">
            <Zap size={48} className="text-accent-gold mx-auto animate-pulse" />
@@ -183,6 +211,9 @@ export default function ItineraryView({ data }) {
              Unlock Full Intelligence
            </button>
         </section>
+
+        {/* Internal Linking Engine (People also explore) */}
+        <NearbyDestinations location={itinerary.location || itinerary.title} />
       </div>
     </div>
   );
