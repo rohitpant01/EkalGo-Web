@@ -6,6 +6,7 @@ import LockedModal from '@/components/LockedModal';
 import PreviewModal from '@/components/PreviewModal';
 import LegalModal from '@/components/LegalModal';
 import ShareModal from '@/components/ShareModal';
+import DownloadAppModal from '@/components/DownloadAppModal';
 
 const ModalContext = createContext({
   openWaitlist: () => {},
@@ -18,6 +19,8 @@ const ModalContext = createContext({
   closeLegal: () => {},
   openShare: (data) => {},
   closeShare: () => {},
+  openDownloadApp: () => {},
+  closeDownloadApp: () => {},
 });
 
 export function ModalProvider({ children }) {
@@ -29,6 +32,7 @@ export function ModalProvider({ children }) {
   const [legalOpen, setLegalOpen] = useState(false);
   const [legalType, setLegalType] = useState('terms');
   const [shareData, setShareData] = useState({ isOpen: false, title: '', text: '', url: '' });
+  const [downloadAppOpen, setDownloadAppOpen] = useState(false);
 
   const openWaitlist = useCallback((config = {}) => {
     setWaitlistConfig({
@@ -83,6 +87,9 @@ export function ModalProvider({ children }) {
     setShareData(prev => ({ ...prev, isOpen: false }));
   }, []);
 
+  const openDownloadApp = useCallback(() => setDownloadAppOpen(true), []);
+  const closeDownloadApp = useCallback(() => setDownloadAppOpen(false), []);
+
   const handleLockedToWaitlist = useCallback(() => {
     setLockedOpen(false);
     setWaitlistOpen(true);
@@ -94,7 +101,8 @@ export function ModalProvider({ children }) {
       openLocked, closeLocked, 
       openPreview, closePreview,
       openLegal, closeLegal,
-      openShare, closeShare
+      openShare, closeShare,
+      openDownloadApp, closeDownloadApp
     }}>
       {children}
       
@@ -126,6 +134,11 @@ export function ModalProvider({ children }) {
         isOpen={shareData.isOpen}
         onClose={closeShare}
         data={shareData}
+      />
+
+      <DownloadAppModal 
+        isOpen={downloadAppOpen}
+        onClose={closeDownloadApp}
       />
     </ModalContext.Provider>
   );
