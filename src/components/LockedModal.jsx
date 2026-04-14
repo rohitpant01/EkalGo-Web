@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import { X, Sparkles, Star, ArrowRight, Download } from 'lucide-react';
+import { X, Sparkles, Star, ArrowRight, Download, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { redirectToAPK } from '@/utils/redirect';
+import { useModal } from '@/context/ModalContext';
 
 const FEATURES = [
   { icon: '🗺️', title: 'Complete Itineraries', desc: 'Full day-by-day plans with unlimited places' },
@@ -15,6 +15,7 @@ const FEATURES = [
 ];
 
 export default function LockedModal({ isOpen, onClose }) {
+  const { openWaitlist } = useModal();
   if (!isOpen) return null;
 
   return (
@@ -45,7 +46,7 @@ export default function LockedModal({ isOpen, onClose }) {
               Unlock the Full Experience
             </h2>
             <p className="text-blue-200/50 text-sm">
-              Get the EkalGo App to unlock all premium AI travel features, find travel buddies, and start exploring.
+              We're currently scaling our AI travel engine. Join the waitlist to be among the first to experience these premium features.
             </p>
           </div>
 
@@ -66,18 +67,18 @@ export default function LockedModal({ isOpen, onClose }) {
           {/* CTAs */}
           <div className="space-y-3">
             <button
-              onClick={() => { redirectToAPK(); onClose(); }}
+              onClick={() => { openWaitlist(); onClose(); }}
               className="w-full flex items-center justify-center gap-3 py-4 rounded-2xl font-bold text-ocean-900 transition-all hover:scale-[1.02] active:scale-[0.98]"
               style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}>
-              <Download size={18} />
-              Download APK Now
+              <Mail size={18} />
+              Join the Waitlist
               <ArrowRight size={16} />
             </button>
           </div>
 
           {/* Fine print */}
           <p className="text-center text-xs text-blue-200/30 mt-6">
-            Direct Android Download • Coming soon to iOS
+            Early Access Waitlist • Web & Mobile
           </p>
         </div>
         

@@ -6,7 +6,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import PlaceCard from './PlaceCard';
 import { useModal } from '@/context/ModalContext';
-import { redirectToAPK } from '@/utils/redirect';
+import { Mail } from 'lucide-react';
 
 const DIFF_COLORS = {
   Easy: { bg: 'rgba(46,204,113,0.15)', text: '#2ECC71' },
@@ -15,7 +15,7 @@ const DIFF_COLORS = {
 };
 
 export default function Itinerary({ itinerary }) {
-  const { openPreview } = useModal();
+  const { openPreview, openWaitlist } = useModal();
 
   if (!itinerary) return null;
 
@@ -67,10 +67,10 @@ export default function Itinerary({ itinerary }) {
 
               <div className="flex w-full sm:w-auto items-center justify-center sm:justify-end gap-3 flex-wrap sm:flex-nowrap">
                 <button 
-                  onClick={redirectToAPK}
+                  onClick={() => openWaitlist()}
                   className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl bg-white/5 border border-white/5 text-blue-100/40 hover:text-accent-gold hover:bg-white/10 transition-all font-bold uppercase tracking-widest text-[10px]"
                 >
-                  <Download size={14} /> Download App to Unlock
+                  <Mail size={14} /> Join Waitlist to Unlock
                 </button>
                 <motion.button 
                   whileHover={{ scale: 1.05 }}
@@ -146,12 +146,12 @@ export default function Itinerary({ itinerary }) {
                     <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform">
                        <Lock size={24} className="text-amber-500/50 group-hover:text-amber-500" />
                     </div>
-                    <h4 className="text-white font-bold text-lg mb-2">Mystery Spot Revealed in App</h4>
+                    <h4 className="text-white font-bold text-lg mb-2">Mystery Spot Revealed soon</h4>
                     <p className="text-blue-200/40 text-xs leading-relaxed max-w-[180px] mx-auto mb-6">
-                       This route contains a secret place only visible to EkalGo members.
+                       This route contains a secret place coming soon to EkalGo members.
                     </p>
                     <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest underline decoration-amber-500/30 underline-offset-4">
-                       Unlock Hidden Trip 🔒
+                       Join Waitlist to Unlock 🔒
                     </span>
                  </div>
               </motion.div>
@@ -182,15 +182,15 @@ export default function Itinerary({ itinerary }) {
               "This app helped me find travel buddies for my solo trip to Ladakh!" – <span className="text-white font-bold">Aisha</span>
             </p>
 
-            <motion.button
-              whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(255,107,53,0.3)' }}
-              whileTap={{ scale: 0.95 }}
-              onClick={openWaitlist}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 sm:py-5 rounded-xl sm:rounded-[1.5rem] font-bold text-xs sm:text-sm text-ocean-900 transition-all shadow-2xl"
-              style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}>
-              <Download size={18} />
-              Unlock Full Plan & Meet Travelers
-            </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(255,107,53,0.3)' }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => openWaitlist()}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 sm:py-5 rounded-xl sm:rounded-[1.5rem] font-bold text-xs sm:text-sm text-ocean-900 transition-all shadow-2xl"
+                style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}>
+                <Mail size={18} />
+                Unlock Full Plan & Meet Travelers
+              </motion.button>
           </div>
         </motion.div>
 

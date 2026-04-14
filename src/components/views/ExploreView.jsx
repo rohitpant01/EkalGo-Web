@@ -4,8 +4,8 @@ import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Compass, Sparkles, MapPin, Search, Filter, X, Zap, Trophy, Award, Ghost } from 'lucide-react';
 import PlaceCard from '../PlaceCard';
+import { useModal } from '@/context/ModalContext';
 import { useTabStore } from '@/context/tabStore';
-import { redirectToAPK } from '@/utils/redirect';
 import { cn } from '@/utils/cn';
 
 const ALL_DESTINATIONS = [
@@ -28,6 +28,7 @@ const CATEGORIES = [
 ];
 
 export default function ExploreView() {
+  const { openWaitlist } = useModal();
   const { addTab } = useTabStore();
   const [filter, setFilter] = useState('all');
   const [search, setSearch] = useState('');
@@ -41,7 +42,10 @@ export default function ExploreView() {
   }, [filter, search]);
 
   const handlePlaceClick = (place) => {
-     redirectToAPK();
+    openWaitlist({
+      title: `Explore ${place.name}`,
+      description: `Full itineraries and travel buddy matching for ${place.name} are coming to the web soon. Join the waitlist for early access!`
+    });
   };
 
   return (

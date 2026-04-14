@@ -5,7 +5,6 @@ import PlaceCard from './PlaceCard';
 import FeatureTeaser from './FeatureTeaser';
 import { useModal } from '@/context/ModalContext';
 import { useTabStore } from '@/context/tabStore';
-import { redirectToAPK } from '@/utils/redirect';
 
 const DISPLAY_DESTINATIONS = [
   {
@@ -43,7 +42,10 @@ export default function CuriosityExplore({ onExplore }) {
   const { addTab, setActiveTab } = useTabStore();
 
   const handleFeatureClick = () => {
-    redirectToAPK();
+    openWaitlist({
+      title: "Unlock Elite Curation",
+      description: "We're currently scaling our high-speed AI engine. Join the waitlist for early access to these features."
+    });
   };
 
   return (
@@ -96,7 +98,7 @@ export default function CuriosityExplore({ onExplore }) {
               onClick={handleFeatureClick}
               className="flex items-center gap-2 text-white hover:text-accent-gold transition-colors font-medium border border-white/10 px-6 py-3 rounded-full hover:bg-white/5 backdrop-blur-md shadow-glow-gold/10 active:scale-95 transition-all"
             >
-              Download App <ArrowRight className="ml-1" size={16} />
+              Join Waitlist <ArrowRight className="ml-1" size={16} />
             </button>
           </motion.div>
         </div>

@@ -8,7 +8,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Logo from './Logo';
 import { useModal } from '@/context/ModalContext';
 import { useTabStore } from '@/context/tabStore';
-import { redirectToAPK } from '@/utils/redirect';
 
 export default function Navbar() {
   const { openLegal } = useModal();
