@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { MapPin, Star, Clock, Lightbulb, ImageOff, Users, Unlock, MousePointer2, Sparkles, Zap, Image as ImageIcon } from 'lucide-react';
 import { motion } from 'framer-motion';

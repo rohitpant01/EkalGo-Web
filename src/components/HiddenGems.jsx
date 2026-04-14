@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Lock, ChevronRight, Sparkles, Star, Users } from 'lucide-react';

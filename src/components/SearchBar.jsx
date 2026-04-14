@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { Search, Loader2, Sparkles, MapPin, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';

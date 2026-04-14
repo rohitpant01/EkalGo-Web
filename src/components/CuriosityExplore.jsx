@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Compass, Sparkles, MapPin, ArrowRight, Download } from 'lucide-react';
