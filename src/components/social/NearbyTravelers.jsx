@@ -5,7 +5,7 @@ import { supabase } from '@/utils/supabase';
 import { useTabStore } from '@/context/tabStore';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Users, MapPin, UserPlus, MessageCircle, ChevronRight } from 'lucide-react';
-import { redirectToAPK } from '@/utils/redirect';
+import { useModal } from '@/context/ModalContext';
 
 const INDIAN_FEMALE_NAMES = [
   'Ananya', 'Myra', 'Ishita', 'Kavya', 'Priya', 'Zara', 'Sanvi', 'Diya', 'Riya', 'Sara',
