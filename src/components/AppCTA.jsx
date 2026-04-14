@@ -1,5 +1,5 @@
 import React from 'react';
-import { Download, Star, ArrowRight, Smartphone } from 'lucide-react';
+import { Star, ArrowRight, Smartphone } from 'lucide-react';
 import { redirectToPlayStore, redirectToAppStore } from '../utils/redirect';
 
 import { useModal } from '@/context/ModalContext';

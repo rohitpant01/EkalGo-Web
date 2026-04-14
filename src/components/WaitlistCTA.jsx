@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Rocket, ArrowRight, CheckCircle, Smartphone, Download, Mail } from 'lucide-react';
+import { Rocket, ArrowRight, CheckCircle, Smartphone, Mail } from 'lucide-react';
 import { useModal } from '@/context/ModalContext';
 
 export default function WaitlistCTA() {

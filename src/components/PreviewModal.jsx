@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Sparkles, Lock, Map, Wallet, Zap, Calendar, MapPin, Users, ArrowRight, Loader2, CheckCircle2 } from 'lucide-react';
 import { generatePreviewTeaser } from '../services/api';
 import { useModal } from '@/context/ModalContext';
-import { Download } from 'lucide-react';
 import { redirectToAPK } from '@/utils/redirect';
 
 const THINKING_STEPS = [

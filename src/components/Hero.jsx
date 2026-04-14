@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, Search, Sparkles, MapPin, Download, Mail } from 'lucide-react';
+import { ArrowRight, Search, Sparkles, MapPin, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { useModal } from '@/context/ModalContext';
 

@@ -6,7 +6,6 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import PlaceCard from './PlaceCard';
 import { useModal } from '@/context/ModalContext';
-import { Download } from 'lucide-react';
 import { redirectToAPK } from '@/utils/redirect';
 
 const DIFF_COLORS = {

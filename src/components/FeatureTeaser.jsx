@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, MapPin, Zap, Lock, Download, Mail, Wallet } from 'lucide-react';
+import { Sparkles, MapPin, Zap, Lock, Mail, Wallet } from 'lucide-react';
 import { useModal } from '@/context/ModalContext';
 
 const FEATURES = [
