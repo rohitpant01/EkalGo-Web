@@ -23,7 +23,7 @@ const DIFF_COLORS = {
 };
 
 export default function ItineraryView({ data }) {
-  const { openPreview, openShare } = useModal();
+  const { openPreview, openShare, openWaitlist } = useModal();
   const { removeTab, activeTabId, tabs, updateTab } = useTabStore();
   const [isSaving, setIsSaving] = useState(false);
   

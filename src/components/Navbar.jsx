@@ -10,7 +10,7 @@ import { useModal } from '@/context/ModalContext';
 import { useTabStore } from '@/context/tabStore';
 
 export default function Navbar() {
-  const { openLegal } = useModal();
+  const { openLegal, openWaitlist } = useModal();
   const { addTab, setActiveTab } = useTabStore();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);

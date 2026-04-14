@@ -24,6 +24,7 @@ import Link from 'next/link';
 import { supabase } from '@/utils/supabase';
 
 export default function PlaceCard({ place, locked = false, travelersCount, onClick, href }) {
+  const { openWaitlist } = useModal();
   const [googlePhoto, setGooglePhoto] = useState(null);
   const [imgError, setImgError] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);

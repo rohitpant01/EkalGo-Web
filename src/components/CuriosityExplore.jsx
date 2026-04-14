@@ -40,7 +40,7 @@ const LOCKED_DESTINATION = {
 };
 
 export default function CuriosityExplore({ onExplore }) {
-  const { openPreview } = useModal();
+  const { openPreview, openWaitlist } = useModal();
   const { addTab, setActiveTab } = useTabStore();
 
   const handleFeatureClick = () => {

@@ -8,7 +8,7 @@ import { useModal } from '@/context/ModalContext';
 import { redirectToAPK } from '@/utils/redirect';
 
 export default function Footer() {
-  const { openLegal } = useModal();
+  const { openLegal, openWaitlist } = useModal();
   return (
     <footer className="py-20 border-t border-white/5 bg-brand-900 relative overflow-hidden"
       style={{ background: 'var(--brand-900)' }}>
