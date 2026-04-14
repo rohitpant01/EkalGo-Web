@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { MapPin, Star, Clock, Lightbulb, ImageOff, Users, Unlock, MousePointer2, Sparkles, Zap, Image as ImageIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useModal } from '@/context/ModalContext';
+import { redirectToAPK } from '@/utils/redirect';
 
 const TYPE_COLORS = {
   beach: { bg: 'rgba(14,165,233,0.15)', text: '#0EA5E9', label: '🏖️ Beach' },
@@ -21,7 +22,6 @@ import Link from 'next/link';
 import { supabase } from '@/utils/supabase';
 
 export default function PlaceCard({ place, locked = false, travelersCount, onClick, href }) {
-  const { openWaitlist } = useModal();
   const [googlePhoto, setGooglePhoto] = useState(null);
   const [imgError, setImgError] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
@@ -103,11 +103,14 @@ export default function PlaceCard({ place, locked = false, travelersCount, onCli
         border: '1px solid rgba(255,255,255,0.06)',
         boxShadow: '0 20px 40px -15px rgba(0,0,0,0.5)',
       }}
-      onClick={() => {
-        openWaitlist({
-          title: "Detailed Itinerary",
-          description: "For detailed itinerary, download the app or join the waitlist to get the exciting rewards!"
-        });
+      onClick={(e) => {
+        e.stopPropagation();
+        if (locked) {
+          openWaitlist({
+            title: "Unlock Hidden Gems",
+            description: "Full details for secret spots are coming to the web soon. Join the waitlist for early access."
+          });
+        }
         if (onClick) onClick();
       }}
       onMouseEnter={() => locked && setScratched(true)}

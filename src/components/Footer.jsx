@@ -3,11 +3,12 @@
 import React from 'react';
 import Link from 'next/link';
 import Logo from './Logo';
-import { Mail, Github, Twitter, Instagram, MessageSquare, Shield, Lock, ScrollText } from 'lucide-react';
+import { Mail, Github, Twitter, Instagram, MessageSquare, Shield, Lock, ScrollText, Download } from 'lucide-react';
 import { useModal } from '@/context/ModalContext';
+import { redirectToAPK } from '@/utils/redirect';
 
 export default function Footer() {
-  const { openWaitlist, openLegal } = useModal();
+  const { openLegal } = useModal();
   return (
     <footer className="py-20 border-t border-white/5 bg-brand-900 relative overflow-hidden"
       style={{ background: 'var(--brand-900)' }}>

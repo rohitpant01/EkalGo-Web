@@ -1,19 +1,20 @@
 'use client';
 
 import React from 'react';
-import { X, Sparkles, Star, ArrowRight } from 'lucide-react';
+import { X, Sparkles, Star, ArrowRight, Download } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { redirectToAPK } from '@/utils/redirect';
 
 const FEATURES = [
   { icon: '🗺️', title: 'Complete Itineraries', desc: 'Full day-by-day plans with unlimited places' },
-  { icon: '🤝', title: 'Travel Buddy Matching', desc: 'Tinder-style swipe to find co-travelers' },
+  { icon: '🤝', title: 'Travel Buddy Matching', desc: 'Direct chat to find co-travelers' },
   { icon: '💎', title: 'Hidden Gems', desc: 'Exclusive local spots known only to locals' },
   { icon: '🧭', title: 'Smart AI Routes', desc: 'Real-time optimized travel routes' },
   { icon: '📴', title: 'Offline Access', desc: 'Works without internet connection' },
   { icon: '⭐', title: 'Personalized Picks', desc: 'Curated for your travel style' },
 ];
 
-export default function LockedModal({ isOpen, onClose, onWaitlistOpen }) {
+export default function LockedModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
@@ -38,13 +39,13 @@ export default function LockedModal({ isOpen, onClose, onWaitlistOpen }) {
           <div className="text-center mb-8 text-white">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-gold/10 border border-accent-gold/20 mb-6 font-mono text-[10px] uppercase tracking-widest text-accent-gold">
                <Star size={12} className="fill-accent-gold" />
-               Beta Access 2026
+               Premium Feature
             </div>
             <h2 className="font-display text-2xl font-bold mb-2 text-white">
-              Join the Exclusive Beta
+              Unlock the Full Experience
             </h2>
             <p className="text-blue-200/50 text-sm">
-              EkalGo App is launching soon. Get early access to the full AI travel suite before the public release.
+              Get the EkalGo App to unlock all premium AI travel features, find travel buddies, and start exploring.
             </p>
           </div>
 
@@ -65,18 +66,18 @@ export default function LockedModal({ isOpen, onClose, onWaitlistOpen }) {
           {/* CTAs */}
           <div className="space-y-3">
             <button
-              onClick={() => { onClose(); onWaitlistOpen(); }}
+              onClick={() => { redirectToAPK(); onClose(); }}
               className="w-full flex items-center justify-center gap-3 py-4 rounded-2xl font-bold text-ocean-900 transition-all hover:scale-[1.02] active:scale-[0.98]"
               style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}>
-              <Sparkles size={18} />
-              Claim Early Beta Access
+              <Download size={18} />
+              Download APK Now
               <ArrowRight size={16} />
             </button>
           </div>
 
           {/* Fine print */}
           <p className="text-center text-xs text-blue-200/30 mt-6">
-            Limited slots available • Coming soon to iOS & Android
+            Direct Android Download • Coming soon to iOS
           </p>
         </div>
         

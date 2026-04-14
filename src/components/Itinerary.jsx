@@ -6,6 +6,8 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import PlaceCard from './PlaceCard';
 import { useModal } from '@/context/ModalContext';
+import { Download } from 'lucide-react';
+import { redirectToAPK } from '@/utils/redirect';
 
 const DIFF_COLORS = {
   Easy: { bg: 'rgba(46,204,113,0.15)', text: '#2ECC71' },
@@ -13,8 +15,8 @@ const DIFF_COLORS = {
   Challenging: { bg: 'rgba(255,107,53,0.15)', text: '#F59E0B' },
 };
 
-export default function Itinerary({ itinerary, onShare }) {
-  const { openWaitlist, openPreview } = useModal();
+export default function Itinerary({ itinerary }) {
+  const { openPreview } = useModal();
 
   if (!itinerary) return null;
 
@@ -65,14 +67,12 @@ export default function Itinerary({ itinerary, onShare }) {
               </div>
 
               <div className="flex w-full sm:w-auto items-center justify-center sm:justify-end gap-3 flex-wrap sm:flex-nowrap">
-                <motion.button 
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={onShare}
-                  className="p-4 rounded-xl sm:rounded-2xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-all flex items-center gap-2 group shadow-lg"
+                <button 
+                  onClick={redirectToAPK}
+                  className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl bg-white/5 border border-white/5 text-blue-100/40 hover:text-accent-gold hover:bg-white/10 transition-all font-bold uppercase tracking-widest text-[10px]"
                 >
-                  <Share2 size={18} className="group-hover:rotate-12 transition-transform" />
-                </motion.button>
+                  <Download size={14} /> Download App to Unlock
+                </button>
                 <motion.button 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}

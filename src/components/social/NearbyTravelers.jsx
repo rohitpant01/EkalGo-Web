@@ -5,7 +5,7 @@ import { supabase } from '@/utils/supabase';
 import { useTabStore } from '@/context/tabStore';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Users, MapPin, UserPlus, MessageCircle, ChevronRight } from 'lucide-react';
-import { useModal } from '@/context/ModalContext';
+import { redirectToAPK } from '@/utils/redirect';
 
 const INDIAN_FEMALE_NAMES = [
   'Ananya', 'Myra', 'Ishita', 'Kavya', 'Priya', 'Zara', 'Sanvi', 'Diya', 'Riya', 'Sara',
@@ -166,10 +166,13 @@ export default function NearbyTravelers() {
       </div>
 
       <button 
-        onClick={openWaitlist}
-        className="w-full py-3 rounded-xl border border-white/5 text-[9px] font-bold uppercase tracking-[0.2em] text-white/20 hover:text-white/40 hover:bg-white/5 transition-all"
+        onClick={() => openWaitlist({
+          title: "Broadcast Coming Soon",
+          description: "We're bringing real-time broadcast and finding travel buddies to the web soon. Join the waitlist for early access."
+        })}
+        className="w-full py-3 rounded-xl border border-white/5 text-[9px] font-bold uppercase tracking-[0.2em] text-white/20 hover:text-accent-gold/40 hover:bg-white/5 transition-all"
       >
-         Broadcast My Location
+         Broadcast My Location (Join Waitlist)
       </button>
     </div>
   );

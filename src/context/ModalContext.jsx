@@ -35,11 +35,9 @@ export function ModalProvider({ children }) {
   const [downloadAppOpen, setDownloadAppOpen] = useState(false);
 
   const openWaitlist = useCallback((config = {}) => {
-    setWaitlistConfig({
-      title: config.title || 'Join the Waitlist',
-      description: config.description || 'Be the first to know when EkalGo launches. Get exclusive early access + special features.'
-    });
     setWaitlistOpen(true);
+    if (config.title) setWaitlistConfig(prev => ({ ...prev, title: config.title }));
+    if (config.description) setWaitlistConfig(prev => ({ ...prev, description: config.description }));
   }, []);
 
   const closeWaitlist = useCallback(() => {

@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Compass, Sparkles, MapPin, Search, Filter, X, Zap, Trophy, Award, Ghost } from 'lucide-react';
 import PlaceCard from '../PlaceCard';
 import { useTabStore } from '@/context/tabStore';
-import { useModal } from '@/context/ModalContext';
+import { redirectToAPK } from '@/utils/redirect';
 import { cn } from '@/utils/cn';
 
 const ALL_DESTINATIONS = [
@@ -29,7 +29,6 @@ const CATEGORIES = [
 
 export default function ExploreView() {
   const { addTab } = useTabStore();
-  const { openWaitlist } = useModal();
   const [filter, setFilter] = useState('all');
   const [search, setSearch] = useState('');
 
@@ -42,10 +41,7 @@ export default function ExploreView() {
   }, [filter, search]);
 
   const handlePlaceClick = (place) => {
-     openWaitlist({
-       title: "Detailed Itinerary",
-       description: "For detailed itinerary, download the app or join the waitlist to get the exciting rewards!"
-     });
+     redirectToAPK();
   };
 
   return (

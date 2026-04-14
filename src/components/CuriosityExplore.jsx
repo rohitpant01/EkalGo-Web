@@ -1,10 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Compass, Sparkles, MapPin, ArrowRight } from 'lucide-react';
+import { Compass, Sparkles, MapPin, ArrowRight, Download } from 'lucide-react';
 import PlaceCard from './PlaceCard';
 import FeatureTeaser from './FeatureTeaser';
 import { useModal } from '@/context/ModalContext';
 import { useTabStore } from '@/context/tabStore';
+import { redirectToAPK } from '@/utils/redirect';
 
 const DISPLAY_DESTINATIONS = [
   {
@@ -38,14 +39,11 @@ const LOCKED_DESTINATION = {
 };
 
 export default function CuriosityExplore({ onExplore }) {
-  const { openWaitlist, openPreview } = useModal();
+  const { openPreview } = useModal();
   const { addTab, setActiveTab } = useTabStore();
 
-  const handlePreview = (dest) => {
-    openWaitlist({
-      title: "Detailed Itinerary",
-      description: "For detailed itinerary, download the app or join the waitlist to get the exciting rewards!"
-    });
+  const handleFeatureClick = () => {
+    redirectToAPK();
   };
 
   return (
@@ -95,15 +93,10 @@ export default function CuriosityExplore({ onExplore }) {
             transition={{ delay: 0.2 }}
           >
             <button 
-              onClick={() => {
-                openWaitlist({
-                  title: "Detailed Itinerary",
-                  description: "For detailed itinerary, download the app or join the waitlist to get the exciting rewards!"
-                });
-              }}
+              onClick={handleFeatureClick}
               className="flex items-center gap-2 text-white hover:text-accent-gold transition-colors font-medium border border-white/10 px-6 py-3 rounded-full hover:bg-white/5 backdrop-blur-md shadow-glow-gold/10 active:scale-95 transition-all"
             >
-              View all places <ArrowRight className="ml-1" size={16} />
+              Download App <ArrowRight className="ml-1" size={16} />
             </button>
           </motion.div>
         </div>

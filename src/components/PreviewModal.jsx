@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Sparkles, Lock, Map, Wallet, Zap, Calendar, MapPin, Users, ArrowRight, Loader2, CheckCircle2 } from 'lucide-react';
 import { generatePreviewTeaser } from '../services/api';
 import { useModal } from '@/context/ModalContext';
+import { Download } from 'lucide-react';
+import { redirectToAPK } from '@/utils/redirect';
 
 const THINKING_STEPS = [
   "Connecting to EkalGo Intelligence...",
@@ -274,17 +276,18 @@ export default function PreviewModal({ isOpen, onClose, destination, itinerary }
                        </motion.div>
                        <h3 className="text-xl sm:text-2xl font-display font-bold text-white mb-2">AI Optimized Full Path</h3>
                        <p className="text-xs sm:text-sm text-blue-100/50 max-w-[280px] sm:max-w-xs mx-auto mb-6 sm:mb-8 font-body leading-relaxed">
-                          The complete <span className="text-white">Day 3-5</span> route, secret beach access points, and smart budget distributions are generated and ready.
+                          The complete <span className="text-white">Day 3-5</span> route, secret beach access points, and smart budget distributions are coming soon.
                        </p>
                        
                        <button
-                         onClick={() => { onClose(); openWaitlist(); }}
-                         className="btn-primary py-3 sm:py-4 px-8 sm:px-10 flex items-center gap-3 sm:gap-4 font-bold group shadow-2xl relative overflow-hidden text-sm sm:text-base"
-                       >
-                          <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12" />
-                          <span className="relative z-10">Unlock Itinerary</span>
-                          <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform relative z-10" />
-                       </button>
+                          onClick={() => { onClose(); openWaitlist(); }}
+                          className="btn-primary py-3 sm:py-4 px-8 sm:px-10 flex items-center gap-3 sm:gap-4 font-bold group shadow-2xl relative overflow-hidden text-sm sm:text-base"
+                        >
+                           <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12" />
+                           <ArrowRight size={18} className="relative z-10" />
+                           <span className="relative z-10">Join Waitlist to Unlock</span>
+                           <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform relative z-10" />
+                        </button>
                    </div>
                 </div>
 

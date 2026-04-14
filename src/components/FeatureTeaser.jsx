@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Lock, Sparkles, Map, Wallet, Zap } from 'lucide-react';
+import { Sparkles, MapPin, Zap, Lock, Download, Mail, Wallet } from 'lucide-react';
 import { useModal } from '@/context/ModalContext';
 
 const FEATURES = [
@@ -22,12 +22,19 @@ const FEATURES = [
   {
     title: "Hidden Places Discovery",
     desc: "Explore places tourists miss",
-    icon: <Map size={20} />
+    icon: <MapPin size={20} />
   }
 ];
 
 export default function FeatureTeaser() {
   const { openWaitlist } = useModal();
+  const handleFeatureClick = () => {
+    openWaitlist({
+      title: "Unlock Premium Features",
+      description: "We're bringing these premium AI features to the web experience soon. Join the waitlist for early access!"
+    });
+  };
+
   return (
     <div 
       className="w-full overflow-x-auto pb-8 no-scrollbar"
@@ -38,7 +45,7 @@ export default function FeatureTeaser() {
           <motion.div
             key={feature.title}
             whileHover={{ y: -5, scale: 1.02 }}
-            onClick={openWaitlist}
+            onClick={handleFeatureClick}
             className="w-72 glass-panel p-6 border border-white/5 cursor-pointer group relative overflow-hidden"
           >
              <div className="absolute inset-0 bg-brand-900/40 backdrop-blur-md opacity-60 pointer-events-none" />
@@ -67,9 +74,9 @@ export default function FeatureTeaser() {
                 </div>
 
                 <div className="pt-2">
-                   <span className="text-[10px] font-bold uppercase tracking-widest text-accent-gold/40 group-hover:text-accent-gold transition-colors">
-                      Unlock Feature
-                   </span>
+                    <span className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-accent-gold/40 group-hover:text-accent-gold transition-colors">
+                       <Mail size={12} /> Join Waitlist to Unlock
+                    </span>
                 </div>
              </div>
 

@@ -8,9 +8,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Logo from './Logo';
 import { useModal } from '@/context/ModalContext';
 import { useTabStore } from '@/context/tabStore';
+import { redirectToAPK } from '@/utils/redirect';
 
 export default function Navbar() {
-  const { openWaitlist, openLegal, openDownloadApp } = useModal();
+  const { openLegal } = useModal();
   const { addTab, setActiveTab } = useTabStore();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -120,11 +121,11 @@ export default function Navbar() {
              </div>
              
              <button 
-               onClick={openDownloadApp}
+               onClick={() => openWaitlist()}
                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-accent-gold text-ocean-900 text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-glow-gold/20"
              >
                <Rocket size={14} />
-               <span>Download App</span>
+               <span>Join Waitlist</span>
              </button>
           </div>
         </div>
@@ -174,17 +175,10 @@ export default function Navbar() {
                 </button>
               </div>
               <button
-                onClick={() => { openDownloadApp(); setMenuOpen(false); }}
+                onClick={() => { openWaitlist(); setMenuOpen(false); }}
                 className="w-full py-4 rounded-xl bg-accent-gold text-ocean-900 flex justify-center items-center gap-2 text-sm font-bold shadow-glow-gold"
               >
                 <Rocket size={16} />
-                Download APK
-              </button>
-              <button
-                onClick={() => { openWaitlist(); setMenuOpen(false); }}
-                className="w-full py-4 rounded-xl btn-primary flex justify-center items-center gap-2 text-sm font-bold opacity-60 hover:opacity-100"
-              >
-                <Sparkles size={16} />
                 Join the Waitlist
               </button>
             </div>

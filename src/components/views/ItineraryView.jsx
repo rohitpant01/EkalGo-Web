@@ -12,6 +12,7 @@ import SmartInsights from '../social/SmartInsights';
 import NearbyDestinations from '../NearbyDestinations';
 import { useModal } from '@/context/ModalContext';
 import { useTabStore } from '@/context/tabStore';
+import { redirectToAPK } from '@/utils/redirect';
 import { saveItinerary } from '@/utils/itineraryPersistence';
 import destinationsData from '@/data/destinations.json';
 
@@ -22,7 +23,7 @@ const DIFF_COLORS = {
 };
 
 export default function ItineraryView({ data }) {
-  const { openWaitlist, openPreview, openShare } = useModal();
+  const { openPreview, openShare } = useModal();
   const { removeTab, activeTabId, tabs, updateTab } = useTabStore();
   const [isSaving, setIsSaving] = useState(false);
   
@@ -75,9 +76,11 @@ export default function ItineraryView({ data }) {
     });
   };
 
-  const openSocial = (type) => {
-    // These features are currently locked behind the waitlist
-    openWaitlist();
+  const handleAction = (action) => {
+    openWaitlist({
+      title: `${action.charAt(0).toUpperCase() + action.slice(1)} Coming Soon`,
+      description: `We're bringing ${action} features to the web soon. Join the waitlist for early access.`
+    });
   };
 
   return (
@@ -93,14 +96,14 @@ export default function ItineraryView({ data }) {
          </button>
          <div className="flex items-center gap-3">
             <button 
-              onClick={() => openSocial('chat')}
+              onClick={() => handleAction('chat')}
               className="flex items-center gap-2 px-4 py-2 rounded-xl bg-accent-gold/10 text-accent-gold border border-accent-gold/20 text-[10px] font-bold uppercase tracking-widest hover:bg-accent-gold/20 transition-all"
             >
                <MessageCircle size={14} />
                Group Chat
             </button>
             <button 
-              onClick={() => openSocial('shared')}
+              onClick={() => handleAction('shared')}
               className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 text-white/40 border border-white/10 text-[10px] font-bold uppercase tracking-widest hover:text-white transition-all"
             >
                <CheckSquare size={14} />

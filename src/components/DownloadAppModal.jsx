@@ -3,14 +3,13 @@
 import React from 'react';
 import { X, Smartphone, Download, CheckCircle, ArrowRight, ShieldCheck, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const APK_URL = "https://drive.google.com/uc?export=download&id=1s_o4OsQyDHOcmMB1cK7YHlQHFnGbYvXY";
+import { redirectToAPK } from '@/utils/redirect';
 
 export default function DownloadAppModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   const handleDownload = () => {
-    window.open(APK_URL, '_blank');
+    redirectToAPK();
   };
 
   return (
@@ -48,11 +47,11 @@ export default function DownloadAppModal({ isOpen, onClose }) {
             
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-4">
               <Sparkles size={14} className="text-accent-gold" />
-              <span className="text-[10px] font-bold uppercase tracking-widest text-blue-200/60">Now Available</span>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-blue-200/60">Experience the App</span>
             </div>
 
             <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
-              EkalGo App is <span className="text-accent-gold italic">Launched!</span> 🚀
+              Get the <span className="text-accent-gold italic">EkalGo App</span> 🚀
             </h2>
             <p className="text-blue-200/60 text-base max-w-sm mx-auto">
               Your personal AI travel architect is now in your pocket. Experience seamless exploration, offline maps, and more.

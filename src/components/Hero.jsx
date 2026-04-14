@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, Search, Sparkles, MapPin } from 'lucide-react';
+import { ArrowRight, Search, Sparkles, MapPin, Download, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { useModal } from '@/context/ModalContext';
 
@@ -181,11 +181,11 @@ export default function Hero({ onSearch }) {
                 </div>
               ))}
             </div>
-            <span className="text-[11px] font-bold text-blue-100/60 uppercase tracking-wider">Join 100+ early travelers</span>
+            <span className="text-[11px] font-bold text-blue-100/60 uppercase tracking-wider">12 explorers joining EkalGo waitlist right now</span>
           </div>
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/5">
-            <Sparkles size={12} className="text-accent-gold" />
-            <span className="text-[11px] font-bold text-blue-100/60 uppercase tracking-wider">500+ AI Itineraries Generated</span>
+            <Mail size={12} className="text-teal-400" />
+            <span className="text-[11px] font-bold text-blue-100/60 uppercase tracking-wider">8 travelers just requested early access</span>
           </div>
         </motion.div>
 
@@ -223,11 +223,13 @@ export default function Hero({ onSearch }) {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full"
         >
           <button
-            onClick={openWaitlist}
-            className="btn-primary flex items-center justify-center gap-3 px-8 py-4 w-full sm:w-auto text-lg"
+            onClick={() => openWaitlist()}
+            className="group relative flex items-center justify-center gap-3 py-5 px-10 rounded-2xl font-bold text-ocean-900 shadow-glow-gold transition-all hover:scale-105 active:scale-95 text-lg"
+            style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}
           >
-            Get Early Access
-            <ArrowRight size={20} />
+            <Mail size={22} />
+            Join the Waitlist
+            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </button>
           <Link
             href="/explore"
