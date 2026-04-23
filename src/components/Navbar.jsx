@@ -11,7 +11,8 @@ import { useModal } from '@/context/ModalContext';
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'Explore', href: '/explore' },
-  { label: 'About', href: '/about' },
+  { label: 'Features', href: '/features' },
+  { label: 'How It Works', href: '/how-it-works' },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -58,8 +59,9 @@ export default function Navbar() {
       >
         <div className="container-tight flex items-center justify-between w-full">
           {/* Logo */}
-          <Link href="/" className="transition-opacity hover:opacity-80 relative z-[60]">
-            <Logo size="md" variant={scrolled || menuOpen ? 'default' : (pathname === '/' ? 'default' : 'default')} />
+          <Link href="/" className="transition-opacity hover:opacity-80 relative z-[60] flex-shrink-0">
+            <Logo size="sm" variant={scrolled || menuOpen ? 'default' : (pathname === '/' ? 'default' : 'default')} className="md:hidden" />
+            <Logo size="md" variant={scrolled || menuOpen ? 'default' : (pathname === '/' ? 'default' : 'default')} className="hidden md:block" />
           </Link>
 
           {/* Desktop Nav Links */}
@@ -68,17 +70,19 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 ${
+                className={`relative px-4 py-2 text-sm font-bold transition-all duration-200 ${
                   isActive(link.href)
-                    ? 'text-primary-600 bg-primary-50/60'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                    ? 'text-primary-800'
+                    : scrolled || menuOpen 
+                      ? 'text-slate-900 hover:text-primary-700' 
+                      : 'text-slate-950 hover:text-primary-700'
                 }`}
               >
                 {link.label}
                 {isActive(link.href) && (
                   <motion.span
                     layoutId="navIndicator"
-                    className="absolute bottom-0 left-3 right-3 h-0.5 bg-primary-400 rounded-full"
+                    className="absolute -bottom-1 left-4 right-4 h-[3px] bg-primary-500 rounded-full"
                     transition={{ type: 'spring', stiffness: 350, damping: 30 }}
                   />
                 )}

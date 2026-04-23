@@ -1,163 +1,176 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Sparkles, MapPin, Mail } from 'lucide-react';
+import { ArrowRight, Play, CheckCircle2, TrendingUp, Sparkles, Search } from 'lucide-react';
 import Link from 'next/link';
-import { useModal } from '@/context/ModalContext';
-
-const DESTINATIONS = ["Goa", "Manali", "Rishikesh", "Ladakh", "Kerala"];
+import { useRouter } from 'next/navigation';
 
 export default function Hero() {
-  const { openWaitlist } = useModal();
-  const [typedText, setTypedText] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const router = useRouter();
 
-  useEffect(() => {
-    let wordIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let typingInterval;
-
-    const type = () => {
-      const currentWord = DESTINATIONS[wordIndex];
-      
-      if (isDeleting) {
-        setTypedText(currentWord.substring(0, charIndex - 1));
-        charIndex--;
-      } else {
-        setTypedText(currentWord.substring(0, charIndex + 1));
-        charIndex++;
-      }
-
-      if (!isDeleting && charIndex === currentWord.length) {
-        clearInterval(typingInterval);
-        setTimeout(() => {
-          isDeleting = true;
-          typingInterval = setInterval(type, 80);
-        }, 2000);
-      } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        wordIndex = (wordIndex + 1) % DESTINATIONS.length;
-      }
-    };
-
-    typingInterval = setInterval(type, 120);
-    return () => clearInterval(typingInterval);
-  }, []);
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      router.push(`/explore?search=${encodeURIComponent(searchTerm)}`);
+    }
+  };
 
   return (
-    <section className="relative w-full min-h-[90vh] flex flex-col justify-center items-center overflow-hidden bg-gradient-to-b from-surface-alt via-white to-white">
-      {/* Decorative gradient blobs */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-100/40 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent-100/30 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-50/50 rounded-full blur-[80px] pointer-events-none" />
+    <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-white">
+      {/* Noise Background Overlay */}
+      <div className="noise-bg absolute inset-0 opacity-[0.015]" />
+      
+      {/* Background Orbs */}
+      <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-primary-100/30 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[500px] h-[500px] bg-accent-100/20 rounded-full blur-[100px] pointer-events-none" />
 
-      {/* Content */}
-      <div className="relative z-10 container-tight pt-28 pb-16 md:pt-36 md:pb-24 flex flex-col items-center text-center">
-        
-        {/* Badge */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="badge badge-primary mb-6"
-        >
-          <Sparkles size={14} />
-          <span>AI-Powered Travel Platform</span>
-        </motion.div>
+      <div className="container-tight relative z-10">
+        <div className="max-w-4xl mx-auto text-center">
+          
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 border border-slate-100 mb-8"
+          >
+            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-xs font-bold text-slate-600 uppercase tracking-widest">v2.0 Now Live — AI Itineraries Reinvented</span>
+          </motion.div>
 
-        {/* Headline */}
-        <motion.h1 
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] mb-6 max-w-4xl"
-        >
-          <span className="text-slate-900">Discover Places</span>
-          <br />
-          <span className="text-gradient-primary">You Never Knew Existed</span>
-        </motion.h1>
+          {/* Headline */}
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-7xl lg:text-8xl font-display font-black text-slate-900 mb-6 md:mb-8 tracking-tight leading-[1.1] md:leading-[1.05]"
+          >
+            Plan Smart Trips <br />
+            <span className="text-gradient-primary">Within Your Budget.</span>
+          </motion.h1>
 
-        {/* Subtitle */}
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-base sm:text-lg md:text-xl text-slate-500 max-w-2xl mx-auto mb-10 leading-relaxed px-4"
-        >
-          AI-crafted itineraries, hidden gems, and smart routes tailored to your travel style. Plan effortlessly, explore endlessly.
-        </motion.p>
+          {/* Subtext */}
+          <motion.p
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-base md:text-xl text-slate-500 mb-8 md:mb-12 max-w-2xl mx-auto leading-relaxed px-4 md:px-0"
+          >
+            AI-powered travel planning with real-time budget tracking. Discover hidden gems, book curated stays, and never overspend again.
+          </motion.p>
 
-        {/* Search Teaser */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="w-full max-w-lg mx-auto mb-10 px-4"
-        >
-          <div className="relative flex items-center p-2 bg-white rounded-2xl border border-slate-200 shadow-card hover:shadow-card-hover hover:border-primary-300 transition-all duration-300">
-            <div className="flex items-center flex-1 pl-4 gap-3">
-              <MapPin className="text-primary-400 flex-shrink-0" size={20} />
-              <div className="flex-1 h-12 flex items-center text-base">
-                <span className="text-slate-400">Where to? </span>
-                <span className="text-slate-800 font-medium ml-1">{typedText}</span>
-                <span className="text-primary-400 animate-pulse ml-0.5">|</span>
+          {/* Search Input Hero */}
+          <motion.div
+             initial={{ opacity: 0, y: 24 }}
+             animate={{ opacity: 1, y: 0 }}
+             transition={{ delay: 0.3 }}
+             className="max-w-2xl mx-auto mb-10 md:mb-12 px-4 md:px-0"
+          >
+            <form onSubmit={handleSearch} className="relative group flex flex-col md:block gap-3">
+              <div className="relative md:static">
+                <div className="absolute inset-y-0 left-6 flex items-center pointer-events-none text-slate-400 group-focus-within:text-primary transition-colors z-10">
+                  <Search size={20} className="md:w-6 md:h-6" />
+                </div>
+                <input 
+                  type="text"
+                  placeholder="Where do you want to go?"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full h-14 md:h-20 pl-14 md:pl-16 pr-6 md:pr-44 rounded-2xl md:rounded-3xl bg-white border-2 border-slate-100 shadow-premium focus:border-primary focus:outline-none transition-all text-base md:text-lg font-medium text-slate-900 placeholder:text-slate-400"
+                />
+                <button 
+                  type="submit"
+                  className="hidden md:flex absolute right-3 top-3 bottom-3 px-8 rounded-2xl bg-slate-900 text-white font-bold text-sm hover:bg-slate-800 transition-all items-center gap-2"
+                >
+                  Let's Go <ArrowRight size={18} />
+                </button>
+              </div>
+              
+              {/* Mobile Only Button */}
+              <button 
+                type="submit"
+                className="md:hidden w-full h-14 rounded-2xl bg-slate-900 text-white font-bold text-sm flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
+              >
+                Let's Go <ArrowRight size={18} />
+              </button>
+            </form>
+          </motion.div>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20"
+          >
+            <Link href="/explore" className="text-sm font-bold text-slate-500 hover:text-slate-900 transition-colors">
+              Or browse popular destinations
+            </Link>
+            <Link 
+              href="/demo"
+              className="btn-outline w-full sm:w-auto group"
+            >
+              <Play size={18} className="fill-slate-900" />
+              View Demo
+            </Link>
+          </motion.div>
+
+          {/* Hero Visual */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="relative max-w-5xl mx-auto"
+          >
+            <div className="relative rounded-[2rem] md:rounded-[3rem] bg-white shadow-premium overflow-hidden border border-slate-100 p-2">
+              <div className="aspect-[16/9] bg-slate-50 rounded-[1.8rem] md:rounded-[2.8rem] overflow-hidden relative">
+                <img 
+                  src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=2000" 
+                  alt="Travel Preview" 
+                  className="w-full h-full object-cover opacity-80"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent" />
+                
+                <div className="absolute bottom-10 left-10 right-10 flex flex-col md:flex-row gap-6 items-end justify-between">
+                  <div className="bg-white/90 backdrop-blur-xl p-6 rounded-3xl shadow-2xl border border-white/40 w-full md:w-80">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Real-time Budget</span>
+                      <div className="flex items-center gap-1 text-emerald-500 font-bold text-xs">
+                         <TrendingUp size={14} /> Tracking
+                      </div>
+                    </div>
+                    <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden mb-2">
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        animate={{ width: '65%' }}
+                        transition={{ delay: 1, duration: 2 }}
+                        className="h-full bg-primary rounded-full"
+                      />
+                    </div>
+                    <div className="flex justify-between text-[10px] font-bold text-slate-500">
+                      <span>₹6,500 SPENT</span>
+                      <span>₹10,000 LIMIT</span>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-3">
+                    <div className="bg-white/90 backdrop-blur-md px-4 py-3 rounded-2xl shadow-lg border border-white/40 flex items-center gap-2">
+                      <Sparkles size={16} className="text-primary" />
+                      <span className="text-xs font-bold text-slate-900">AI Curated</span>
+                    </div>
+                    <div className="bg-white/90 backdrop-blur-md px-4 py-3 rounded-2xl shadow-lg border border-white/40 flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-emerald-500" />
+                      <span className="text-xs font-bold text-slate-900">Safe Routes</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <Link
-              href="/explore"
-              className="btn-primary rounded-xl px-5 py-3 text-sm shrink-0"
-            >
-              Explore
-              <Sparkles size={14} />
-            </Link>
-          </div>
-        </motion.div>
+            <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-primary-50/30 rounded-full blur-[100px]" />
+          </motion.div>
 
-        {/* CTA Group */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full px-4"
-        >
-          <button
-            onClick={() => openWaitlist()}
-            className="btn-accent w-full sm:w-auto text-base px-8"
-          >
-            <Mail size={18} />
-            Join the Waitlist
-            <ArrowRight size={16} className="ml-1" />
-          </button>
-          <Link
-            href="/explore"
-            className="btn-outline w-full sm:w-auto text-base px-8"
-          >
-            <MapPin size={18} />
-            Explore Routes
-          </Link>
-        </motion.div>
-
-        {/* Trust Line */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.7 }}
-          className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-400"
-        >
-          <div className="flex items-center gap-2">
-            <div className="flex -space-x-2">
-              {[1, 2, 3, 4].map(i => (
-                <div key={i} className="w-7 h-7 rounded-full border-2 border-white bg-gradient-to-br from-primary-200 to-primary-400 flex items-center justify-center text-[10px] font-bold text-white overflow-hidden">
-                  <img src={`https://i.pravatar.cc/100?u=ekalgo${i}`} alt="" className="w-full h-full object-cover" />
-                </div>
-              ))}
-            </div>
-            <span>Trusted by <strong className="text-slate-600">10,000+</strong> travelers</span>
-          </div>
-          <span className="hidden sm:block text-slate-300">•</span>
-          <span>⭐ 4.9 rating</span>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

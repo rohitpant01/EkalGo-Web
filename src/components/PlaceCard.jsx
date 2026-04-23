@@ -179,7 +179,7 @@ export default function PlaceCard({ place, locked = false, travelersCount, onCli
       </div>
 
       {/* Content */}
-      <div className="p-6 space-y-4">
+      <div className="p-5 md:p-6 space-y-4">
         <div className="flex items-center justify-between gap-2">
           <div className="space-y-1">
             <h3 className={`font-display font-bold text-white text-xl leading-tight group-hover:text-accent-gold transition-colors flex items-center gap-2 ${locked ? 'blur-[4px] opacity-40 select-none' : ''}`}>

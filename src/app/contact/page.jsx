@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MessageSquare, MapPin, Send, Phone, ArrowRight, CheckCircle } from 'lucide-react';
+import { Mail, MessageSquare, MapPin, Send, Phone, ArrowRight, CheckCircle, AtSign } from 'lucide-react';
 import { useModal } from '@/context/ModalContext';
 import emailjs from '@emailjs/browser';
 import toast from 'react-hot-toast';
@@ -41,7 +41,7 @@ export default function ContactPage() {
 
   const CONTACT_INFO = [
     {
-      icon: Mail,
+      icon: AtSign,
       title: 'Email Us',
       desc: 'ekalgo.app@gmail.com',
       href: 'https://mail.google.com/mail/?view=cm&fs=1&to=ekalgo.app@gmail.com',

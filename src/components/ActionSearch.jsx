@@ -125,8 +125,8 @@ export default function ActionSearch({ onSearch }) {
 
             {/* AI Search Bar */}
             <div className="relative group">
-               <div className="absolute inset-y-0 left-6 flex items-center text-accent-gold group-focus-within:scale-110 transition-transform">
-                  <Search size={22} />
+               <div className="absolute inset-y-0 left-5 md:left-6 flex items-center text-accent-gold group-focus-within:scale-110 transition-transform">
+                  <Search size={18} className="md:w-[22px] md:h-[22px]" />
                </div>
                <input 
                  type="text" 
@@ -140,16 +140,16 @@ export default function ActionSearch({ onSearch }) {
                        naturalQuery.split(' ').length > 2 ? handleNaturalSearch() : handleNext();
                     }
                  }}
-                 placeholder="Search city or 'Romantic trip in Goa'..."
-                 className="w-full bg-white/[0.04] border border-white/10 rounded-2xl py-5 pl-16 pr-6 text-base font-medium outline-none focus:border-accent-gold/40 focus:bg-white/[0.08] transition-all shadow-inner"
+                 placeholder="Search city or vibe..."
+                 className="w-full bg-white/[0.04] border border-white/10 rounded-xl md:rounded-2xl py-4 md:py-5 pl-12 md:pl-16 pr-14 md:pr-16 text-sm md:text-base font-medium outline-none focus:border-accent-gold/40 focus:bg-white/[0.08] transition-all shadow-inner"
                />
                <button 
                  onClick={() => {
                     naturalQuery.split(' ').length > 2 ? handleNaturalSearch() : handleNext();
                  }}
-                 className="absolute right-4 top-1/2 -translate-y-1/2 p-2.5 rounded-xl bg-accent-gold/10 text-accent-gold hover:bg-accent-gold/20 transition-all border border-accent-gold/20"
+                 className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 p-2 md:p-2.5 rounded-lg md:rounded-xl bg-accent-gold/10 text-accent-gold hover:bg-accent-gold/20 transition-all border border-accent-gold/20"
                >
-                 <ArrowRight size={20} />
+                 <ArrowRight size={18} className="md:w-5 md:h-5" />
                </button>
             </div>
 

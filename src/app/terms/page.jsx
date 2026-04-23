@@ -2,30 +2,30 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Eye, Lock, FileText, Globe, ArrowLeft } from 'lucide-react';
+import { ShieldCheck, Scale, AlertCircle, UserCheck, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
-export default function PrivacyPage() {
+export default function TermsPage() {
   const sections = [
     {
-      title: "1. Information We Collect",
-      icon: <FileText className="text-primary-500" size={24} />,
-      content: "We collect information you provide directly to us, such as when you create an account, join our waitlist, or plan a trip. This may include your name, email address, and travel preferences."
+      title: "1. Acceptance of Terms",
+      icon: <ShieldCheck className="text-primary-500" size={24} />,
+      content: "By accessing and using EkalGo, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services."
     },
     {
-      title: "2. How We Use Data",
-      icon: <Globe className="text-primary-500" size={24} />,
-      content: "We use the collected information to generate AI-powered itineraries, personalize your experience, and communicate updates about EkalGo services."
+      title: "2. Description of Service",
+      icon: <Scale className="text-primary-500" size={24} />,
+      content: "EkalGo provides an AI-powered travel planning and budget management platform. While we strive for accuracy, AI-generated itineraries are for informational purposes only and should be verified locally."
     },
     {
-      title: "3. Data Security",
-      icon: <Lock className="text-primary-500" size={24} />,
-      content: "We implement industry-standard security measures to protect your data. All communications are encrypted using HTTPS, and personal data is stored on secure servers."
+      title: "3. User Responsibilities",
+      icon: <UserCheck className="text-primary-500" size={24} />,
+      content: "Users are responsible for maintaining the confidentiality of their account information and for all activities that occur under their account. You agree to use the platform in a lawful and respectful manner."
     },
     {
-      title: "4. Your Privacy Rights",
-      icon: <Eye className="text-primary-500" size={24} />,
-      content: "You have the right to access, update, or delete your personal information at any time. Contact us if you wish to exercise these rights."
+      title: "4. Limitation of Liability",
+      icon: <AlertCircle className="text-primary-500" size={24} />,
+      content: "EkalGo is not liable for any travel delays, safety incidents, or financial losses incurred while following an AI-generated itinerary. Travel at your own risk."
     }
   ];
 
@@ -43,12 +43,12 @@ export default function PrivacyPage() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-16"
           >
-            <div className="badge badge-primary mb-6">Data Privacy</div>
+            <div className="badge badge-primary mb-6">Legal Framework</div>
             <h1 className="text-4xl md:text-6xl font-display font-bold text-slate-900 mb-6 tracking-tight">
-              Privacy <span className="text-gradient-primary">Policy.</span>
+              Terms of <span className="text-gradient-primary">Service.</span>
             </h1>
             <p className="text-lg text-slate-500 leading-relaxed">
-              Your privacy is our priority. This policy outlines how we handle your personal data with transparency and care.
+              Last Updated: April 23, 2026. Please read these terms carefully before using the EkalGo platform.
             </p>
           </motion.div>
 
@@ -76,12 +76,12 @@ export default function PrivacyPage() {
           </div>
 
           <div className="mt-16 p-8 rounded-[2rem] bg-slate-900 text-white text-center">
-            <h3 className="text-xl font-bold mb-4">Privacy Concerns?</h3>
+            <h3 className="text-xl font-bold mb-4">Have Questions?</h3>
             <p className="text-slate-400 mb-8 text-sm leading-relaxed">
-              We are committed to data transparency. Reach out to our privacy officer for any clarifications.
+              If you have any questions regarding our terms, please contact our legal team.
             </p>
             <Link href="/contact" className="btn-primary bg-white text-slate-900 hover:bg-slate-100">
-              Contact Privacy Team
+              Contact Support
             </Link>
           </div>
 

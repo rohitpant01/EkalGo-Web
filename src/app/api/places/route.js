@@ -10,21 +10,39 @@ export async function GET(req) {
   const photoReference = searchParams.get('photoReference');
   
   const GOOGLE_PLACES_KEY = process.env.GOOGLE_PLACES_API_KEY;
+  const RETRY_COUNT = 2;
 
   if (!GOOGLE_PLACES_KEY) {
     return NextResponse.json({ error: 'GOOGLE_PLACES_API_KEY is not configured on the server.' }, { status: 500 });
   }
 
+  const fetchWithRetry = async (url) => {
+    let lastError;
+    for (let i = 0; i <= RETRY_COUNT; i++) {
+      try {
+        return await axios.get(url, { timeout: 10000 });
+      } catch (err) {
+        lastError = err;
+        console.warn(`Places API attempt ${i + 1} failed: ${err.message}`);
+        if (i < RETRY_COUNT) {
+          // Wait briefly before retrying
+          await new Promise(res => setTimeout(res, 500 * (i + 1)));
+        }
+      }
+    }
+    throw lastError;
+  };
+
   try {
     if (action === 'findPlaceId') {
       const url = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${encodeURIComponent(placeName + ' India')}&inputtype=textquery&fields=place_id,name,rating,photos,formatted_address,geometry&key=${GOOGLE_PLACES_KEY}`;
-      const response = await axios.get(url);
+      const response = await fetchWithRetry(url);
       return NextResponse.json(response.data);
     }
 
     if (action === 'getPlaceDetails') {
       const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=name,rating,photos,formatted_address,opening_hours,user_ratings_total,reviews,website&key=${GOOGLE_PLACES_KEY}`;
-      const response = await axios.get(url);
+      const response = await fetchWithRetry(url);
       return NextResponse.json(response.data);
     }
 

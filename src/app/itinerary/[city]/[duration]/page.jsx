@@ -87,9 +87,9 @@ export default async function ItineraryDeepDivePage({ params }) {
       <Navbar />
 
       {/* Itinerary Title Section */}
-      <section className="relative pt-32 pb-20 overflow-hidden border-b border-white/5">
+      <section className="relative pt-24 md:pt-32 pb-16 md:pb-20 overflow-hidden border-b border-white/5">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-accent-gold/5 blur-[120px] rounded-full pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="max-w-7xl mx-auto px-5 md:px-6 relative z-10">
           <Breadcrumbs 
             items={[
               { label: 'Explore', href: '/explore' },
@@ -97,18 +97,18 @@ export default async function ItineraryDeepDivePage({ params }) {
               { label: 'Itinerary', href: `/itinerary/${citySlug}/${duration}` }
             ]} 
           />
-          <div className="space-y-6">
+          <div className="space-y-6 pt-4 md:pt-0">
             <Link 
               href={`/explore/${citySlug}`}
-              className="text-accent-gold text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:opacity-80 mb-6"
+              className="text-accent-gold text-[10px] md:text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:opacity-80 mb-4 md:mb-6"
             >
               <Compass size={14} />
               Back to {city.name} Guide
             </Link>
-            <h1 className="text-4xl md:text-7xl font-display font-bold leading-tight">
+            <h1 className="text-3xl sm:text-5xl md:text-7xl font-display font-bold leading-[1.1] md:leading-tight">
               A Legendary <span className="text-gradient-gold">{duration.replace('-', ' ')}</span> <br className="hidden md:block" /> in {city.name}.
             </h1>
-            <p className="text-blue-100/40 text-lg md:text-xl max-w-2xl font-body leading-relaxed pt-4">
+            <p className="text-blue-100/40 text-base md:text-xl max-w-2xl font-body leading-relaxed pt-2 md:pt-4">
                {seo.intro}
             </p>
           </div>
@@ -116,55 +116,55 @@ export default async function ItineraryDeepDivePage({ params }) {
       </section>
 
       {/* Detailed Analysis Section (Phase 4 Depth) */}
-      <section className="py-24 border-b border-white/5">
-        <div className="max-w-4xl mx-auto px-6 space-y-16">
+      <section className="py-16 md:py-24 border-b border-white/5">
+        <div className="max-w-4xl mx-auto px-5 md:px-6 space-y-12 md:space-y-16">
           <div className="space-y-4">
-             <h2 className="text-3xl font-display font-bold">{seo.blocks[0].title}</h2>
-             <p className="text-lg text-blue-100/60 leading-relaxed font-body">
+             <h2 className="text-2xl md:text-3xl font-display font-bold">{seo.blocks[0].title}</h2>
+             <p className="text-base md:text-lg text-blue-100/60 leading-relaxed font-body">
                 {seo.blocks[0].text}
              </p>
           </div>
 
-          <div className="p-8 rounded-[2rem] bg-accent-gold/5 border border-accent-gold/20 flex flex-col md:flex-row items-center gap-8 shadow-2xl">
-             <div className="w-16 h-16 rounded-2xl bg-accent-gold flex items-center justify-center shrink-0 shadow-glow-gold">
-                <Compass size={32} className="text-brand-900" />
+          <div className="p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] bg-accent-gold/5 border border-accent-gold/20 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8 shadow-2xl">
+             <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-accent-gold flex items-center justify-center shrink-0 shadow-glow-gold">
+                <Compass size={24} className="md:w-8 md:h-8 text-brand-900" />
              </div>
              <div className="space-y-2">
-                <h4 className="text-accent-gold font-bold uppercase tracking-widest text-xs">AI Insider Recommendation</h4>
-                <p className="text-blue-100/80 font-medium italic">"{seo.localTip}"</p>
+                <h4 className="text-accent-gold font-bold uppercase tracking-widest text-[10px] md:text-xs">AI Insider Recommendation</h4>
+                <p className="text-blue-100/80 text-sm md:text-base font-medium italic">"{seo.localTip}"</p>
              </div>
           </div>
         </div>
       </section>
 
       {/* Day by Day */}
-      <section className="py-24 max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-12 gap-16">
-          <div className="lg:col-span-8 space-y-24 relative before:absolute before:inset-y-0 before:left-[-24px] before:w-[2px] before:bg-gradient-to-b before:from-accent-gold before:to-accent-neon before:opacity-20 ml-6">
+      <section className="py-16 md:py-24 max-w-7xl mx-auto px-5 md:px-6">
+        <div className="grid lg:grid-cols-12 gap-12 md:gap-16">
+          <div className="lg:col-span-8 space-y-16 md:space-y-24 relative md:before:absolute md:before:inset-y-0 md:before:left-[-24px] md:before:w-[2px] md:before:bg-gradient-to-b md:before:from-accent-gold md:before:to-accent-neon md:before:opacity-20 md:ml-6">
             {itinerary.map((day) => (
               <div key={day.day} className="relative">
-                <div className="absolute left-[-42px] top-0 w-8 h-8 rounded-full bg-brand-900 border-2 border-accent-gold flex items-center justify-center text-xs font-bold text-accent-gold z-10 shadow-glow-gold/20">
+                <div className="md:absolute md:left-[-42px] md:top-0 w-8 h-8 rounded-full bg-brand-900 border-2 border-accent-gold flex items-center justify-center text-xs font-bold text-accent-gold z-10 shadow-glow-gold/20 mb-4 md:mb-0">
                   {day.day}
                 </div>
                 
-                <div className="space-y-8">
+                <div className="space-y-6 md:space-y-8">
                    <div>
-                      <h2 className="text-2xl font-display font-bold mb-2">Day {day.day}: {day.theme}</h2>
-                      <p className="text-blue-100/30 text-sm italic">Optimized for {day.day === 1 ? 'immersion' : day.day === 2 ? 'discovery' : 'reflection'} and AI-calculated efficiency.</p>
+                      <h2 className="text-xl md:text-2xl font-display font-bold mb-2">Day {day.day}: {day.theme}</h2>
+                      <p className="text-blue-100/30 text-xs md:text-sm italic">Optimized for {day.day === 1 ? 'immersion' : day.day === 2 ? 'discovery' : 'reflection'} and AI-calculated efficiency.</p>
                    </div>
 
-                   <div className="space-y-10">
+                   <div className="space-y-8 md:space-y-10">
                       {day.activities.map((act, i) => (
-                        <div key={i} className="flex gap-6 items-start group">
+                        <div key={i} className="flex gap-4 md:gap-6 items-start group">
                           <div className="shrink-0 pt-1">
-                             <div className="w-10 h-10 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-accent-teal group-hover:bg-accent-teal group-hover:text-brand-900 transition-all duration-300">
-                                {i === 0 ? <Clock size={16} /> : i === 1 ? <Coffee size={16} /> : <Camera size={16} />}
+                             <div className="w-8 h-8 md:w-10 md:h-10 rounded-xl md:rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-accent-teal group-hover:bg-accent-teal group-hover:text-brand-900 transition-all duration-300">
+                                {i === 0 ? <Clock size={14} className="md:w-4 md:h-4" /> : i === 1 ? <Coffee size={14} className="md:w-4 md:h-4" /> : <Camera size={14} className="md:w-4 md:h-4" />}
                              </div>
                           </div>
                           <div className="space-y-1">
-                             <div className="text-[10px] font-mono text-accent-teal uppercase tracking-widest font-bold">{act.time}</div>
-                             <h4 className="text-lg font-bold text-white group-hover:text-accent-teal transition-colors">{act.action}</h4>
-                             <p className="text-blue-100/50 text-sm leading-relaxed max-w-lg">{act.detail}</p>
+                             <div className="text-[9px] md:text-[10px] font-mono text-accent-teal uppercase tracking-widest font-bold">{act.time}</div>
+                             <h4 className="text-base md:text-lg font-bold text-white group-hover:text-accent-teal transition-colors">{act.action}</h4>
+                             <p className="text-blue-100/50 text-xs md:text-sm leading-relaxed max-w-lg">{act.detail}</p>
                           </div>
                         </div>
                       ))}

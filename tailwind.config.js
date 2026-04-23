@@ -109,6 +109,7 @@ export default {
         'nav': '0 1px 0 rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.04)',
         'glow-primary': '0 0 24px rgba(45, 212, 191, 0.2)',
         'glow-accent': '0 0 24px rgba(245, 185, 66, 0.2)',
+        'premium': '0 25px 50px -12px rgba(0, 0, 0, 0.08)',
       },
       borderRadius: {
         '2xl': '1rem',

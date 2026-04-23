@@ -58,17 +58,17 @@ export default function WaitlistModal({
         exit={{ opacity: 0, y: 20, scale: 0.95 }}
         className="relative w-full max-w-md bg-white rounded-3xl overflow-hidden shadow-2xl border border-slate-100"
       >
-        <div className="relative p-8">
+        <div className="relative p-6 md:p-8">
           {status !== 'success' && status !== 'already_joined' ? (
             <>
-              <div className="text-center mb-8">
-                <div className="w-14 h-14 rounded-2xl bg-primary-50 text-primary-500 flex items-center justify-center mx-auto mb-4 border border-primary-100">
-                  <Mail size={24} />
+              <div className="text-center mb-6 md:mb-8">
+                <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-primary-50 text-primary-500 flex items-center justify-center mx-auto mb-4 border border-primary-100">
+                  <Mail size={22} className="md:w-6 md:h-6" />
                 </div>
-                <h2 className="font-display text-2xl font-bold text-slate-900 mb-2">
+                <h2 className="font-display text-xl md:text-2xl font-bold text-slate-900 mb-2">
                   {title}
                 </h2>
-                <p className="text-slate-500 text-sm">
+                <p className="text-slate-500 text-xs md:text-sm">
                   {description}
                 </p>
               </div>
@@ -114,19 +114,19 @@ export default function WaitlistModal({
             </>
           ) : (
             // Success / Already Joined state
-            <div className="text-center py-6">
-              <div className="flex items-center justify-center mb-6">
-                <div className="w-20 h-20 rounded-full bg-emerald-50 text-emerald-500 border-2 border-emerald-100 flex items-center justify-center">
-                  <CheckCircle size={36} />
+            <div className="text-center py-4 md:py-6">
+              <div className="flex items-center justify-center mb-5 md:mb-6">
+                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-emerald-50 text-emerald-500 border-2 border-emerald-100 flex items-center justify-center">
+                  <CheckCircle size={30} className="md:w-9 md:h-9" />
                 </div>
               </div>
-              <h2 className="font-display text-2xl font-bold text-slate-900 mb-3">
+              <h2 className="font-display text-xl md:text-2xl font-bold text-slate-900 mb-3">
                 {status === 'success' ? "You're on the list! 🎉" : "You're already on the list! 👋"}
               </h2>
-              <p className="text-slate-500 text-sm mb-2">
+              <p className="text-slate-500 text-xs md:text-sm mb-2">
                 We'll notify <span className="text-primary-600 font-medium">{email}</span> the moment EkalGo launches.
               </p>
-              <p className="text-slate-400 text-xs mb-8">
+              <p className="text-slate-400 text-[10px] md:text-xs mb-8">
                 Check your inbox for a confirmation + exclusive early bird perks.
               </p>
               <button

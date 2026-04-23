@@ -1,47 +1,59 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Compass, Sparkles, Loader2, MapPin, ArrowRight } from 'lucide-react';
 import { getPlaceWithPhoto } from '@/services/api';
 import { useModal } from '@/context/ModalContext';
+import { useSearchParams } from 'next/navigation';
 
-const DESTINATIONS = [
-  { title: 'Goa', type: 'Beach', budget: 'Moderate', duration: '4-5 Days', tags: ['Party', 'Chill'] },
-  { title: 'Varkala', type: 'Beach', budget: 'Budget', duration: '3-4 Days', tags: ['Cliffs', 'Surf'] },
-  { title: 'Gokarna', type: 'Beach', budget: 'Budget', duration: '3-4 Days', tags: ['Hidden', 'Peace'] },
-  { title: 'Manali', type: 'Mountains', budget: 'Budget', duration: '3-4 Days', tags: ['Adventure', 'Snow'] },
-  { title: 'Ladakh', type: 'Mountains', budget: 'Premium', duration: '7-10 Days', tags: ['Trek', 'Extreme'] },
-  { title: 'Spiti Valley', type: 'Mountains', budget: 'Moderate', duration: '6-8 Days', tags: ['Cold Desert', 'Gompas'] },
-  { title: 'Udaipur', type: 'Heritage', budget: 'Premium', duration: '3-4 Days', tags: ['Lakes', 'Royal'] },
-  { title: 'Jaipur', type: 'Heritage', budget: 'Moderate', duration: '3-4 Days', tags: ['Forts', 'Culture'] },
-  { title: 'Hampi', type: 'Heritage', budget: 'Budget', duration: '3-4 Days', tags: ['History', 'Boulders'] },
-  { title: 'Munnar', type: 'Nature', budget: 'Moderate', duration: '3-4 Days', tags: ['Tea', 'Hills'] },
-  { title: 'Waynad', type: 'Nature', budget: 'Moderate', duration: '3-4 Days', tags: ['Forest', 'Waterfalls'] },
-  { title: 'Coorg', type: 'Nature', budget: 'Moderate', duration: '2-3 Days', tags: ['Coffee', 'Mist'] },
-];
-
-const CATEGORY_MAP = {
-  Beach: { label: 'Coastal Escapes', color: 'bg-blue-50 text-blue-600 border-blue-200' },
-  Mountains: { label: 'Mountain Highs', color: 'bg-emerald-50 text-emerald-600 border-emerald-200' },
-  Heritage: { label: 'Ancient Wonders', color: 'bg-amber-50 text-amber-600 border-amber-200' },
-  Nature: { label: 'Natural Sanctuaries', color: 'bg-green-50 text-green-600 border-green-200' },
-};
-
-export default function ExplorePage() {
+function ExploreContent() {
+  const searchParams = useSearchParams();
+  const initialSearch = searchParams.get('search') || '';
+  
   const { openWaitlist, openPreview } = useModal();
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState(initialSearch);
   const [activeFilter, setActiveFilter] = useState('All');
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const DESTINATIONS = [
+    { title: 'Goa', type: 'Beach', budget: 'Moderate', duration: '4-5 Days', tags: ['Party', 'Chill'] },
+    { title: 'Varkala', type: 'Beach', budget: 'Budget', duration: '3-4 Days', tags: ['Cliffs', 'Surf'] },
+    { title: 'Gokarna', type: 'Beach', budget: 'Budget', duration: '3-4 Days', tags: ['Hidden', 'Peace'] },
+    { title: 'Manali', type: 'Mountains', budget: 'Budget', duration: '3-4 Days', tags: ['Adventure', 'Snow'] },
+    { title: 'Ladakh', type: 'Mountains', budget: 'Premium', duration: '7-10 Days', tags: ['Trek', 'Extreme'] },
+    { title: 'Spiti Valley', type: 'Mountains', budget: 'Moderate', duration: '6-8 Days', tags: ['Cold Desert', 'Gompas'] },
+    { title: 'Udaipur', type: 'Heritage', budget: 'Premium', duration: '3-4 Days', tags: ['Lakes', 'Royal'] },
+    { title: 'Jaipur', type: 'Heritage', budget: 'Moderate', duration: '3-4 Days', tags: ['Forts', 'Culture'] },
+    { title: 'Hampi', type: 'Heritage', budget: 'Budget', duration: '3-4 Days', tags: ['History', 'Boulders'] },
+    { title: 'Munnar', type: 'Nature', budget: 'Moderate', duration: '3-4 Days', tags: ['Tea', 'Hills'] },
+    { title: 'Waynad', type: 'Nature', budget: 'Moderate', duration: '3-4 Days', tags: ['Forest', 'Waterfalls'] },
+    { title: 'Coorg', type: 'Nature', budget: 'Moderate', duration: '2-3 Days', tags: ['Coffee', 'Mist'] },
+  ];
+
+  const CATEGORY_MAP = {
+    Beach: { label: 'Coastal Escapes', color: 'bg-blue-50 text-blue-600 border-blue-200' },
+    Mountains: { label: 'Mountain Highs', color: 'bg-emerald-50 text-emerald-600 border-emerald-200' },
+    Heritage: { label: 'Ancient Wonders', color: 'bg-amber-50 text-amber-600 border-amber-200' },
+    Nature: { label: 'Natural Sanctuaries', color: 'bg-green-50 text-green-600 border-green-200' },
+  };
+
+  useEffect(() => {
+    setSearchTerm(initialSearch);
+  }, [initialSearch]);
 
   useEffect(() => {
     async function loadPlaces() {
       setLoading(true);
       const enriched = await Promise.all(
         DESTINATIONS.map(async (d) => {
-          const details = await getPlaceWithPhoto(d.title);
-          return { ...d, ...details };
+          try {
+            const details = await getPlaceWithPhoto(d.title);
+            return { ...d, ...details };
+          } catch (e) {
+            return d;
+          }
         })
       );
       setPlaces(enriched);
@@ -107,12 +119,12 @@ export default function ExplorePage() {
           </div>
 
           {/* Category Filters */}
-          <div className="flex flex-wrap justify-center gap-2">
+          <div className="flex items-center justify-start md:justify-center gap-2 overflow-x-auto no-scrollbar pb-2 -mx-4 px-4 md:mx-0 md:px-0">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveFilter(cat)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                className={`whitespace-nowrap px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                   activeFilter === cat
                     ? 'bg-primary-400 text-white shadow-glow-primary'
                     : 'bg-white text-slate-600 border border-slate-200 hover:border-primary-200 hover:text-primary-600'
@@ -268,5 +280,13 @@ export default function ExplorePage() {
         </div>
       </section>
     </div>
+  );
+}
+
+export default function ExplorePage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen"><Loader2 className="animate-spin text-primary" size={40} /></div>}>
+      <ExploreContent />
+    </Suspense>
   );
 }
