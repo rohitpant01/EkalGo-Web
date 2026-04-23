@@ -11,6 +11,8 @@ const TABS = [
   { id: 'places', label: 'Hidden Places', icon: Compass },
 ];
 
+import destinations from '@/data/destinations.json';
+
 const CONTENT = {
   hotels: [
     { name: 'The Himalayan Hideout', price: '₹2,500', rating: 4.8, vibe: 'Cozy / Budget', tags: ['Wifi', 'View'] },
@@ -31,6 +33,7 @@ const CONTENT = {
 
 export default function SmartTravel() {
   const [activeTab, setActiveTab] = useState('hotels');
+  const city = destinations[0]; // Manali
 
   return (
     <section className="py-20 md:py-32 bg-white relative overflow-hidden">
@@ -41,10 +44,10 @@ export default function SmartTravel() {
           <div className="badge badge-primary mb-4">Smart Recommendations</div>
           <h2 className="text-3xl md:text-5xl font-display font-bold text-slate-900 mb-6">
             Hyper-Personalized <br />
-            <span className="text-gradient-primary">Recommendations</span>
+            <span className="text-gradient-primary">for {city.name}</span>
           </h2>
           <p className="text-slate-500 text-lg">
-            EkalGo doesn't just show lists. It shows what's best for YOUR budget and YOUR travel style. 
+            EkalGo doesn't just show lists. It shows what's best for YOUR budget in {city.name}. 
             Filtered by AI, verified by travelers.
           </p>
         </div>
@@ -118,7 +121,7 @@ export default function SmartTravel() {
                         {item.price} <span className="text-[10px] font-sans font-medium text-slate-400 uppercase">/ Avg.</span>
                       </div>
                       <Link 
-                        href={`/explore?city=Manali&category=${activeTab}`}
+                        href={`/explore/${city.id}`}
                         className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:text-primary hover:border-primary transition-colors"
                       >
                         <ChevronRight size={20} />
@@ -132,12 +135,12 @@ export default function SmartTravel() {
                   <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-primary mb-6 shadow-sm">
                     <Clock size={24} />
                   </div>
-                  <h4 className="text-lg font-display font-bold text-slate-900 mb-3">Day 1 Breakdown</h4>
+                  <h4 className="text-lg font-display font-bold text-slate-900 mb-3">Plan for {city.name}</h4>
                   <p className="text-sm text-slate-500 mb-6 leading-relaxed">
-                    EkalGo has reserved these selections for your first day in Manali based on your budget limit of ₹4,000.
+                    EkalGo has reserved 120+ selections for {city.name} based on budget limits between {city.budget_range}.
                   </p>
-                  <Link href="/explore" className="text-sm font-bold text-primary flex items-center gap-2 hover:gap-3 transition-all">
-                    View Full Itinerary <ChevronRight size={16} />
+                  <Link href={`/explore/${city.id}`} className="text-sm font-bold text-primary flex items-center gap-2 hover:gap-3 transition-all">
+                    View Full Guide <ChevronRight size={16} />
                   </Link>
                 </div>
               </motion.div>
