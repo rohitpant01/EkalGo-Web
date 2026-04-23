@@ -22,19 +22,19 @@ export default function TopDestinationsPage() {
     {
       id: 'solo',
       title: 'Best for Solo Travelers',
-      icon: <Compass className="text-accent-teal" />,
+      icon: <Compass className="text-teal-400" />,
       items: destinations.filter(d => ['leh', 'varkala', 'rishikesh', 'pondicherry'].includes(d.slug))
     },
     {
       id: 'hidden',
       title: 'Top Hidden Gems',
-      icon: <Sparkles className="text-accent-gold" />,
+      icon: <Sparkles className="text-amber-500" />,
       items: destinations.filter(d => ['zanskar-valley', 'gokarna', 'munnar', 'shillong'].includes(d.slug))
     },
     {
       id: 'culture',
       title: 'Cultural Hotspots',
-      icon: <Heart className="text-accent-neon" />,
+      icon: <Heart className="text-fuchsia-500" />,
       items: destinations.filter(d => ['varanasi', 'hampi', 'jaipur', 'madurai'].includes(d.slug))
     },
     {
@@ -46,7 +46,7 @@ export default function TopDestinationsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-brand-900 text-white selection:bg-accent-gold/30">
+    <div className="min-h-screen bg-slate-950 text-white selection:bg-amber-500/30">
       <Navbar />
 
       {/* Hero Section */}
@@ -54,31 +54,31 @@ export default function TopDestinationsPage() {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[800px] bg-accent-gold/5 blur-[160px] rounded-full pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-6 relative z-10 text-center space-y-8">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent-gold/10 border border-accent-gold/20">
-            <Award size={16} className="text-accent-gold" />
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent-gold">Official 2026 Rankings</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20">
+            <Award size={16} className="text-amber-500" />
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-amber-500">Official 2026 Rankings</span>
           </div>
           
           <h1 className="text-5xl md:text-8xl font-display font-bold tracking-tight">
-            Best of <span className="text-gradient-gold italic">India.</span>
+            Best of <span className="text-gradient-accent italic">India.</span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-blue-100/40 max-w-3xl mx-auto font-body leading-relaxed">
+          <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto font-body leading-relaxed">
             The definitive list of 2026 Indian travel destinations, pinpointed by AI and verified by over 10,000+ early travelers.
           </p>
 
           <div className="flex justify-center gap-12 pt-8 border-t border-white/5 max-w-lg mx-auto">
              <div className="text-center">
                 <div className="text-3xl font-bold font-display">30+</div>
-                <div className="text-[10px] text-blue-100/30 uppercase tracking-widest mt-1">Cites Vetted</div>
+                <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Cites Vetted</div>
              </div>
              <div className="text-center">
                 <div className="text-3xl font-bold font-display">1.2K</div>
-                <div className="text-[10px] text-blue-100/30 uppercase tracking-widest mt-1">Gems Found</div>
+                <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Gems Found</div>
              </div>
              <div className="text-center">
                 <div className="text-3xl font-bold font-display">4.9/5</div>
-                <div className="text-[10px] text-blue-100/30 uppercase tracking-widest mt-1">AI Precision</div>
+                <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-1">AI Precision</div>
              </div>
           </div>
         </div>
@@ -110,11 +110,21 @@ export default function TopDestinationsPage() {
                   href={`/explore/${item.slug}`}
                   className="group relative block aspect-[3/4] rounded-3xl overflow-hidden border border-white/5 hover:border-accent-gold/30 transition-all duration-700"
                 >
-                  <div className="absolute inset-0 bg-white/5 flex items-center justify-center">
-                    <MapPin size={48} className="text-white/5 group-hover:scale-125 group-hover:text-accent-gold/20 transition-all duration-700" />
+                  <div className="absolute inset-0">
+                    {item.image ? (
+                      <img 
+                        src={item.image} 
+                        alt={item.name}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-white/5 flex items-center justify-center">
+                        <MapPin size={48} className="text-white/5 group-hover:scale-125 group-hover:text-amber-500/20 transition-all duration-700" />
+                      </div>
+                    )}
                   </div>
                   
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-900 via-brand-900/40 to-transparent opacity-90" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-90" />
                   
                   <div className="absolute inset-x-0 bottom-0 p-8 space-y-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                     <div className="space-y-1">
@@ -130,7 +140,7 @@ export default function TopDestinationsPage() {
                       {item.tagline}
                     </p>
                     
-                    <div className="flex items-center gap-2 text-accent-gold text-xs font-bold pt-2">
+                    <div className="flex items-center gap-2 text-amber-500 text-xs font-bold pt-2">
                        Explore More <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
                     </div>
                   </div>

@@ -68,9 +68,15 @@ export default async function HiddenGemsPage({ params }) {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 overflow-hidden border-b border-white/5">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-accent-neon/5 blur-[120px] rounded-full pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <section className="relative pt-40 pb-24 overflow-hidden border-b border-white/5">
+        <img 
+          src={city.image} 
+          alt={`${city.name} hidden gems`}
+          className="absolute inset-0 w-full h-full object-cover opacity-20"
+        />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[800px] bg-amber-500/5 blur-[160px] rounded-full pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center space-y-8">
           <Breadcrumbs 
             items={[
               { label: 'Explore', href: '/explore' },
@@ -78,18 +84,16 @@ export default async function HiddenGemsPage({ params }) {
               { label: 'Hidden Gems', href: `/hidden-gems/${citySlug}` }
             ]} 
           />
-          <div className="text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-neon/10 border border-accent-neon/20">
-              <Sparkles size={14} className="text-accent-neon" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent-neon">Curated Discovery</span>
-            </div>
-            <h1 className="text-5xl md:text-8xl font-display font-bold tracking-tight">
-              Hidden Gems in <span className="text-gradient-gold">{city.name}.</span>
-            </h1>
-            <p className="text-blue-100/40 text-lg md:text-xl max-w-2xl mx-auto font-body leading-relaxed">
-               {seo.intro}
-            </p>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20">
+            <Sparkles size={16} className="text-amber-500" />
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-amber-500">2026 Hidden Gems List</span>
           </div>
+          <h1 className="text-5xl md:text-8xl font-display font-bold tracking-tight">
+            Secret <span className="text-gradient-accent italic">{city.name}.</span>
+          </h1>
+          <p className="text-blue-100/40 text-lg md:text-xl max-w-2xl mx-auto font-body leading-relaxed">
+             {seo.intro}
+          </p>
         </div>
       </section>
 

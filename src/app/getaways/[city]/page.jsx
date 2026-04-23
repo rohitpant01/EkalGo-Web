@@ -45,13 +45,18 @@ export default async function GetawaysPage({ params }) {
   const seo = generateSEOContent(city, 'getaways');
 
   return (
-    <div className="min-h-screen bg-brand-900 text-white selection:bg-accent-gold/30">
+    <div className="min-h-screen bg-slate-950 text-white selection:bg-amber-500/30">
       
       <Navbar />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 overflow-hidden border-b border-white/5">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-accent-teal/5 blur-[120px] rounded-full pointer-events-none" />
+        <img 
+          src={city.image} 
+          alt={`Getaways from ${city.name}`}
+          className="absolute inset-0 w-full h-full object-cover opacity-20"
+        />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-teal-500/5 blur-[120px] rounded-full pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <Breadcrumbs 
             items={[
@@ -61,12 +66,12 @@ export default async function GetawaysPage({ params }) {
             ]} 
           />
           <div className="text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-teal/10 border border-accent-teal/20">
-              <Zap size={14} className="text-accent-teal" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent-teal">Short Escapes</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20">
+              <Zap size={14} className="text-teal-500" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-teal-500">Short Escapes</span>
             </div>
             <h1 className="text-5xl md:text-8xl font-display font-bold tracking-tight">
-              Getaways from <span className="text-gradient-gold">{city.name}.</span>
+              Getaways from <span className="text-gradient-accent">{city.name}.</span>
             </h1>
             <p className="text-blue-100/40 text-lg md:text-xl max-w-2xl mx-auto font-body leading-relaxed">
                {seo.intro}
@@ -103,14 +108,21 @@ export default async function GetawaysPage({ params }) {
           {city.getaways.map((getawaySlug, idx) => {
             const getaway = destinationsData.destinations.find(d => d.slug === getawaySlug.toLowerCase().replace(/\s+/g, '-')) || { name: getawaySlug, tagline: 'Explore the unexplored route.' };
             return (
-              <div key={idx} className="glass-panel p-1 group hover:border-accent-gold/30 transition-all duration-500 rounded-[2rem] overflow-hidden">
-                <div className="flex flex-col lg:flex-row gap-8 p-10 bg-brand-800/20 items-center">
+              <div key={idx} className="glass-panel p-1 group hover:border-amber-500/30 transition-all duration-500 rounded-[2rem] overflow-hidden">
+                <div className="flex flex-col lg:flex-row gap-8 p-6 bg-slate-900/40 items-center">
+                  <div className="lg:w-1/3 aspect-video lg:aspect-square rounded-2xl overflow-hidden shrink-0">
+                    <img 
+                      src={getaway.image || city.image} 
+                      alt={getaway.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                  </div>
                   <div className="lg:w-2/3 space-y-6">
-                    <div className="flex items-center gap-2 text-accent-gold">
+                    <div className="flex items-center gap-2 text-amber-500">
                        <MapPin size={24} />
                        <h3 className="text-3xl font-display font-bold">{getaway.name}</h3>
                     </div>
-                    <p className="text-blue-100/40 text-lg">
+                    <p className="text-slate-400 text-lg">
                       {getaway.tagline}. Perfect for a quick recharge escape from {city.name}.
                     </p>
                     <div className="flex flex-wrap gap-4 pt-6">

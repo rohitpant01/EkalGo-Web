@@ -52,7 +52,11 @@ function ExploreContent() {
         DESTINATIONS.map(async (d) => {
           try {
             const details = await getPlaceWithPhoto(d.title);
-            return { ...d, ...details };
+            return { 
+              ...d, 
+              photoUrl: details.photoUrl || d.photoUrl,
+              rating: details.rating || d.rating 
+            };
           } catch (e) {
             return d;
           }

@@ -32,6 +32,11 @@ export default async function CitySafetyPage({ params }) {
       
       {/* Hero */}
       <section className="pt-32 pb-16 bg-slate-50 relative overflow-hidden">
+        <img 
+          src={data.image} 
+          className="absolute inset-0 w-full h-full object-cover opacity-10 grayscale" 
+          alt={`${data.name} safety`}
+        />
         <div className="container-tight relative z-10">
           <div className="max-w-3xl">
              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-100 w-fit mb-6 text-[10px] font-black uppercase tracking-widest">

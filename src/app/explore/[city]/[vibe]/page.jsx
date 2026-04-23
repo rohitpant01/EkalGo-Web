@@ -46,22 +46,27 @@ export default async function VibeExplorePage({ params }) {
   const city = cityData.name;
 
   return (
-    <div className="min-h-screen bg-brand-900 text-white selection:bg-accent-gold/30">
+    <div className="min-h-screen bg-slate-950 text-white selection:bg-amber-500/30">
       <Navbar />
 
       <section className="relative pt-32 pb-20 overflow-hidden border-b border-white/5">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-accent-gold/5 blur-[120px] rounded-full pointer-events-none" />
+        <img 
+          src={cityData.image} 
+          alt={`${city} ${vibe} guide`}
+          className="absolute inset-0 w-full h-full object-cover opacity-20"
+        />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-amber-500/5 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="space-y-6 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-gold/10 border border-accent-gold/20">
-              <Sparkles size={14} className="text-accent-gold" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent-gold">{vibe} Travel Intelligence</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20">
+              <Sparkles size={14} className="text-amber-500" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-500">{vibe} Travel Intelligence</span>
             </div>
             
             <h1 className="text-6xl md:text-8xl font-display font-bold leading-[0.9]">
                {vibe.charAt(0).toUpperCase() + vibe.slice(1)} <br />
-              <span className="text-gradient-gold">Resonance in {city}.</span>
+              <span className="text-gradient-accent">Resonance in {city}.</span>
             </h1>
             
             <p className="text-blue-100/40 text-lg md:text-xl font-body leading-relaxed max-w-xl">
