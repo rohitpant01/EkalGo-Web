@@ -248,7 +248,7 @@ function ExploreContent() {
                         <ArrowRight size={14} className="text-slate-300 group-hover:text-primary-400 group-hover:translate-x-1 transition-all" />
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </motion.div>
               ))}
 
