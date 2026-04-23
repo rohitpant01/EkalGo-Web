@@ -14,7 +14,6 @@ import destinationsData from '@/data/destinations.json';
 
 const FOOTER_LINKS = {
   product: [
-    { label: 'AI Planner', href: '/ai-planner' },
     { label: 'Explore', href: '/explore' },
     { label: 'Hidden Gems', href: '/hidden-gems/manali' },
     { label: 'Getaways', href: '/getaways/manali' },

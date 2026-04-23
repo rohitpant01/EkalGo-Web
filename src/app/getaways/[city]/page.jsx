@@ -45,7 +45,7 @@ export default async function GetawaysPage({ params }) {
   const seo = generateSEOContent(city, 'getaways');
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white selection:bg-amber-500/30">
+    <div className="min-h-screen bg-[#020617] text-white selection:bg-amber-500/30">
       
       <Navbar />
 
@@ -73,7 +73,7 @@ export default async function GetawaysPage({ params }) {
             <h1 className="text-5xl md:text-8xl font-display font-bold tracking-tight">
               Getaways from <span className="text-gradient-accent">{city.name}.</span>
             </h1>
-            <p className="text-blue-100/40 text-lg md:text-xl max-w-2xl mx-auto font-body leading-relaxed">
+            <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto font-body leading-relaxed">
                {seo.intro}
             </p>
           </div>
@@ -85,7 +85,7 @@ export default async function GetawaysPage({ params }) {
         <div className="max-w-4xl mx-auto px-6 space-y-16">
           <div className="space-y-4">
              <h2 className="text-3xl font-display font-bold">{seo.blocks[1].title}</h2>
-             <p className="text-lg text-blue-100/60 leading-relaxed font-body">
+             <p className="text-lg text-slate-300 leading-relaxed font-body">
                 {seo.blocks[1].text}
              </p>
           </div>
@@ -96,7 +96,7 @@ export default async function GetawaysPage({ params }) {
              </div>
              <div className="space-y-2">
                 <h4 className="text-accent-teal font-bold uppercase tracking-widest text-xs">Verified Local Insight</h4>
-                <p className="text-blue-100/80 font-medium italic">"{seo.localTip}"</p>
+                <p className="text-slate-300 font-medium italic">"{seo.localTip}"</p>
              </div>
           </div>
         </div>
@@ -150,7 +150,7 @@ export default async function GetawaysPage({ params }) {
                <Link href={`/hidden-gems/${citySlug}`} className="glass-panel p-10 hover:border-accent-gold/40 transition-all group">
                   <Camera size={32} className="text-accent-gold mx-auto mb-6 group-hover:scale-110 transition-transform" />
                   <h3 className="text-xl font-bold mb-3">Hidden Gems near {city.name}</h3>
-                  <p className="text-xs text-blue-100/30">Avoid the crowds with AI-pinpointed secret nodes near the city.</p>
+                  <p className="text-xs text-slate-500">Avoid the crowds with AI-pinpointed secret nodes near the city.</p>
                </Link>
                <Link href={`/explore/${citySlug}`} className="glass-panel p-10 hover:border-accent-teal/40 transition-all group">
                   <Compass size={32} className="text-accent-teal mx-auto mb-6 group-hover:scale-110 transition-transform" />

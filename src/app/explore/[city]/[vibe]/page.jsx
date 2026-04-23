@@ -46,7 +46,7 @@ export default async function VibeExplorePage({ params }) {
   const city = cityData.name;
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white selection:bg-amber-500/30">
+    <div className="min-h-screen bg-[#020617] text-white selection:bg-amber-500/30">
       <Navbar />
 
       <section className="relative pt-32 pb-20 overflow-hidden border-b border-white/5">

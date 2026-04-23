@@ -59,7 +59,7 @@ export default async function HiddenGemsPage({ params }) {
   };
 
   return (
-    <div className="min-h-screen bg-brand-900 text-white selection:bg-accent-gold/30">
+    <div className="min-h-screen bg-[#020617] text-white selection:bg-amber-500/30">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
