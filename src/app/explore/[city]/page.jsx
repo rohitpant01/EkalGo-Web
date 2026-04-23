@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Star, ShieldCheck, Sparkles, ArrowRight, ChevronLeft } from 'lucide-react';
+import { MapPin, Star, ShieldCheck, Sparkles, ArrowRight, ChevronLeft, Compass } from 'lucide-react';
 import Link from 'next/link';
 import TrustBar from '@/components/TrustBar';
 import SampleItinerary from '@/components/SampleItinerary';

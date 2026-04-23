@@ -6,6 +6,7 @@ import { Search, Compass, Sparkles, Loader2, MapPin, ArrowRight } from 'lucide-r
 import { getPlaceWithPhoto } from '@/services/api';
 import { useModal } from '@/context/ModalContext';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 import destinations from '@/data/destinations.json';
 
