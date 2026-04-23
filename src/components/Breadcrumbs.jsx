@@ -16,13 +16,13 @@ export default function Breadcrumbs({ items }) {
   };
 
   return (
-    <nav className="flex items-center gap-2 text-[10px] font-mono tracking-widest uppercase text-blue-100/30 mb-8 overflow-x-auto no-scrollbar whitespace-nowrap py-2" aria-label="Breadcrumb">
+    <nav className="flex items-center gap-2 text-[10px] font-mono tracking-widest uppercase text-slate-400 mb-8 overflow-x-auto no-scrollbar whitespace-nowrap py-2" aria-label="Breadcrumb">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       
-      <Link href="/" className="hover:text-accent-gold transition-colors flex items-center gap-1.5 shrink-0">
+      <Link href="/" className="hover:text-primary-500 transition-colors flex items-center gap-1.5 shrink-0">
         <Home size={12} />
         Home
       </Link>
@@ -31,11 +31,11 @@ export default function Breadcrumbs({ items }) {
         <React.Fragment key={index}>
           <ChevronRight size={10} className="shrink-0 opacity-20" />
           {index === items.length - 1 ? (
-            <span className="text-accent-gold font-bold truncate max-w-[150px] sm:max-w-none">
+            <span className="text-primary-500 font-bold truncate max-w-[150px] sm:max-w-none">
               {item.label}
             </span>
           ) : (
-            <Link href={item.href} className="hover:text-accent-gold transition-colors truncate max-w-[100px] sm:max-w-none">
+            <Link href={item.href} className="hover:text-primary-500 transition-colors truncate max-w-[100px] sm:max-w-none">
               {item.label}
             </Link>
           )}

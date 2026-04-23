@@ -72,17 +72,17 @@ export default function LiveSocialProof({ city = "" }) {
             initial={{ x: -100, opacity: 0, scale: 0.8 }}
             animate={{ x: 0, opacity: 1, scale: 1 }}
             exit={{ x: -20, opacity: 0, scale: 0.9 }}
-            className="flex items-center gap-3 px-4 py-3 rounded-2xl glass-panel shadow-3xl border border-white/10"
-            style={{ minWidth: '240px', boxShadow: '0 20px 50px -12px rgba(0,0,0,0.8)' }}
+            className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white shadow-card border border-slate-100"
+            style={{ minWidth: '240px' }}
           >
-            <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0">
+            <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center shrink-0 border border-slate-100">
               {current.icon}
             </div>
             <div className="flex flex-col">
-              <span className="text-[10px] uppercase font-bold tracking-widest text-blue-200/40 leading-none mb-1">
+              <span className="text-[10px] uppercase font-bold tracking-widest text-slate-400 leading-none mb-1">
                 Live Activity
               </span>
-              <span className="text-sm font-medium text-white/90 leading-tight">
+              <span className="text-sm font-semibold text-slate-800 leading-tight">
                 {current.text}
               </span>
             </div>

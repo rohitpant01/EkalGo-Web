@@ -44,7 +44,7 @@ export default function ShareButtons({ url, title, city = "" }) {
 
       <button
         onClick={copyToClipboard}
-        className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-white/60 hover:bg-white/10 hover:text-white transition-all font-bold text-xs relative"
+        className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-all font-bold text-xs relative"
       >
         <AnimatePresence mode="wait">
           {copied ? (
@@ -55,7 +55,7 @@ export default function ShareButtons({ url, title, city = "" }) {
               exit={{ scale: 0.5, opacity: 0 }}
               className="flex items-center gap-2"
             >
-              <Check size={16} className="text-accent-teal" />
+              <Check size={16} className="text-primary-500" />
               Copied!
             </motion.div>
           ) : (

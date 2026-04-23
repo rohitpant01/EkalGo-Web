@@ -179,26 +179,28 @@
         "Adventure",
         "Spirituality"
       ],
-      "local_food": "Aloo Puri and Masala Chai",
-      "local_warning": "Respect local customs during Ganga Aarti and avoid feeding monkeys.",
-      "tagline": "The yoga capital of the world and rafting hub.",
+      "local_food": "Aloo Puri, Masala Chai, and Ayurvedic Thalis",
+      "local_warning": "Respect local customs during Ganga Aarti, avoid feeding monkeys, and be careful of strong currents in the Ganges.",
+      "tagline": "The yoga capital of the world and the threshold to the Himalayas.",
       "getaways": [
         "dehradun",
         "mussoorie",
         "kanatal",
         "dhanaulti",
-        "haridwar"
+        "haridwar",
+        "devprayag",
+        "lansdowne"
       ],
       "hidden_gems": [
-        "Vashishta Gufa",
-        "Neer Garh Waterfall",
-        "Patna Waterfall",
-        "Kunjapuri Temple Sunrise Trek",
-        "Phool Chatti Ashram",
-        "Gita Bhawan",
-        "Byasi",
+        "Vashishta Gufa (Ancient Meditation Cave)",
+        "Kunjapuri Temple (Sunrise Himalayan View)",
         "Secret Beach near Brahmapuri",
+        "Patna Waterfall (Limestone Cave Falls)",
         "Garud Chatti Waterfall",
+        "Phool Chatti Ashram (Riverside Peace)",
+        "Beatles Ashram (Transcendental Meditation Hub)",
+        "Gita Bhawan",
+        "Byasi (Rafting Camp Hub)",
         "Himshail Waterfall"
       ],
       "faq": [

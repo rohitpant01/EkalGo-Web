@@ -9,25 +9,21 @@ export default function WaitlistCTA() {
   const { openWaitlist } = useModal();
 
   return (
-    <section className="relative overflow-hidden noise-bg">
-      {/* Dark gradient background */}
-      <div className="absolute inset-0 bg-cta-gradient" />
+    <section className="relative overflow-hidden bg-white border-t border-slate-100">
+      {/* Visual accents */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary-50/50 blur-[120px] rounded-full pointer-events-none" />
       
-      {/* Decorative elements */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-primary-400/10 blur-[100px] rounded-full pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[150px] bg-accent-400/10 blur-[60px] rounded-full pointer-events-none" />
-
-      <div className="container-tight py-20 md:py-28 relative z-10 text-center">
+      <div className="container-tight py-24 md:py-32 relative z-10 text-center">
 
         {/* Icon */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="inline-flex items-center justify-center mb-6"
+          className="inline-flex items-center justify-center mb-8"
         >
-          <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center shadow-glow-primary animate-float">
-            <Sparkles size={28} className="text-primary-300" />
+          <div className="w-16 h-16 rounded-[2rem] bg-primary-500 flex items-center justify-center shadow-glow-primary">
+            <Sparkles size={32} className="text-white" />
           </div>
         </motion.div>
 
@@ -36,7 +32,7 @@ export default function WaitlistCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-5"
+          className="text-4xl md:text-6xl font-display font-bold text-slate-900 mb-6 tracking-tight"
         >
           Ready to Explore <br className="hidden md:block" />
           <span className="text-gradient-primary">Differently?</span>
@@ -47,7 +43,7 @@ export default function WaitlistCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="text-slate-400 text-base md:text-lg max-w-xl mx-auto mb-10 leading-relaxed"
+          className="text-slate-500 text-lg md:text-xl max-w-xl mx-auto mb-12 leading-relaxed font-body"
         >
           Join thousands of travelers who are discovering the world smarter. Be among the first to access our AI-powered travel engine.
         </motion.p>
@@ -61,11 +57,11 @@ export default function WaitlistCTA() {
         >
           <button
             onClick={() => openWaitlist()}
-            className="group btn-primary-dark text-base px-10 py-4 rounded-2xl shadow-glow-primary hover:shadow-[0_0_40px_rgba(45,212,191,0.4)] transition-all hover:scale-105 active:scale-[0.98]"
+            className="group btn-primary py-5 px-12 rounded-2xl text-lg font-bold shadow-soft hover:shadow-glow-primary transition-all hover:scale-105 active:scale-[0.98]"
           >
-            <Mail size={20} />
+            <Mail size={22} />
             Join the Waitlist
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
           </button>
 
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-slate-500">

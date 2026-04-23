@@ -1,5 +1,5 @@
 import React from 'react';
-import { Camera, Compass, MapPin, Sparkles, Shield, Clock, TrendingUp, HelpCircle } from 'lucide-react';
+import { Camera, Compass, MapPin, Sparkles, Shield, Clock, TrendingUp, HelpCircle, ArrowRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WaitlistCTA from '@/components/WaitlistCTA';
@@ -9,9 +9,9 @@ import ShareButtons from '@/components/ShareButtons';
 import LiveSocialProof from '@/components/LiveSocialProof';
 import { generateSEOContent } from '@/utils/contentEngine';
 import destinationsData from '@/data/destinations.json';
+import { fetchPlaceImage } from '@/utils/imageFetcher';
 
 export async function generateStaticParams() {
-  // Phase A Rollout: All Curated Cities
   return destinationsData.destinations.map((city) => ({
     city: city.slug,
   }));
@@ -38,13 +38,22 @@ export default async function HiddenGemsPage({ params }) {
   const city = destinationsData.destinations.find(d => d.slug === citySlug);
 
   if (!city) {
-    return <div className="min-h-screen bg-brand-900 flex items-center justify-center text-white">City data not found for SEO indexing.</div>;
+    return <div className="min-h-screen bg-white flex items-center justify-center text-slate-900 font-display font-bold">City data not found.</div>;
   }
 
-  // Phase 4: Dynamic Quality Content Engine
   const seo = generateSEOContent(city, 'hidden-gems');
 
-  // FAQ Schema for SEO Rich Snippets
+  // Fetch images for gems (Top 6 only for performance)
+  const gemsWithImages = await Promise.all(
+    city.hidden_gems.map(async (gem, idx) => {
+      if (idx < 6) {
+        const imageUrl = await fetchPlaceImage(`${gem} ${city.name}`);
+        return { name: gem, image: imageUrl };
+      }
+      return { name: gem, image: null };
+    })
+  );
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -59,7 +68,11 @@ export default async function HiddenGemsPage({ params }) {
   };
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 selection:bg-primary-100">
+    <div className="min-h-screen bg-white text-slate-900 selection:bg-primary-100 relative">
+      {/* Background Pattern */}
+      <div className="fixed inset-0 z-0 opacity-[0.03] pointer-events-none" 
+           style={{ backgroundImage: 'radial-gradient(#2dd4bf 0.5px, transparent 0.5px)', backgroundSize: '24px 24px' }} />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
@@ -86,7 +99,7 @@ export default async function HiddenGemsPage({ params }) {
           />
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-50 border border-primary-200">
             <Sparkles size={16} className="text-primary-500" />
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary-600">2026 Hidden Gems List</span>
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary-600">2026 Secret Selection</span>
           </div>
           <h1 className="text-5xl md:text-8xl font-display font-bold tracking-tight text-slate-900">
             Secret <span className="text-gradient-primary italic">{city.name}.</span>
@@ -125,42 +138,66 @@ export default async function HiddenGemsPage({ params }) {
       {/* Discovery Feed */}
       <section className="py-24 max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {city.hidden_gems.map((gem, idx) => (
-            <div key={idx} className="group bg-white border border-slate-100 p-8 space-y-6 hover:border-primary-200 transition-all duration-500 overflow-hidden relative shadow-soft hover:shadow-card rounded-[2.5rem]">
-               {idx > 2 && (
-                 <div className="absolute inset-0 z-20 bg-white/80 backdrop-blur-md flex flex-col items-center justify-center p-8 text-center space-y-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Shield size={32} className="text-primary-500" />
-                    <h4 className="font-bold text-slate-900">Premium Pin Locked</h4>
-                    <p className="text-xs text-slate-500">This hidden location is only available in the EkalGo App for verified explorers.</p>
-                    <button className="btn-primary py-2 px-6 rounded-lg text-xs font-bold">Get Access</button>
+          {gemsWithImages.map((gem, idx) => (
+            <div key={idx} className="group bg-white border border-slate-100 overflow-hidden relative shadow-soft hover:shadow-card rounded-[2.5rem] transition-all duration-500">
+               {/* Gem Image */}
+               <div className="relative h-64 overflow-hidden">
+                  {gem.image ? (
+                    <img 
+                      src={gem.image} 
+                      alt={gem.name}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-slate-100 flex items-center justify-center">
+                       <Camera size={40} className="text-slate-200" />
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-60" />
+                  
+                  {/* Category Badge */}
+                  <div className="absolute top-6 left-6 px-4 py-2 rounded-xl bg-white/20 backdrop-blur-md border border-white/30 text-white text-[10px] font-bold uppercase tracking-widest">
+                     Secret Spot
+                  </div>
+               </div>
+
+               {idx > 4 && (
+                 <div className="absolute inset-0 z-20 bg-white/90 backdrop-blur-md flex flex-col items-center justify-center p-8 text-center space-y-6 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
+                    <div className="w-16 h-16 rounded-2xl bg-primary-500 flex items-center justify-center text-white shadow-glow-primary">
+                       <Shield size={32} />
+                    </div>
+                    <div className="space-y-2">
+                       <h4 className="font-bold text-xl text-slate-900">Premium Location Locked</h4>
+                       <p className="text-xs text-slate-500 leading-relaxed">
+                          This high-impact hidden spot is only available to verified EkalGo App users.
+                       </p>
+                    </div>
+                    <button className="btn-primary py-3 px-8 rounded-xl text-sm font-bold w-full">Get App Access</button>
                  </div>
                )}
                
-               <div className="flex justify-between items-start">
-                  <div className="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-primary-500 group-hover:bg-primary-500 group-hover:text-white transition-all">
-                     <Camera size={20} />
+               <div className="p-8 space-y-6">
+                  <div className="flex justify-between items-center">
+                     <h3 className="text-2xl font-display font-bold text-slate-900 group-hover:text-primary-600 transition-colors">{gem.name}</h3>
+                     <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-100">
+                        <TrendingUp size={12} className="text-emerald-500" />
+                        <span className="text-[10px] font-bold text-emerald-600">TRENDING</span>
+                     </div>
                   </div>
-                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 border border-slate-100">
-                     <TrendingUp size={12} className="text-emerald-500" />
-                     <span className="text-[10px] font-bold text-slate-400">TOP RATED</span>
-                  </div>
-               </div>
 
-               <div className="space-y-4">
-                  <h3 className="text-2xl font-display font-bold text-slate-900">{gem}</h3>
-                  <p className="text-sm text-slate-500 leading-relaxed">
+                  <p className="text-sm text-slate-500 leading-relaxed font-body">
                     A secluded node in {city.name} identified as a top tier discovery for 2026. Optimized for morning visits to avoid crowds.
                   </p>
-               </div>
 
-               <div className="flex items-center justify-between pt-4 border-t border-slate-100 text-[10px] font-mono text-slate-400 uppercase tracking-widest">
-                  <div className="flex items-center gap-2">
-                     <MapPin size={12} />
-                     <span>{city.name} Peripheral</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                     <Clock size={12} />
-                     <span>Best: 7AM</span>
+                  <div className="flex items-center justify-between pt-6 border-t border-slate-100 text-[10px] font-mono text-slate-400 uppercase tracking-widest">
+                     <div className="flex items-center gap-2">
+                        <MapPin size={12} />
+                        <span>Peripheral</span>
+                     </div>
+                     <div className="flex items-center gap-2">
+                        <Clock size={12} />
+                        <span>Best: 6AM-9AM</span>
+                     </div>
                   </div>
                </div>
             </div>
@@ -172,18 +209,18 @@ export default async function HiddenGemsPage({ params }) {
       <section className="py-24 bg-slate-50 border-y border-slate-100">
          <div className="max-w-4xl mx-auto px-6 space-y-12">
             <div className="text-center space-y-4">
-               <h2 className="text-3xl font-display font-bold text-slate-900">Frequently Asked Questions</h2>
-               <p className="text-slate-500 text-sm">Everything you need to know about exploring hidden spots in {city.name}.</p>
+               <h2 className="text-3xl font-display font-bold text-slate-900">Expert Travel Intelligence</h2>
+               <p className="text-slate-500 text-sm">Navigating the secret layers of {city.name}.</p>
             </div>
             
             <div className="space-y-6">
                {seo.faqs.map((item, idx) => (
-                 <div key={idx} className="bg-white border border-slate-100 rounded-2xl p-6 space-y-3 shadow-soft">
+                 <div key={idx} className="bg-white border border-slate-100 rounded-[2rem] p-8 space-y-4 shadow-soft hover:border-primary-200 transition-colors group">
                     <div className="flex items-center gap-4 text-primary-500">
-                       <HelpCircle size={18} />
-                       <h4 className="font-bold text-lg text-slate-900">{item.q}</h4>
+                       <HelpCircle size={22} className="group-hover:scale-110 transition-transform" />
+                       <h4 className="font-bold text-xl text-slate-900">{item.q}</h4>
                     </div>
-                    <p className="pl-8 text-slate-500 leading-relaxed text-sm">
+                    <p className="pl-10 text-slate-500 leading-relaxed text-base font-body">
                        {item.a}
                     </p>
                  </div>
@@ -193,9 +230,12 @@ export default async function HiddenGemsPage({ params }) {
       </section>
 
       {/* Viral Sharing */}
-      <section className="py-20 max-w-7xl mx-auto px-6 text-center border-t border-slate-100">
-        <div className="space-y-8">
-          <h3 className="text-xl font-bold text-slate-900">Share this Discovery</h3>
+      <section className="py-24 max-w-7xl mx-auto px-6 text-center border-t border-slate-100">
+        <div className="space-y-10">
+          <div className="space-y-4">
+             <h3 className="text-2xl font-display font-bold text-slate-900">Share this Discovery</h3>
+             <p className="text-slate-500 text-sm">Help others explore {city.name} smarter.</p>
+          </div>
           <div className="flex justify-center">
             <ShareButtons 
                url={`/hidden-gems/${citySlug}`} 
@@ -210,5 +250,4 @@ export default async function HiddenGemsPage({ params }) {
       <WaitlistCTA />
     </div>
   );
-
 }
