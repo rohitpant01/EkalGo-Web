@@ -32,7 +32,28 @@
         "Backpacking"
       ],
       "local_food": "Solang Valley",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "The gateway to adventure in the Himalayas.",
+      "getaways": [
+        "goa",
+        "rishikesh"
+      ],
+      "hidden_gems": [
+        "Solang Valley",
+        "Hadimba Temple",
+        "Old Manali Cafes",
+        "Rohtang Pass"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Manali?",
+          "a": "The average daily cost is approximately ₹2500, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Manali?",
+          "a": "The ideal time to explore Manali is during March to June for the best weather."
+        }
+      ]
     },
     {
       "id": "goa",
@@ -65,7 +86,27 @@
         "Heritage"
       ],
       "local_food": "Palolem Beach",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "Sun, sand, and the perfect coastal escape.",
+      "getaways": [
+        "manali",
+        "rishikesh"
+      ],
+      "hidden_gems": [
+        "Palolem Beach",
+        "Panjim Latin Quarter",
+        "Dudhsagar Falls"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Goa?",
+          "a": "The average daily cost is approximately ₹4500, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Goa?",
+          "a": "The ideal time to explore Goa is during November to February for the best weather."
+        }
+      ]
     },
     {
       "id": "rishikesh",
@@ -98,7 +139,27 @@
         "Spirituality"
       ],
       "local_food": "Laxman Jhula",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "The yoga capital of the world and rafting hub.",
+      "getaways": [
+        "manali",
+        "shimla"
+      ],
+      "hidden_gems": [
+        "Laxman Jhula",
+        "Beatles Ashram",
+        "Triveni Ghat"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Rishikesh?",
+          "a": "The average daily cost is approximately ₹1800, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Rishikesh?",
+          "a": "The ideal time to explore Rishikesh is during September to November for the best weather."
+        }
+      ]
     },
     {
       "id": "jaipur",
@@ -132,7 +193,28 @@
         "Photography"
       ],
       "local_food": "Amer Fort",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "The Pink City of royalty, forts, and vibrant markets.",
+      "getaways": [
+        "rishikesh",
+        "goa"
+      ],
+      "hidden_gems": [
+        "Amer Fort",
+        "Hawa Mahal",
+        "City Palace",
+        "Nahargarh Fort"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Jaipur?",
+          "a": "The average daily cost is approximately ₹3200, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Jaipur?",
+          "a": "The ideal time to explore Jaipur is during October to March for the best weather."
+        }
+      ]
     },
     {
       "id": "shimla",
@@ -166,7 +248,28 @@
         "Colonial"
       ],
       "local_food": "The Ridge",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "The Queen of Hills with colonial charm and snowy peaks.",
+      "getaways": [
+        "manali",
+        "rishikesh"
+      ],
+      "hidden_gems": [
+        "The Ridge",
+        "Mall Road",
+        "Jakhu Temple",
+        "Kufri"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Shimla?",
+          "a": "The average daily cost is approximately ₹2800, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Shimla?",
+          "a": "The ideal time to explore Shimla is during March to June for the best weather."
+        }
+      ]
     },
     {
       "id": "munnar",
@@ -199,7 +302,27 @@
         "Honeymoon"
       ],
       "local_food": "Eravikulam National Park",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "Rolling tea gardens and misty hills of the Western Ghats.",
+      "getaways": [
+        "alleppey",
+        "kochi"
+      ],
+      "hidden_gems": [
+        "Eravikulam National Park",
+        "Mattupetty Dam",
+        "Tea Museum"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Munnar?",
+          "a": "The average daily cost is approximately ₹2200, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Munnar?",
+          "a": "The ideal time to explore Munnar is during September to March for the best weather."
+        }
+      ]
     },
     {
       "id": "alleppey",
@@ -232,7 +355,27 @@
         "Peace"
       ],
       "local_food": "Alappuzha Beach",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "The Venice of the East, famous for houseboats and backwaters.",
+      "getaways": [
+        "munnar",
+        "varkala"
+      ],
+      "hidden_gems": [
+        "Alappuzha Beach",
+        "Marari Beach",
+        "Backwater Cruise"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Alleppey?",
+          "a": "The average daily cost is approximately ₹3500, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Alleppey?",
+          "a": "The ideal time to explore Alleppey is during November to February for the best weather."
+        }
+      ]
     },
     {
       "id": "leh",
@@ -266,7 +409,28 @@
         "Desert"
       ],
       "local_food": "Pangong Lake",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "High-altitude desert landscapes and ancient monasteries.",
+      "getaways": [
+        "spiti",
+        "manali"
+      ],
+      "hidden_gems": [
+        "Pangong Lake",
+        "Nubra Valley",
+        "Khardung La",
+        "Leh Palace"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Leh?",
+          "a": "The average daily cost is approximately ₹5500, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Leh?",
+          "a": "The ideal time to explore Leh is during June to September for the best weather."
+        }
+      ]
     },
     {
       "id": "udaipur",
@@ -300,7 +464,28 @@
         "Royal"
       ],
       "local_food": "City Palace",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "The City of Lakes with majestic palaces and romantic sunsets.",
+      "getaways": [
+        "jaipur",
+        "jodhpur"
+      ],
+      "hidden_gems": [
+        "City Palace",
+        "Lake Pichola",
+        "Jag Mandir",
+        "Fateh Sagar"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Udaipur?",
+          "a": "The average daily cost is approximately ₹4200, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Udaipur?",
+          "a": "The ideal time to explore Udaipur is during September to March for the best weather."
+        }
+      ]
     },
     {
       "id": "shillong",
@@ -334,7 +519,28 @@
         "Music"
       ],
       "local_food": "Elephant Falls",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "Scotland of the East, known for waterfalls and pine trees.",
+      "getaways": [
+        "cherrapunji",
+        "guwahati"
+      ],
+      "hidden_gems": [
+        "Elephant Falls",
+        "Shillong Peak",
+        "Umiam Lake",
+        "Laitlum Canyons"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Shillong?",
+          "a": "The average daily cost is approximately ₹2400, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Shillong?",
+          "a": "The ideal time to explore Shillong is during September to May for the best weather."
+        }
+      ]
     },
     {
       "id": "hampi",
@@ -367,7 +573,27 @@
         "Boulders"
       ],
       "local_food": "Virupaksha Temple",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "UNESCO World Heritage site with boulder-strewn landscapes.",
+      "getaways": [
+        "goa",
+        "bangalore"
+      ],
+      "hidden_gems": [
+        "Virupaksha Temple",
+        "Vittala Temple",
+        "Hippie Island"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Hampi?",
+          "a": "The average daily cost is approximately ₹1800, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Hampi?",
+          "a": "The ideal time to explore Hampi is during October to March for the best weather."
+        }
+      ]
     },
     {
       "id": "pondicherry",
@@ -400,7 +626,27 @@
         "Spiritual"
       ],
       "local_food": "White Town",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "French colonial charm meets spiritual peace in Auroville.",
+      "getaways": [
+        "chennai",
+        "mahabilipuram"
+      ],
+      "hidden_gems": [
+        "White Town",
+        "Promenade Beach",
+        "Auroville Matrimandir"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Pondicherry?",
+          "a": "The average daily cost is approximately ₹3200, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Pondicherry?",
+          "a": "The ideal time to explore Pondicherry is during October to March for the best weather."
+        }
+      ]
     },
     {
       "id": "coorg",
@@ -433,7 +679,27 @@
         "Hills"
       ],
       "local_food": "Abbey Falls",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "The Coffee Capital of India with lush green valleys.",
+      "getaways": [
+        "wayanad",
+        "mysore"
+      ],
+      "hidden_gems": [
+        "Abbey Falls",
+        "Raja's Seat",
+        "Namdroling Monastery"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Coorg?",
+          "a": "The average daily cost is approximately ₹3400, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Coorg?",
+          "a": "The ideal time to explore Coorg is during September to June for the best weather."
+        }
+      ]
     },
     {
       "id": "gangtok",
@@ -466,7 +732,27 @@
         "Clean"
       ],
       "local_food": "Tsomgo Lake",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "A clean, modern hill station with a Himalayan backdrop.",
+      "getaways": [
+        "darjeeling",
+        "lachung"
+      ],
+      "hidden_gems": [
+        "Tsomgo Lake",
+        "MG Marg",
+        "Rumtek Monastery"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Gangtok?",
+          "a": "The average daily cost is approximately ₹3000, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Gangtok?",
+          "a": "The ideal time to explore Gangtok is during March to June for the best weather."
+        }
+      ]
     },
     {
       "id": "jodhpur",
@@ -499,7 +785,27 @@
         "Forts"
       ],
       "local_food": "Mehrangarh Fort",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "The Blue City with the imposing Mehrangarh Fort.",
+      "getaways": [
+        "udaipur",
+        "jaisalmer"
+      ],
+      "hidden_gems": [
+        "Mehrangarh Fort",
+        "Jaswant Thada",
+        "Umaid Bhawan Palace"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Jodhpur?",
+          "a": "The average daily cost is approximately ₹3500, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Jodhpur?",
+          "a": "The ideal time to explore Jodhpur is during October to March for the best weather."
+        }
+      ]
     },
     {
       "id": "jaisalmer",
@@ -532,7 +838,27 @@
         "Gold"
       ],
       "local_food": "Jaisalmer Fort",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "The Golden City in the heart of the Thar Desert.",
+      "getaways": [
+        "jodhpur",
+        "bikaner"
+      ],
+      "hidden_gems": [
+        "Jaisalmer Fort",
+        "Sam Sand Dunes",
+        "Patwon Ki Haveli"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Jaisalmer?",
+          "a": "The average daily cost is approximately ₹4500, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Jaisalmer?",
+          "a": "The ideal time to explore Jaisalmer is during November to February for the best weather."
+        }
+      ]
     },
     {
       "id": "mahabaleshwar",
@@ -565,7 +891,27 @@
         "Valley"
       ],
       "local_food": "Arthur's Seat",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "Strawberry farms and panoramic views of the Western Ghats.",
+      "getaways": [
+        "lonavala",
+        "pune"
+      ],
+      "hidden_gems": [
+        "Arthur's Seat",
+        "Venna Lake",
+        "Mapro Garden"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Mahabaleshwar?",
+          "a": "The average daily cost is approximately ₹3800, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Mahabaleshwar?",
+          "a": "The ideal time to explore Mahabaleshwar is during December to February for the best weather."
+        }
+      ]
     },
     {
       "id": "lonavala",
@@ -598,7 +944,27 @@
         "Quick Trip"
       ],
       "local_food": "Tiger's Point",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "The ultimate monsoon getaway near Mumbai and Pune.",
+      "getaways": [
+        "mahabaleshwar",
+        "mumbai"
+      ],
+      "hidden_gems": [
+        "Tiger's Point",
+        "Bhaja Caves",
+        "Lohagad Fort"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Lonavala?",
+          "a": "The average daily cost is approximately ₹3000, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Lonavala?",
+          "a": "The ideal time to explore Lonavala is during June to September for the best weather."
+        }
+      ]
     },
     {
       "id": "mussoorie",
@@ -631,7 +997,27 @@
         "Family"
       ],
       "local_food": "Kempty Falls",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "The Queen of Hills with the famous Mall Road.",
+      "getaways": [
+        "rishikesh",
+        "dehradun"
+      ],
+      "hidden_gems": [
+        "Kempty Falls",
+        "Gun Hill",
+        "Camel's Back Road"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Mussoorie?",
+          "a": "The average daily cost is approximately ₹3500, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Mussoorie?",
+          "a": "The ideal time to explore Mussoorie is during April to June for the best weather."
+        }
+      ]
     },
     {
       "id": "nainital",
@@ -664,7 +1050,27 @@
         "Hills"
       ],
       "local_food": "Naini Lake",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "The City of Lakes surrounded by the Kumaon Himalayas.",
+      "getaways": [
+        "mussoorie",
+        "kausani"
+      ],
+      "hidden_gems": [
+        "Naini Lake",
+        "The Mall Road",
+        "Naina Peak"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Nainital?",
+          "a": "The average daily cost is approximately ₹2800, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Nainital?",
+          "a": "The ideal time to explore Nainital is during March to June for the best weather."
+        }
+      ]
     },
     {
       "id": "varkala",
@@ -697,7 +1103,27 @@
         "Surf"
       ],
       "local_food": "Varkala Cliff",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "Stunning red cliffs overlooking the Arabian Sea.",
+      "getaways": [
+        "alleppey",
+        "kochi"
+      ],
+      "hidden_gems": [
+        "Varkala Cliff",
+        "Papanasam Beach",
+        "Janardanaswamy Temple"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Varkala?",
+          "a": "The average daily cost is approximately ₹1800, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Varkala?",
+          "a": "The ideal time to explore Varkala is during November to March for the best weather."
+        }
+      ]
     },
     {
       "id": "wayanad",
@@ -730,7 +1156,27 @@
         "Wildlife"
       ],
       "local_food": "Banasura Sagar Dam",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "Untouched forest landscapes and tribal heritage.",
+      "getaways": [
+        "coorg",
+        "mysore"
+      ],
+      "hidden_gems": [
+        "Banasura Sagar Dam",
+        "Edakkal Caves",
+        "Soochipara Falls"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Wayanad?",
+          "a": "The average daily cost is approximately ₹2800, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Wayanad?",
+          "a": "The ideal time to explore Wayanad is during October to May for the best weather."
+        }
+      ]
     },
     {
       "id": "tawang",
@@ -763,7 +1209,27 @@
         "Borders"
       ],
       "local_food": "Tawang Monastery",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "A spiritual and scenic gem in the Eastern Himalayas.",
+      "getaways": [
+        "shillong",
+        "guwahati"
+      ],
+      "hidden_gems": [
+        "Tawang Monastery",
+        "Sela Pass",
+        "Madhuri Lake"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Tawang?",
+          "a": "The average daily cost is approximately ₹3500, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Tawang?",
+          "a": "The ideal time to explore Tawang is during March to June for the best weather."
+        }
+      ]
     },
     {
       "id": "kaziranga",
@@ -796,7 +1262,27 @@
         "Safari"
       ],
       "local_food": "Elephant Safari",
-      "local_warning": "Keep your belongings safe"
+      "local_warning": "Keep your belongings safe and verify local transit rates.",
+      "tagline": "Home to the great one-horned rhinoceros.",
+      "getaways": [
+        "guwahati",
+        "shillong"
+      ],
+      "hidden_gems": [
+        "Elephant Safari",
+        "Jeep Safari",
+        "Orchid Park"
+      ],
+      "faq": [
+        {
+          "q": "What is the average daily budget for Kaziranga?",
+          "a": "The average daily cost is approximately ₹5000, including food and local transit."
+        },
+        {
+          "q": "When is the best time to visit Kaziranga?",
+          "a": "The ideal time to explore Kaziranga is during November to April for the best weather."
+        }
+      ]
     }
   ]
 }
