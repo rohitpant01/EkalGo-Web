@@ -33,7 +33,7 @@ const CONTENT = {
 
 export default function SmartTravel() {
   const [activeTab, setActiveTab] = useState('hotels');
-  const city = destinations[0]; // Manali
+  const city = destinations.destinations[0]; // Manali
 
   return (
     <section className="py-20 md:py-32 bg-white relative overflow-hidden">

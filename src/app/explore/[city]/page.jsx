@@ -10,7 +10,7 @@ import destinations from '@/data/destinations.json';
 // 1. Dynamic Metadata Generation
 export async function generateMetadata({ params }) {
   const cityId = params.city?.toLowerCase();
-  const data = destinations.find(d => d.id === cityId) || destinations[0];
+  const data = destinations.destinations.find(d => d.id === cityId) || destinations.destinations[0];
   
   return {
     title: `Budget Trip to ${data.name} | AI Itinerary & Cost Breakdown`,
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }) {
 
 export default function CityPage({ params }) {
   const cityId = params.city?.toLowerCase();
-  const data = destinations.find(d => d.id === cityId) || destinations[0];
+  const data = destinations.destinations.find(d => d.id === cityId) || destinations.destinations[0];
 
   // 2. Advanced Schema Markup (TouristDestination + FAQ + Breadcrumbs)
   const touristSchema = {
@@ -222,7 +222,7 @@ export default function CityPage({ params }) {
                      <p className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-4">Nearby Destinations</p>
                      <div className="flex flex-wrap gap-3">
                         {data.nearby.map(nearbyId => {
-                          const nearbyCity = destinations.find(d => d.id === nearbyId);
+                          const nearbyCity = destinations.destinations.find(d => d.id === nearbyId);
                           return (
                             <Link 
                               key={nearbyId}

@@ -19,7 +19,7 @@ function ExploreContent() {
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const DESTINATIONS = destinations.map(d => ({
+  const DESTINATIONS = destinations.destinations.map(d => ({
     title: d.name,
     type: d.tags[0], // e.g., 'Hill Station', 'Beach'
     budget: d.budget_range.split('-')[0].trim(),
