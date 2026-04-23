@@ -9,31 +9,58 @@ import ClientLayout from '@/components/ClientLayout';
 
 export const metadata = {
   metadataBase: new URL('https://ekalgo.com'),
-  title: "EkalGo — AI-Powered Travel Platform | Discover Hidden Gems",
-  description: "EkalGo is an AI-powered travel platform that creates personalized itineraries and discovers off-beat destinations for the modern explorer.",
-  keywords: ["nearby places", "travel itineraries", "AI travel planner", "hidden gems India", "solo travel", "travel companion"],
+  title: {
+    default: "EkalGo — AI-Powered Travel Platform | Plan Your Perfect Trip",
+    template: "%s | EkalGo Travel"
+  },
+  description: "Plan smart, budget-friendly trips with EkalGo. Discover hidden gems, find verified travel partners, and get AI-optimized itineraries for Manali, Goa, and beyond.",
+  keywords: [
+    "AI Travel Planner", "Plan Trip to Manali", "Budget Travel India", 
+    "Find Travel Partners", "Hidden Gems Himachal", "Smart Itinerary Generator",
+    "Solo Travel India", "EkalGo App", "Personalized Travel Recommendations"
+  ],
+  authors: [{ name: "EkalGo Team" }],
+  creator: "EkalGo",
+  publisher: "EkalGo",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
-    title: "EkalGo — AI-Powered Travel Platform",
-    description: "Smart itineraries, hidden gems, and travel companions — all powered by AI.",
+    title: "EkalGo — AI-Powered Travel Planning for the Modern Explorer",
+    description: "Discover hidden gems, find verified travel partners, and plan your next adventure with our AI-powered travel assistant.",
     url: "https://ekalgo.com",
     siteName: "EkalGo",
     images: [
       {
-        url: "/logo.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "EkalGo AI Travel Platform",
+        alt: "EkalGo AI Travel Platform - Plan Smart, Travel More",
       },
     ],
-    locale: "en_US",
+    locale: "en_IN",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "EkalGo — AI-Powered Travel Platform",
-    description: "Smart itineraries, hidden gems, and travel companions — all powered by AI.",
+    title: "EkalGo — Your AI Travel Assistant",
+    description: "Plan budget-friendly trips and find travel partners instantly. The future of travel is here.",
+    site: "@ekal_go",
     creator: "@ekal_go",
-    images: ["/logo.png"],
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
@@ -45,18 +72,27 @@ export const viewport = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "TravelAgency",
+  "@type": "SoftwareApplication",
   "name": "EkalGo",
-  "alternateName": "EkalGo AI",
+  "operatingSystem": "iOS, Android, Web",
+  "applicationCategory": "TravelApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "300"
+  },
+  "description": "AI-powered travel platform for discovering hidden gems, finding verified travel partners, and creating optimized budget-friendly itineraries.",
   "url": "https://ekalgo.com",
   "logo": "https://ekalgo.com/logo.png",
-  "description": "AI-powered travel platform for discovering hidden gems and creating optimized itineraries.",
   "sameAs": [
     "https://x.com/ekal_go",
     "https://instagram.com/ekalgo.app"
-  ],
-  "areaServed": "India",
-  "priceRange": "$$"
+  ]
 };
 
 export default function RootLayout({ children }) {
