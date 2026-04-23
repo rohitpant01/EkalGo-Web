@@ -10,15 +10,16 @@ export async function GET(req) {
   }
 
   try {
-    // 1. Try Pexels
+    // 1. Try Pexels (Highest Quality)
     const PEXELS_KEY = process.env.PEXELS_API_KEY;
     if (PEXELS_KEY) {
       try {
-        const response = await axios.get(`https://api.pexels.com/v1/search?query=${encodeURIComponent(query + ' destination')}&per_page=1`, {
+        const pexelsQuery = `${query} travel landscape destination`;
+        const response = await axios.get(`https://api.pexels.com/v1/search?query=${encodeURIComponent(pexelsQuery)}&per_page=1`, {
           headers: { Authorization: PEXELS_KEY }
         });
         if (response.data?.photos?.length > 0) {
-          return NextResponse.json({ url: response.data.photos[0].src.large });
+          return NextResponse.json({ url: response.data.photos[0].src.large2x });
         }
       } catch (err) {
         console.warn('Pexels search failed:', err.message);
@@ -29,7 +30,8 @@ export async function GET(req) {
     const PIXABAY_KEY = process.env.PIXABAY_API_KEY;
     if (PIXABAY_KEY) {
       try {
-        const response = await axios.get(`https://pixabay.com/api/?key=${PIXABAY_KEY}&q=${encodeURIComponent(query)}&image_type=photo&per_page=3&safesearch=true`);
+        const pixabayQuery = `${query} landmark scenic`;
+        const response = await axios.get(`https://pixabay.com/api/?key=${PIXABAY_KEY}&q=${encodeURIComponent(pixabayQuery)}&image_type=photo&per_page=3&safesearch=true&orientation=horizontal`);
         if (response.data?.hits?.length > 0) {
           return NextResponse.json({ url: response.data.hits[0].largeImageURL });
         }
@@ -38,9 +40,14 @@ export async function GET(req) {
       }
     }
 
-    return NextResponse.json({ error: 'No images found' }, { status: 404 });
+    // 3. Final Fallback (Unsplash Source - High Quality)
+    return NextResponse.json({ 
+      url: `https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=1200`,
+      source: 'fallback'
+    });
   } catch (error) {
     console.error('Image API error:', error.message);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
+

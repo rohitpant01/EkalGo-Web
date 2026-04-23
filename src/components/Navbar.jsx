@@ -10,12 +10,12 @@ import { useModal } from '@/context/ModalContext';
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
-  { label: 'AI Planner', href: '/ai-planner' },
   { label: 'Explore', href: '/explore' },
   { label: 'Features', href: '/features' },
   { label: 'How It Works', href: '/how-it-works' },
   { label: 'Contact', href: '/contact' },
 ];
+
 
 export default function Navbar() {
   const { openWaitlist } = useModal();
@@ -61,8 +61,8 @@ export default function Navbar() {
         <div className="container-tight flex items-center justify-between w-full">
           {/* Logo */}
           <Link href="/" className="transition-opacity hover:opacity-80 relative z-[60] flex-shrink-0">
-            <Logo size="sm" variant={scrolled || menuOpen ? 'default' : (pathname === '/top-destinations-2026' || pathname.startsWith('/safety/') ? 'light' : 'default')} className="md:hidden" />
-            <Logo size="md" variant={scrolled || menuOpen ? 'default' : (pathname === '/top-destinations-2026' || pathname.startsWith('/safety/') ? 'light' : 'default')} className="hidden md:block" />
+            <Logo size="sm" variant={scrolled || menuOpen ? 'default' : (pathname.startsWith('/safety/') ? 'light' : 'default')} className="md:hidden" />
+            <Logo size="md" variant={scrolled || menuOpen ? 'default' : (pathname.startsWith('/safety/') ? 'light' : 'default')} className="hidden md:block" />
           </Link>
 
           {/* Desktop Nav Links */}
@@ -76,7 +76,7 @@ export default function Navbar() {
                     ? 'text-primary-800'
                     : scrolled || menuOpen 
                       ? 'text-slate-900 hover:text-primary-700' 
-                      : (pathname === '/top-destinations-2026' || pathname.startsWith('/safety/'))
+                      : (pathname.startsWith('/safety/'))
                         ? 'text-white hover:text-primary-300'
                         : 'text-slate-950 hover:text-primary-700'
                 }`}

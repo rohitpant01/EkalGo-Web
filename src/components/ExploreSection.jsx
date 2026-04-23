@@ -37,7 +37,7 @@ export default function ExploreSection() {
           const details = await getPlaceWithPhoto(place.title);
           return {
             ...place,
-            image: details.photoUrl || 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=600&auto=format&fit=crop', // Fallback
+            image: details.photoUrl || 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=1200', // Nature Fallback
             rating: details.rating || (4.5 + Math.random() * 0.4).toFixed(1), // Fallback
           };
         })
@@ -139,8 +139,7 @@ export default function ExploreSection() {
                     <span className="text-white text-sm font-semibold">{dest.rating}</span>
                   </div>
 
-                  {/* Content */}
-                  <div className="absolute inset-0 p-6 flex flex-col justify-end">
+                  <Link href={`/explore/${dest.title.toLowerCase()}`} className="absolute inset-0 p-6 flex flex-col justify-end">
                     <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                       <h3 className="text-2xl font-display font-bold text-white mb-2">{dest.title}</h3>
                       <div className="h-[2px] w-12 bg-accent-neon mb-3 transition-all duration-300 group-hover:w-full opacity-0 group-hover:opacity-100 rounded-full" />
@@ -148,7 +147,7 @@ export default function ExploreSection() {
                         {dest.desc}
                       </p>
                     </div>
-                  </div>
+                  </Link>
                 </motion.div>
               ))
             )}

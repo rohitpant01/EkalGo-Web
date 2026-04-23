@@ -45,18 +45,18 @@ export default async function GetawaysPage({ params }) {
   const seo = generateSEOContent(city, 'getaways');
 
   return (
-    <div className="min-h-screen bg-[#020617] text-white selection:bg-amber-500/30">
+    <div className="min-h-screen bg-white text-slate-900 selection:bg-primary-100">
       
-      <Navbar />
-
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 overflow-hidden border-b border-white/5">
-        <img 
-          src={city.image} 
-          alt={`Getaways from ${city.name}`}
-          className="absolute inset-0 w-full h-full object-cover opacity-20"
-        />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-teal-500/5 blur-[120px] rounded-full pointer-events-none" />
+      <section className="relative pt-32 pb-20 overflow-hidden border-b border-slate-100 bg-slate-50/50">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={city.image} 
+            alt={`Getaways from ${city.name}`}
+            className="w-full h-full object-cover opacity-10"
+          />
+        </div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-primary-100/30 blur-[120px] rounded-full pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <Breadcrumbs 
             items={[
@@ -65,38 +65,38 @@ export default async function GetawaysPage({ params }) {
               { label: 'Getaways', href: `/getaways/${citySlug}` }
             ]} 
           />
-          <div className="text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20">
-              <Zap size={14} className="text-teal-500" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-teal-500">Short Escapes</span>
+          <div className="text-center space-y-6 mt-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-100 border border-primary-200">
+              <Zap size={14} className="text-primary-600" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary-700">Short Escapes</span>
             </div>
-            <h1 className="text-5xl md:text-8xl font-display font-bold tracking-tight">
-              Getaways from <span className="text-gradient-accent">{city.name}.</span>
+            <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tight text-slate-900">
+              Getaways from <span className="text-gradient-primary">{city.name}.</span>
             </h1>
-            <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto font-body leading-relaxed">
+            <p className="text-slate-500 text-lg md:text-xl max-w-2xl mx-auto font-body leading-relaxed">
                {seo.intro}
             </p>
           </div>
         </div>
       </section>
 
-      {/* Content Depth Section (Phase 4 Addition) */}
-      <section className="py-24 border-b border-white/5">
+      {/* Content Depth Section */}
+      <section className="py-24 border-b border-slate-100">
         <div className="max-w-4xl mx-auto px-6 space-y-16">
           <div className="space-y-4">
-             <h2 className="text-3xl font-display font-bold">{seo.blocks[1].title}</h2>
-             <p className="text-lg text-slate-300 leading-relaxed font-body">
+             <h2 className="text-3xl font-display font-bold text-slate-900">{seo.blocks[1].title}</h2>
+             <p className="text-lg text-slate-600 leading-relaxed font-body">
                 {seo.blocks[1].text}
              </p>
           </div>
 
-          <div className="p-8 rounded-[2rem] bg-accent-teal/5 border border-accent-teal/20 flex flex-col md:flex-row items-center gap-8 group">
-             <div className="w-16 h-16 rounded-2xl bg-accent-teal flex items-center justify-center shrink-0 shadow-glow-teal">
-                <Shield size={32} className="text-brand-900" />
+          <div className="p-8 rounded-[2rem] bg-primary-50 border border-primary-100 flex flex-col md:flex-row items-center gap-8 group">
+             <div className="w-16 h-16 rounded-2xl bg-primary-500 flex items-center justify-center shrink-0 shadow-glow-primary">
+                <Shield size={32} className="text-white" />
              </div>
              <div className="space-y-2">
-                <h4 className="text-accent-teal font-bold uppercase tracking-widest text-xs">Verified Local Insight</h4>
-                <p className="text-slate-300 font-medium italic">"{seo.localTip}"</p>
+                <h4 className="text-primary-700 font-bold uppercase tracking-widest text-xs">Verified Local Insight</h4>
+                <p className="text-slate-700 font-medium italic">"{seo.localTip}"</p>
              </div>
           </div>
         </div>
@@ -108,21 +108,21 @@ export default async function GetawaysPage({ params }) {
           {city.getaways.map((getawaySlug, idx) => {
             const getaway = destinationsData.destinations.find(d => d.slug === getawaySlug.toLowerCase().replace(/\s+/g, '-')) || { name: getawaySlug, tagline: 'Explore the unexplored route.' };
             return (
-              <div key={idx} className="glass-panel p-1 group hover:border-amber-500/30 transition-all duration-500 rounded-[2rem] overflow-hidden">
-                <div className="flex flex-col lg:flex-row gap-8 p-6 bg-slate-900/40 items-center">
+              <div key={idx} className="group border border-slate-100 hover:border-primary-200 transition-all duration-500 rounded-[2.5rem] overflow-hidden bg-white shadow-soft hover:shadow-card">
+                <div className="flex flex-col lg:flex-row gap-8 p-6 items-center">
                   <div className="lg:w-1/3 aspect-video lg:aspect-square rounded-2xl overflow-hidden shrink-0">
                     <img 
                       src={getaway.image || city.image} 
                       alt={getaway.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                   </div>
                   <div className="lg:w-2/3 space-y-6">
-                    <div className="flex items-center gap-2 text-amber-500">
+                    <div className="flex items-center gap-2 text-primary-600">
                        <MapPin size={24} />
-                       <h3 className="text-3xl font-display font-bold">{getaway.name}</h3>
+                       <h3 className="text-3xl font-display font-bold text-slate-900">{getaway.name}</h3>
                     </div>
-                    <p className="text-slate-400 text-lg">
+                    <p className="text-slate-500 text-lg">
                       {getaway.tagline}. Perfect for a quick recharge escape from {city.name}.
                     </p>
                     <div className="flex flex-wrap gap-4 pt-6">
@@ -143,28 +143,28 @@ export default async function GetawaysPage({ params }) {
       </section>
 
       {/* Internal Linking Bridge */}
-      <section className="py-24 bg-white/[0.02] border-y border-white/5">
+      <section className="py-24 bg-slate-50 border-y border-slate-100">
          <div className="max-w-4xl mx-auto px-6 text-center space-y-12">
-            <h2 className="text-3xl font-display font-bold">More Discovery Silos for {city.name}</h2>
+            <h2 className="text-3xl font-display font-bold text-slate-900">More Discovery Silos for {city.name}</h2>
             <div className="grid md:grid-cols-2 gap-6">
-               <Link href={`/hidden-gems/${citySlug}`} className="glass-panel p-10 hover:border-accent-gold/40 transition-all group">
-                  <Camera size={32} className="text-accent-gold mx-auto mb-6 group-hover:scale-110 transition-transform" />
-                  <h3 className="text-xl font-bold mb-3">Hidden Gems near {city.name}</h3>
+               <Link href={`/hidden-gems/${citySlug}`} className="bg-white border border-slate-100 p-10 rounded-[2rem] hover:border-primary-300 transition-all group shadow-soft">
+                  <Camera size={32} className="text-primary-500 mx-auto mb-6 group-hover:scale-110 transition-transform" />
+                  <h3 className="text-xl font-bold mb-3 text-slate-900">Hidden Gems near {city.name}</h3>
                   <p className="text-xs text-slate-500">Avoid the crowds with AI-pinpointed secret nodes near the city.</p>
                </Link>
-               <Link href={`/explore/${citySlug}`} className="glass-panel p-10 hover:border-accent-teal/40 transition-all group">
-                  <Compass size={32} className="text-accent-teal mx-auto mb-6 group-hover:scale-110 transition-transform" />
-                  <h3 className="text-xl font-bold mb-3">Complete {city.name} Guide</h3>
-                  <p className="text-xs text-blue-100/30">The central authority hub for culture, history and daily vibes.</p>
+               <Link href={`/explore/${citySlug}`} className="bg-white border border-slate-100 p-10 rounded-[2rem] hover:border-primary-300 transition-all group shadow-soft">
+                  <Compass size={32} className="text-primary-500 mx-auto mb-6 group-hover:scale-110 transition-transform" />
+                  <h3 className="text-xl font-bold mb-3 text-slate-900">Complete {city.name} Guide</h3>
+                  <p className="text-xs text-slate-500">The central authority hub for culture, history and daily vibes.</p>
                </Link>
             </div>
          </div>
       </section>
 
       {/* Viral Sharing */}
-      <section className="py-20 max-w-7xl mx-auto px-6 text-center border-t border-white/5">
+      <section className="py-20 max-w-7xl mx-auto px-6 text-center border-t border-slate-100">
         <div className="space-y-8">
-          <h3 className="text-xl font-bold font-display">Share these Getaways</h3>
+          <h3 className="text-xl font-bold font-display text-slate-900">Share these Getaways</h3>
           <div className="flex justify-center">
             <ShareButtons 
                url={`/getaways/${citySlug}`} 
@@ -177,7 +177,7 @@ export default async function GetawaysPage({ params }) {
 
       <LiveSocialProof city={city.name} />
       <WaitlistCTA />
-      <Footer />
     </div>
   );
+
 }
