@@ -10,23 +10,23 @@ import Link from 'next/link';
 import Logo from './Logo';
 import { useModal } from '@/context/ModalContext';
 
+import destinationsData from '@/data/destinations.json';
+
 const FOOTER_LINKS = {
   product: [
     { label: 'AI Planner', href: '/ai-planner' },
-    { label: 'Features', href: '/features' },
-    { label: 'How It Works', href: '/how-it-works' },
     { label: 'Explore', href: '/explore' },
+    { label: 'Hidden Gems', href: '/hidden-gems/manali' },
+    { label: 'Getaways', href: '/getaways/manali' },
   ],
-  destinations: [
-    { label: 'Manali Guide', href: '/explore/manali' },
-    { label: 'Goa Secrets', href: '/explore/goa' },
-    { label: 'Rishikesh Yoga', href: '/explore/rishikesh' },
-    { label: 'View All', href: '/explore' },
-  ],
+  destinations: destinationsData.destinations.slice(0, 8).map(d => ({
+    label: `${d.name} Guide`,
+    href: `/explore/${d.id}`
+  })).concat([{ label: 'View All', href: '/explore' }]),
   company: [
     { label: 'Contact', href: '/contact' },
-    { label: 'Waitlist', href: '#' },
     { label: 'Support', href: 'mailto:ekalgo.app@gmail.com' },
+    { label: 'Top 2026', href: '/top-destinations-2026' },
   ],
   legal: [
     { label: 'Privacy Policy', action: 'privacy' },

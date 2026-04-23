@@ -219,6 +219,49 @@ export default async function CityPage({ params }) {
                     Generate My Plan <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                   </Link>
 
+                  {/* Discovery Silos Bridge */}
+                  <div className="mt-12 space-y-3">
+                     <p className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-4">Discovery Hubs</p>
+                     <Link 
+                       href={`/hidden-gems/${data.id}`}
+                       className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all group/silo"
+                     >
+                       <div className="flex items-center gap-3">
+                         <div className="w-8 h-8 rounded-lg bg-accent-500/20 text-accent-500 flex items-center justify-center">
+                           <Sparkles size={16} />
+                         </div>
+                         <span className="text-sm font-bold">10+ Hidden Gems in {data.name}</span>
+                       </div>
+                       <ArrowRight size={14} className="opacity-0 group-hover/silo:opacity-100 transition-opacity" />
+                     </Link>
+
+                     <Link 
+                       href={`/getaways/${data.id}`}
+                       className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all group/silo"
+                     >
+                       <div className="flex items-center gap-3">
+                         <div className="w-8 h-8 rounded-lg bg-primary-500/20 text-primary-500 flex items-center justify-center">
+                           <Compass size={16} />
+                         </div>
+                         <span className="text-sm font-bold">15+ Getaways from {data.name}</span>
+                       </div>
+                       <ArrowRight size={14} className="opacity-0 group-hover/silo:opacity-100 transition-opacity" />
+                     </Link>
+
+                     <Link 
+                       href={`/safety/${data.id}`}
+                       className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all group/silo"
+                     >
+                       <div className="flex items-center gap-3">
+                         <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-500 flex items-center justify-center">
+                           <ShieldCheck size={16} />
+                         </div>
+                         <span className="text-sm font-bold">{data.name} Safety Report 2026</span>
+                       </div>
+                       <ArrowRight size={14} className="opacity-0 group-hover/silo:opacity-100 transition-opacity" />
+                     </Link>
+                  </div>
+
                   {/* Internal Linking to Nearby Cities */}
                   <div className="mt-10 pt-10 border-t border-white/10">
                      <p className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-4">Nearby Destinations</p>

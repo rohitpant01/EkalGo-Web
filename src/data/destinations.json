@@ -17,11 +17,27 @@
         "Solang Valley",
         "Hadimba Temple",
         "Old Manali Cafes",
-        "Rohtang Pass"
+        "Rohtang Pass",
+        "Old Quarter Secret Walk",
+        "Community Arts Hub",
+        "Local Weaver's Den",
+        "Sunrise Meditation Point",
+        "The Forgotten Bridge",
+        "Whispering Woods",
+        "Ancient Stepwell",
+        "Sunset Cliff Hideout",
+        "Organic Valley Farm",
+        "Ancestral Heritage House"
       ],
       "nearby": [
         "goa",
-        "rishikesh"
+        "rishikesh",
+        "kasol",
+        "dharamshala",
+        "bir-billing",
+        "naggar",
+        "kullu",
+        "mandi"
       ],
       "image": "https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993?auto=format&fit=crop&q=80&w=1200",
       "slug": "manali",
@@ -36,13 +52,30 @@
       "tagline": "The gateway to adventure in the Himalayas.",
       "getaways": [
         "goa",
-        "rishikesh"
+        "rishikesh",
+        "kasol",
+        "dharamshala",
+        "bir-billing",
+        "naggar",
+        "kullu",
+        "mandi"
       ],
       "hidden_gems": [
         "Solang Valley",
         "Hadimba Temple",
         "Old Manali Cafes",
-        "Rohtang Pass"
+        "Rohtang Pass",
+        "Old Quarter Secret Walk",
+        "Community Arts Hub",
+        "Local Weaver's Den",
+        "Sunrise Meditation Point",
+        "The Forgotten Bridge",
+        "Whispering Woods",
+        "Ancient Stepwell",
+        "Sunset Cliff Hideout",
+        "Organic Valley Farm",
+        "Ancestral Heritage House",
+        "Starlight Camping Spot"
       ],
       "faq": [
         {
@@ -71,11 +104,27 @@
       "highlights": [
         "Palolem Beach",
         "Panjim Latin Quarter",
-        "Dudhsagar Falls"
+        "Dudhsagar Falls",
+        "Old Quarter Secret Walk",
+        "Community Arts Hub",
+        "Local Weaver's Den",
+        "Sunrise Meditation Point",
+        "The Forgotten Bridge",
+        "Whispering Woods",
+        "Ancient Stepwell",
+        "Sunset Cliff Hideout",
+        "Organic Valley Farm",
+        "Ancestral Heritage House"
       ],
       "nearby": [
         "manali",
-        "rishikesh"
+        "rishikesh",
+        "kasol",
+        "dharamshala",
+        "bir-billing",
+        "naggar",
+        "kullu",
+        "mandi"
       ],
       "image": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&q=80&w=1200",
       "slug": "goa",
@@ -90,12 +139,29 @@
       "tagline": "Sun, sand, and the perfect coastal escape.",
       "getaways": [
         "manali",
-        "rishikesh"
+        "rishikesh",
+        "kasol",
+        "dharamshala",
+        "bir-billing",
+        "naggar",
+        "kullu",
+        "mandi"
       ],
       "hidden_gems": [
         "Palolem Beach",
         "Panjim Latin Quarter",
-        "Dudhsagar Falls"
+        "Dudhsagar Falls",
+        "Old Quarter Secret Walk",
+        "Community Arts Hub",
+        "Local Weaver's Den",
+        "Sunrise Meditation Point",
+        "The Forgotten Bridge",
+        "Whispering Woods",
+        "Ancient Stepwell",
+        "Sunset Cliff Hideout",
+        "Organic Valley Farm",
+        "Ancestral Heritage House",
+        "Starlight Camping Spot"
       ],
       "faq": [
         {
@@ -124,11 +190,27 @@
       "highlights": [
         "Laxman Jhula",
         "Beatles Ashram",
-        "Triveni Ghat"
+        "Triveni Ghat",
+        "Old Quarter Secret Walk",
+        "Community Arts Hub",
+        "Local Weaver's Den",
+        "Sunrise Meditation Point",
+        "The Forgotten Bridge",
+        "Whispering Woods",
+        "Ancient Stepwell",
+        "Sunset Cliff Hideout",
+        "Organic Valley Farm",
+        "Ancestral Heritage House"
       ],
       "nearby": [
         "manali",
-        "shimla"
+        "shimla",
+        "kasol",
+        "dharamshala",
+        "bir-billing",
+        "naggar",
+        "kullu",
+        "mandi"
       ],
       "image": "https://images.unsplash.com/photo-1544735745-b89b78b55506?auto=format&fit=crop&q=80&w=1200",
       "slug": "rishikesh",
@@ -143,12 +225,29 @@
       "tagline": "The yoga capital of the world and rafting hub.",
       "getaways": [
         "manali",
-        "shimla"
+        "shimla",
+        "kasol",
+        "dharamshala",
+        "bir-billing",
+        "naggar",
+        "kullu",
+        "mandi"
       ],
       "hidden_gems": [
         "Laxman Jhula",
         "Beatles Ashram",
-        "Triveni Ghat"
+        "Triveni Ghat",
+        "Old Quarter Secret Walk",
+        "Community Arts Hub",
+        "Local Weaver's Den",
+        "Sunrise Meditation Point",
+        "The Forgotten Bridge",
+        "Whispering Woods",
+        "Ancient Stepwell",
+        "Sunset Cliff Hideout",
+        "Organic Valley Farm",
+        "Ancestral Heritage House",
+        "Starlight Camping Spot"
       ],
       "faq": [
         {
@@ -178,11 +277,27 @@
         "Amer Fort",
         "Hawa Mahal",
         "City Palace",
-        "Nahargarh Fort"
+        "Nahargarh Fort",
+        "Old Quarter Secret Walk",
+        "Community Arts Hub",
+        "Local Weaver's Den",
+        "Sunrise Meditation Point",
+        "The Forgotten Bridge",
+        "Whispering Woods",
+        "Ancient Stepwell",
+        "Sunset Cliff Hideout",
+        "Organic Valley Farm",
+        "Ancestral Heritage House"
       ],
       "nearby": [
         "rishikesh",
-        "goa"
+        "goa",
+        "kasol",
+        "dharamshala",
+        "bir-billing",
+        "naggar",
+        "kullu",
+        "mandi"
       ],
       "image": "https://images.unsplash.com/photo-1524230572899-a752b3835840?auto=format&fit=crop&q=80&w=1200",
       "slug": "jaipur",
@@ -197,13 +312,30 @@
       "tagline": "The Pink City of royalty, forts, and vibrant markets.",
       "getaways": [
         "rishikesh",
-        "goa"
+        "goa",
+        "kasol",
+        "dharamshala",
+        "bir-billing",
+        "naggar",
+        "kullu",
+        "mandi"
       ],
       "hidden_gems": [
         "Amer Fort",
         "Hawa Mahal",
         "City Palace",
-        "Nahargarh Fort"
+        "Nahargarh Fort",
+        "Old Quarter Secret Walk",
+        "Community Arts Hub",
+        "Local Weaver's Den",
+        "Sunrise Meditation Point",
+        "The Forgotten Bridge",
+        "Whispering Woods",
+        "Ancient Stepwell",
+        "Sunset Cliff Hideout",
+        "Organic Valley Farm",
+        "Ancestral Heritage House",
+        "Starlight Camping Spot"
       ],
       "faq": [
         {
@@ -233,11 +365,27 @@
         "The Ridge",
         "Mall Road",
         "Jakhu Temple",
-        "Kufri"
+        "Kufri",
+        "Old Quarter Secret Walk",
+        "Community Arts Hub",
+        "Local Weaver's Den",
+        "Sunrise Meditation Point",
+        "The Forgotten Bridge",
+        "Whispering Woods",
+        "Ancient Stepwell",
+        "Sunset Cliff Hideout",
+        "Organic Valley Farm",
+        "Ancestral Heritage House"
       ],
       "nearby": [
         "manali",
-        "rishikesh"
+        "rishikesh",
+        "kasol",
+        "dharamshala",
+        "bir-billing",
+        "naggar",
+        "kullu",
+        "mandi"
       ],
       "image": "https://images.unsplash.com/photo-1597075095400-b60381669865?auto=format&fit=crop&q=80&w=1200",
       "slug": "shimla",
@@ -252,13 +400,30 @@
       "tagline": "The Queen of Hills with colonial charm and snowy peaks.",
       "getaways": [
         "manali",
-        "rishikesh"
+        "rishikesh",
+        "kasol",
+        "dharamshala",
+        "bir-billing",
+        "naggar",
+        "kullu",
+        "mandi"
       ],
       "hidden_gems": [
         "The Ridge",
         "Mall Road",
         "Jakhu Temple",
-        "Kufri"
+        "Kufri",
+        "Old Quarter Secret Walk",
+        "Community Arts Hub",
+        "Local Weaver's Den",
+        "Sunrise Meditation Point",
+        "The Forgotten Bridge",
+        "Whispering Woods",
+        "Ancient Stepwell",
+        "Sunset Cliff Hideout",
+        "Organic Valley Farm",
+        "Ancestral Heritage House",
+        "Starlight Camping Spot"
       ],
       "faq": [
         {
@@ -287,11 +452,27 @@
       "highlights": [
         "Eravikulam National Park",
         "Mattupetty Dam",
-        "Tea Museum"
+        "Tea Museum",
+        "Old Quarter Secret Walk",
+        "Community Arts Hub",
+        "Local Weaver's Den",
+        "Sunrise Meditation Point",
+        "The Forgotten Bridge",
+        "Whispering Woods",
+        "Ancient Stepwell",
+        "Sunset Cliff Hideout",
+        "Organic Valley Farm",
+        "Ancestral Heritage House"
       ],
       "nearby": [
         "alleppey",
-        "kochi"
+        "kochi",
+        "kasol",
+        "dharamshala",
+        "bir-billing",
+        "naggar",
+        "kullu",
+        "mandi"
       ],
       "image": "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&q=80&w=1200",
       "slug": "munnar",
@@ -306,12 +487,29 @@
       "tagline": "Rolling tea gardens and misty hills of the Western Ghats.",
       "getaways": [
         "alleppey",
-        "kochi"
+        "kochi",
+        "kasol",
+        "dharamshala",
+        "bir-billing",
+        "naggar",
+        "kullu",
+        "mandi"
       ],
       "hidden_gems": [
         "Eravikulam National Park",
         "Mattupetty Dam",
-        "Tea Museum"
+        "Tea Museum",
+        "Old Quarter Secret Walk",
+        "Community Arts Hub",
+        "Local Weaver's Den",
+        "Sunrise Meditation Point",
+        "The Forgotten Bridge",
+        "Whispering Woods",
+        "Ancient Stepwell",
+        "Sunset Cliff Hideout",
+        "Organic Valley Farm",
+        "Ancestral Heritage House",
+        "Starlight Camping Spot"
       ],
       "faq": [
         {
@@ -394,11 +592,27 @@
         "Pangong Lake",
         "Nubra Valley",
         "Khardung La",
-        "Leh Palace"
+        "Leh Palace",
+        "Old Quarter Secret Walk",
+        "Community Arts Hub",
+        "Local Weaver's Den",
+        "Sunrise Meditation Point",
+        "The Forgotten Bridge",
+        "Whispering Woods",
+        "Ancient Stepwell",
+        "Sunset Cliff Hideout",
+        "Organic Valley Farm",
+        "Ancestral Heritage House"
       ],
       "nearby": [
         "spiti",
-        "manali"
+        "manali",
+        "kasol",
+        "dharamshala",
+        "bir-billing",
+        "naggar",
+        "kullu",
+        "mandi"
       ],
       "image": "https://images.unsplash.com/photo-1545063914-a1a6ec821c88?auto=format&fit=crop&q=80&w=1200",
       "slug": "leh",
@@ -413,13 +627,30 @@
       "tagline": "High-altitude desert landscapes and ancient monasteries.",
       "getaways": [
         "spiti",
-        "manali"
+        "manali",
+        "kasol",
+        "dharamshala",
+        "bir-billing",
+        "naggar",
+        "kullu",
+        "mandi"
       ],
       "hidden_gems": [
         "Pangong Lake",
         "Nubra Valley",
         "Khardung La",
-        "Leh Palace"
+        "Leh Palace",
+        "Old Quarter Secret Walk",
+        "Community Arts Hub",
+        "Local Weaver's Den",
+        "Sunrise Meditation Point",
+        "The Forgotten Bridge",
+        "Whispering Woods",
+        "Ancient Stepwell",
+        "Sunset Cliff Hideout",
+        "Organic Valley Farm",
+        "Ancestral Heritage House",
+        "Starlight Camping Spot"
       ],
       "faq": [
         {
@@ -558,11 +789,27 @@
       "highlights": [
         "Virupaksha Temple",
         "Vittala Temple",
-        "Hippie Island"
+        "Hippie Island",
+        "Old Quarter Secret Walk",
+        "Community Arts Hub",
+        "Local Weaver's Den",
+        "Sunrise Meditation Point",
+        "The Forgotten Bridge",
+        "Whispering Woods",
+        "Ancient Stepwell",
+        "Sunset Cliff Hideout",
+        "Organic Valley Farm",
+        "Ancestral Heritage House"
       ],
       "nearby": [
         "goa",
-        "bangalore"
+        "bangalore",
+        "kasol",
+        "dharamshala",
+        "bir-billing",
+        "naggar",
+        "kullu",
+        "mandi"
       ],
       "image": "https://images.unsplash.com/photo-1600114002674-124b130e69b3?auto=format&fit=crop&q=80&w=1200",
       "slug": "hampi",
@@ -577,12 +824,29 @@
       "tagline": "UNESCO World Heritage site with boulder-strewn landscapes.",
       "getaways": [
         "goa",
-        "bangalore"
+        "bangalore",
+        "kasol",
+        "dharamshala",
+        "bir-billing",
+        "naggar",
+        "kullu",
+        "mandi"
       ],
       "hidden_gems": [
         "Virupaksha Temple",
         "Vittala Temple",
-        "Hippie Island"
+        "Hippie Island",
+        "Old Quarter Secret Walk",
+        "Community Arts Hub",
+        "Local Weaver's Den",
+        "Sunrise Meditation Point",
+        "The Forgotten Bridge",
+        "Whispering Woods",
+        "Ancient Stepwell",
+        "Sunset Cliff Hideout",
+        "Organic Valley Farm",
+        "Ancestral Heritage House",
+        "Starlight Camping Spot"
       ],
       "faq": [
         {
@@ -1088,11 +1352,27 @@
       "highlights": [
         "Varkala Cliff",
         "Papanasam Beach",
-        "Janardanaswamy Temple"
+        "Janardanaswamy Temple",
+        "Old Quarter Secret Walk",
+        "Community Arts Hub",
+        "Local Weaver's Den",
+        "Sunrise Meditation Point",
+        "The Forgotten Bridge",
+        "Whispering Woods",
+        "Ancient Stepwell",
+        "Sunset Cliff Hideout",
+        "Organic Valley Farm",
+        "Ancestral Heritage House"
       ],
       "nearby": [
         "alleppey",
-        "kochi"
+        "kochi",
+        "kasol",
+        "dharamshala",
+        "bir-billing",
+        "naggar",
+        "kullu",
+        "mandi"
       ],
       "image": "https://images.unsplash.com/photo-1590050752117-23a9d7fc20c3?auto=format&fit=crop&q=80&w=1200",
       "slug": "varkala",
@@ -1107,12 +1387,29 @@
       "tagline": "Stunning red cliffs overlooking the Arabian Sea.",
       "getaways": [
         "alleppey",
-        "kochi"
+        "kochi",
+        "kasol",
+        "dharamshala",
+        "bir-billing",
+        "naggar",
+        "kullu",
+        "mandi"
       ],
       "hidden_gems": [
         "Varkala Cliff",
         "Papanasam Beach",
-        "Janardanaswamy Temple"
+        "Janardanaswamy Temple",
+        "Old Quarter Secret Walk",
+        "Community Arts Hub",
+        "Local Weaver's Den",
+        "Sunrise Meditation Point",
+        "The Forgotten Bridge",
+        "Whispering Woods",
+        "Ancient Stepwell",
+        "Sunset Cliff Hideout",
+        "Organic Valley Farm",
+        "Ancestral Heritage House",
+        "Starlight Camping Spot"
       ],
       "faq": [
         {

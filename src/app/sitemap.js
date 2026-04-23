@@ -56,11 +56,20 @@ export default function sitemap() {
     priority: 0.7,
   }));
 
+  // 6. Safety Report Silos
+  const safetyRoutes = destinations.map((d) => ({
+    url: `${baseUrl}/safety/${d.id}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
+
   return [
     ...staticRoutes,
     ...cityExploreRoutes,
     ...vibeRoutes,
     ...hiddenGemsRoutes,
     ...getawaysRoutes,
+    ...safetyRoutes,
   ];
 }

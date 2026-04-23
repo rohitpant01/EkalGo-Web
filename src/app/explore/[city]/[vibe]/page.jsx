@@ -25,8 +25,8 @@ export async function generateMetadata({ params }) {
 
 export async function generateStaticParams() {
   const vibes = ['solo', 'romantic', 'budget'];
-  // Phase A Rollout: First 30 Priority Cities x 3 Vibes
-  return destinationsData.destinations.slice(0, 30).flatMap((city) => 
+  // Phase A Rollout: All Curated Cities x 3 Vibes
+  return destinationsData.destinations.flatMap((city) => 
     vibes.map(vibe => ({
       city: city.slug,
       vibe: vibe

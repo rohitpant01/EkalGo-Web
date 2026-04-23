@@ -11,8 +11,8 @@ import destinationsData from '@/data/destinations.json';
 import Link from 'next/link';
 
 export async function generateStaticParams() {
-  // Phase A Rollout: First 30 Priority Cities
-  return destinationsData.destinations.slice(0, 30).map((city) => ({
+  // Phase A Rollout: All Curated Cities
+  return destinationsData.destinations.map((city) => ({
     city: city.slug,
   }));
 }
