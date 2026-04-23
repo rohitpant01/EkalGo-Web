@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Play, CheckCircle2, TrendingUp, Sparkles, Search } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 export default function Hero() {
@@ -125,12 +126,14 @@ export default function Hero() {
           >
             <div className="relative rounded-[2rem] md:rounded-[3rem] bg-white shadow-premium overflow-hidden border border-slate-100 p-2">
               <div className="aspect-[16/9] bg-slate-50 rounded-[1.8rem] md:rounded-[2.8rem] overflow-hidden relative">
-                <img 
+                <Image 
                   src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=2000" 
-                  alt="Travel Preview" 
-                  className="w-full h-full object-cover opacity-80"
+                  alt="EkalGo AI Travel Dashboard Preview - Smart Budget Tracking" 
+                  fill
+                  className="object-cover opacity-90"
+                  priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/20 to-transparent" />
                 
                 <div className="absolute bottom-10 left-10 right-10 flex flex-col md:flex-row gap-6 items-end justify-between">
                   <div className="bg-white/90 backdrop-blur-xl p-6 rounded-3xl shadow-2xl border border-white/40 w-full md:w-80">

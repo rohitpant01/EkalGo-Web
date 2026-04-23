@@ -7,6 +7,8 @@ import { getPlaceWithPhoto } from '@/services/api';
 import { useModal } from '@/context/ModalContext';
 import { useSearchParams } from 'next/navigation';
 
+import destinations from '@/data/destinations.json';
+
 function ExploreContent() {
   const searchParams = useSearchParams();
   const initialSearch = searchParams.get('search') || '';
@@ -17,26 +19,21 @@ function ExploreContent() {
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const DESTINATIONS = [
-    { title: 'Goa', type: 'Beach', budget: 'Moderate', duration: '4-5 Days', tags: ['Party', 'Chill'] },
-    { title: 'Varkala', type: 'Beach', budget: 'Budget', duration: '3-4 Days', tags: ['Cliffs', 'Surf'] },
-    { title: 'Gokarna', type: 'Beach', budget: 'Budget', duration: '3-4 Days', tags: ['Hidden', 'Peace'] },
-    { title: 'Manali', type: 'Mountains', budget: 'Budget', duration: '3-4 Days', tags: ['Adventure', 'Snow'] },
-    { title: 'Ladakh', type: 'Mountains', budget: 'Premium', duration: '7-10 Days', tags: ['Trek', 'Extreme'] },
-    { title: 'Spiti Valley', type: 'Mountains', budget: 'Moderate', duration: '6-8 Days', tags: ['Cold Desert', 'Gompas'] },
-    { title: 'Udaipur', type: 'Heritage', budget: 'Premium', duration: '3-4 Days', tags: ['Lakes', 'Royal'] },
-    { title: 'Jaipur', type: 'Heritage', budget: 'Moderate', duration: '3-4 Days', tags: ['Forts', 'Culture'] },
-    { title: 'Hampi', type: 'Heritage', budget: 'Budget', duration: '3-4 Days', tags: ['History', 'Boulders'] },
-    { title: 'Munnar', type: 'Nature', budget: 'Moderate', duration: '3-4 Days', tags: ['Tea', 'Hills'] },
-    { title: 'Waynad', type: 'Nature', budget: 'Moderate', duration: '3-4 Days', tags: ['Forest', 'Waterfalls'] },
-    { title: 'Coorg', type: 'Nature', budget: 'Moderate', duration: '2-3 Days', tags: ['Coffee', 'Mist'] },
-  ];
+  const DESTINATIONS = destinations.map(d => ({
+    title: d.name,
+    type: d.tags[0], // e.g., 'Hill Station', 'Beach'
+    budget: d.budget_range.split('-')[0].trim(),
+    duration: '3-5 Days',
+    tags: d.tags,
+    photoUrl: d.image,
+    id: d.id
+  }));
 
   const CATEGORY_MAP = {
-    Beach: { label: 'Coastal Escapes', color: 'bg-blue-50 text-blue-600 border-blue-200' },
-    Mountains: { label: 'Mountain Highs', color: 'bg-emerald-50 text-emerald-600 border-emerald-200' },
-    Heritage: { label: 'Ancient Wonders', color: 'bg-amber-50 text-amber-600 border-amber-200' },
-    Nature: { label: 'Natural Sanctuaries', color: 'bg-green-50 text-green-600 border-green-200' },
+    'Hill Station': { label: 'Mountain Highs', color: 'bg-emerald-50 text-emerald-600 border-emerald-200' },
+    'Beach': { label: 'Coastal Escapes', color: 'bg-blue-50 text-blue-600 border-blue-200' },
+    'Heritage': { label: 'Ancient Wonders', color: 'bg-amber-50 text-amber-600 border-amber-200' },
+    'Yoga': { label: 'Spiritual Hubs', color: 'bg-purple-50 text-purple-600 border-purple-200' },
   };
 
   useEffect(() => {
@@ -198,9 +195,9 @@ function ExploreContent() {
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.05 }}
                 >
-                  <div
-                    onClick={() => handlePreview(place)}
-                    className="card group cursor-pointer overflow-hidden p-0"
+                  <Link
+                    href={`/explore/${place.id}`}
+                    className="card group cursor-pointer overflow-hidden p-0 block"
                   >
                     {/* Image */}
                     <div className="relative h-44 overflow-hidden">

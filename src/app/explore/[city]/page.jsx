@@ -1,192 +1,193 @@
 import React from 'react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import WaitlistCTA from '@/components/WaitlistCTA';
+import { motion } from 'framer-motion';
+import { MapPin, Star, ShieldCheck, Sparkles, ArrowRight, ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
-import { Compass, Sparkles, Shield, Camera, Clock, TrendingUp, HelpCircle } from 'lucide-react';
-import ShareButtons from '@/components/ShareButtons';
-import LiveSocialProof from '@/components/LiveSocialProof';
-import { generateSEOContent } from '@/utils/contentEngine';
-import destinationsData from '@/data/destinations.json';
+import TrustBar from '@/components/TrustBar';
+import SampleItinerary from '@/components/SampleItinerary';
+import AppShowcase from '@/components/AppShowcase';
+import destinations from '@/data/destinations.json';
 
+// 1. Dynamic Metadata Generation
 export async function generateMetadata({ params }) {
-  const { city: cityParam } = await params;
-  const city = cityParam.charAt(0).toUpperCase() + cityParam.slice(1);
+  const cityId = params.city?.toLowerCase();
+  const data = destinations.find(d => d.id === cityId) || destinations[0];
+  
   return {
-    title: `Explore ${city} Like a Local: 2026 AI Travel Guide | EkalGo`,
-    description: `The definitive guide to ${city}. Discover hidden gems, top attractions, and local secrets in ${city} with EkalGo AI travel intelligence.`,
+    title: `Budget Trip to ${data.name} | AI Itinerary & Cost Breakdown`,
+    description: `Discover how to explore ${data.name} under budget. Get AI-generated itineraries, hidden gems, and travel partner matching for ${data.name}.`,
     alternates: {
-       canonical: `https://ekalgo.com/explore/${cityParam}`
+      canonical: `https://ekalgo.com/explore/${data.id}`,
+    },
+    openGraph: {
+      title: `Plan Your ${data.name} Adventure with EkalGo`,
+      description: data.desc,
+      images: [data.image],
     }
   };
 }
 
-export async function generateStaticParams() {
-  // Phase A Rollout: First 30 Priority Cities
-  return destinationsData.destinations.slice(0, 30).map((city) => ({
-    city: city.slug,
-  }));
-}
+export default function CityPage({ params }) {
+  const cityId = params.city?.toLowerCase();
+  const data = destinations.find(d => d.id === cityId) || destinations[0];
 
-export default async function CityExplorePage({ params }) {
-  const { city: cityParam } = await params;
-  const citySlug = cityParam.toLowerCase();
-  const cityData = destinationsData.destinations.find(d => d.slug === citySlug);
-
-  if (!cityData) {
-    return <div className="min-h-screen bg-brand-900 flex items-center justify-center text-white">City data not found for SEO.</div>;
-  }
-
-  // Phase 4: Dynamic Quality Content Engine
-  const seo = generateSEOContent(cityData, 'explore');
-
-  const city = cityData.name;
+  // 2. Schema Markup (TouristDestination)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TouristDestination",
+    "name": data.name,
+    "description": data.desc,
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": data.name,
+      "addressRegion": data.state,
+      "addressCountry": "IN"
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-brand-900 text-white selection:bg-accent-gold/30">
-      
-      <Navbar />
+    <main className="pt-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 overflow-hidden border-b border-white/5">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-accent-gold/5 blur-[120px] rounded-full pointer-events-none" />
+      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
+        <img 
+          src={data.image} 
+          className="absolute inset-0 w-full h-full object-cover"
+          alt={`${data.name} Travel Guide`}
+        />
+        <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-[2px]" />
         
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="space-y-6 max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-gold/10 border border-accent-gold/20">
-              <Sparkles size={14} className="text-accent-gold" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent-gold">Official City Hub</span>
-            </div>
-            
-            <h1 className="text-6xl md:text-9xl font-display font-bold leading-[0.9]">
-              Explore <br />
-              <span className="text-gradient-gold">{city}.</span>
+        <div className="container-tight relative z-10 text-center text-white">
+          <Link href="/explore" className="inline-flex items-center gap-2 text-sm font-bold text-white/60 hover:text-white mb-8 transition-colors">
+            <ChevronLeft size={16} /> Back to Explore
+          </Link>
+          <div>
+            <div className="badge border-white/20 bg-white/10 text-white mb-4">Destination Guide</div>
+            <h1 className="text-5xl md:text-7xl font-display font-black mb-6 tracking-tight">
+              Explore <span className="text-primary-400">{data.name}</span>
             </h1>
-            
-            <p className="text-blue-100/40 text-lg md:text-xl font-body leading-relaxed max-w-xl">
-               {seo.intro}
+            <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
+              Plan your perfect {data.name} trip within a budget of {data.budget_range}.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Main Authority Content (Phase 4 Depth) */}
-      <section className="py-24 max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-12 gap-20">
-          
-          {/* Left Column: Deep Content */}
-          <div className="lg:col-span-8 space-y-20">
-             {seo.blocks.map((block, idx) => (
-                <div key={idx} className="space-y-6">
-                   <h2 className="text-4xl font-display font-bold">{block.title}</h2>
-                   <p className="text-xl text-blue-100/50 leading-relaxed font-body">
-                      {block.text}
-                   </p>
-                </div>
-             ))}
+      {/* Stats Bar */}
+      <div className="bg-white border-y border-slate-100 py-8">
+        <div className="container-tight">
+          <div className="grid grid-cols-3 gap-8">
+            <div className="text-center">
+              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">State</p>
+              <p className="text-2xl font-display font-bold text-slate-900">{data.state}</p>
+            </div>
+            <div className="text-center border-x border-slate-100">
+              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Hidden Spots</p>
+              <p className="text-2xl font-display font-bold text-slate-900">{data.highlights.length}+ Verified</p>
+            </div>
+            <div className="text-center">
+              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Daily Budget</p>
+              <div className="flex items-center justify-center gap-1">
+                <p className="text-2xl font-display font-bold text-slate-900">₹{data.avg_cost_daily}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-             {/* Local Tip Box */}
-             <div className="p-10 rounded-[2.5rem] bg-accent-gold/5 border border-accent-gold/10 flex items-start gap-8 shadow-2xl relative overflow-hidden group">
-                <div className="w-14 h-14 rounded-2xl bg-accent-gold flex items-center justify-center shrink-0 shadow-glow-gold">
-                   <Shield size={28} className="text-brand-900" />
-                </div>
-                <div className="space-y-3 relative z-10">
-                   <h4 className="text-accent-gold font-bold uppercase tracking-widest text-[10px]">EkalGo Pro Recommendation</h4>
-                   <p className="text-blue-100/80 font-medium italic text-lg leading-relaxed">
-                      "{seo.localTip}"
-                   </p>
-                </div>
-                <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                   <TrendingUp size={120} />
-                </div>
+      {/* Main Content */}
+      <section className="py-24 bg-white">
+        <div className="container-tight">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+             <div>
+               <h2 className="text-3xl md:text-5xl font-display font-bold text-slate-900 mb-8">
+                 Budget Traveling in {data.name}
+               </h2>
+               <p className="text-lg text-slate-500 leading-relaxed mb-10">
+                 {data.name} is a breathtaking destination located in {data.state}. If you're planning a trip during its best time ([data.best_time]), EkalGo helps you uncover {data.highlights.length} secret spots that traditional guides miss.
+               </p>
+               
+               <div className="space-y-6 mb-12">
+                 <h4 className="font-bold text-slate-900 uppercase tracking-widest text-xs">Must Visit Places</h4>
+                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                   {data.highlights.map(spot => (
+                     <div key={spot} className="flex items-center gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <div className="w-2 h-2 rounded-full bg-primary" />
+                        <span className="text-sm font-bold text-slate-700">{spot}</span>
+                     </div>
+                   ))}
+                 </div>
+               </div>
+
+               <div className="space-y-6">
+                 <div className="flex gap-4 p-6 rounded-2xl bg-slate-50 border border-slate-100">
+                    <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-primary shadow-sm">
+                      <ShieldCheck size={24} />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-slate-900">AI-Verified Safety</h4>
+                      <p className="text-sm text-slate-500">Every trail and stay in {data.name} is verified by our AI and community trust scores.</p>
+                    </div>
+                 </div>
+               </div>
+             </div>
+
+             {/* Quick Plan Card */}
+             <div className="lg:sticky lg:top-32 p-8 md:p-12 rounded-[3rem] bg-slate-900 text-white shadow-2xl overflow-hidden relative">
+               <div className="noise-bg absolute inset-0 opacity-10" />
+               <div className="relative z-10">
+                  <div className="badge bg-primary-500 text-white border-none mb-6">Plan in 10 Seconds</div>
+                  <h3 className="text-3xl font-display font-bold mb-6">Ready for {data.name}?</h3>
+                  <p className="text-white/60 mb-10 leading-relaxed">
+                    Generate a personalized {data.best_time} itinerary for {data.name} within your budget limit.
+                  </p>
+                  
+                  <div className="space-y-4 mb-10">
+                    <div className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10">
+                       <span className="text-sm font-medium opacity-60">Avg. Daily Budget</span>
+                       <span className="font-bold">{data.budget_range}</span>
+                    </div>
+                    <div className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10">
+                       <span className="text-sm font-medium opacity-60">Best Time to Visit</span>
+                       <span className="font-bold">{data.best_time}</span>
+                    </div>
+                  </div>
+
+                  <Link href="/demo" className="w-full h-14 rounded-2xl bg-primary-500 text-white font-bold text-sm flex items-center justify-center gap-2 group hover:bg-primary-600 transition-all">
+                    Generate My Plan <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                  </Link>
+
+                  {/* Internal Linking to Nearby Cities */}
+                  <div className="mt-10 pt-10 border-t border-white/10">
+                     <p className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-4">Nearby Destinations</p>
+                     <div className="flex flex-wrap gap-3">
+                        {data.nearby.map(nearbyId => {
+                          const nearbyCity = destinations.find(d => d.id === nearbyId);
+                          return (
+                            <Link 
+                              key={nearbyId}
+                              href={`/explore/${nearbyId}`}
+                              className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all text-xs font-bold"
+                            >
+                              {nearbyCity?.name || nearbyId}
+                            </Link>
+                          );
+                        })}
+                     </div>
+                  </div>
+               </div>
              </div>
           </div>
-
-          {/* Right Column: Silo Navigation */}
-          <div className="lg:col-span-4 space-y-8">
-            <div className="glass-panel p-8 space-y-8 sticky top-32">
-               <div className="space-y-2">
-                  <h3 className="text-xl font-bold font-display uppercase tracking-widest text-[10px] text-blue-100/30">City Navigation</h3>
-                  <p className="text-sm font-bold">Deep Dive into {city}</p>
-               </div>
-               
-               <div className="space-y-3">
-                  <Link href={`/hidden-gems/${citySlug}`} className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-accent-gold/30 hover:bg-accent-gold/5 transition-all group">
-                     <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-xl bg-accent-gold/10 flex items-center justify-center text-accent-gold transition-colors group-hover:bg-accent-gold group-hover:text-brand-900">
-                           <Camera size={18} />
-                        </div>
-                        <span className="text-sm font-bold">Hidden Gems</span>
-                     </div>
-                     <span className="text-blue-100/20 text-xs font-mono uppercase tracking-widest">Explore</span>
-                  </Link>
-
-                  <Link href={`/itinerary/${citySlug}/3-day-trip`} className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-accent-teal/30 hover:bg-accent-teal/5 transition-all group">
-                     <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-xl bg-accent-teal/10 flex items-center justify-center text-accent-teal transition-colors group-hover:bg-accent-teal group-hover:text-brand-900">
-                           <Clock size={18} />
-                        </div>
-                        <span className="text-sm font-bold">3-Day Itinerary</span>
-                     </div>
-                     <span className="text-blue-100/20 text-xs font-mono uppercase tracking-widest">Plan</span>
-                  </Link>
-
-                  <Link href={`/getaways/${citySlug}`} className="flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-accent-neon/30 hover:bg-accent-neon/5 transition-all group">
-                     <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-xl bg-accent-neon/10 flex items-center justify-center text-accent-neon transition-colors group-hover:bg-accent-neon group-hover:text-brand-900">
-                           <TrendingUp size={18} />
-                        </div>
-                        <span className="text-sm font-bold">Weekend Trips</span>
-                     </div>
-                     <span className="text-blue-100/20 text-xs font-mono uppercase tracking-widest">Escapes</span>
-                  </Link>
-               </div>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* SEO FAQ Section */}
-      <section className="py-24 bg-brand-800/20 border-y border-white/5">
-         <div className="max-w-4xl mx-auto px-6 space-y-12">
-            <div className="text-center space-y-4">
-               <h2 className="text-4xl font-display font-bold">Trip Planning Intelligence</h2>
-               <p className="text-blue-100/40 text-sm">Commonly asked questions curated by AI for travelers heading to {city}.</p>
-            </div>
-            
-            <div className="space-y-6">
-               {seo.faqs.map((item, idx) => (
-                 <div key={idx} className="glass-panel p-8 space-y-3">
-                    <div className="flex items-center gap-4 text-accent-gold">
-                       <HelpCircle size={24} />
-                       <h4 className="font-bold text-xl">{item.q}</h4>
-                    </div>
-                    <p className="pl-10 text-blue-100/40 leading-relaxed text-lg font-body">
-                       {item.a}
-                    </p>
-                 </div>
-               ))}
-            </div>
-         </div>
-      </section>
-
-      {/* Viral Sharing */}
-      <section className="py-20 max-w-7xl mx-auto px-6 text-center border-t border-white/5">
-        <div className="space-y-8">
-          <h3 className="text-xl font-bold font-display">Share this {city} Guide</h3>
-          <div className="flex justify-center">
-            <ShareButtons 
-               url={`/explore/${citySlug}`} 
-               title={`AI Travel Guide for ${city}`} 
-               city={city} 
-            />
-          </div>
-        </div>
-      </section>
-
-      <LiveSocialProof city={city} />
-      <WaitlistCTA />
-      <Footer />
-    </div>
+      {/* Reuse High-Impact Components */}
+      <SampleItinerary />
+      <TrustBar />
+      <AppShowcase />
+    </main>
   );
 }

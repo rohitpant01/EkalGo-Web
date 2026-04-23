@@ -17,10 +17,16 @@ const FOOTER_LINKS = {
     { label: 'How It Works', href: '/how-it-works' },
     { label: 'Explore', href: '/explore' },
   ],
+  destinations: [
+    { label: 'Manali Guide', href: '/explore/manali' },
+    { label: 'Goa Secrets', href: '/explore/goa' },
+    { label: 'Rishikesh Yoga', href: '/explore/rishikesh' },
+    { label: 'View All', href: '/explore' },
+  ],
   company: [
-    { label: 'Features', href: '/features' },
-    { label: 'How It Works', href: '/how-it-works' },
     { label: 'Contact', href: '/contact' },
+    { label: 'Waitlist', href: '#' },
+    { label: 'Support', href: 'mailto:ekalgo.app@gmail.com' },
   ],
   legal: [
     { label: 'Privacy Policy', action: 'privacy' },
@@ -83,7 +89,7 @@ export default function Footer() {
           </div>
 
           {/* Links Columns */}
-          <div className="lg:col-span-4 grid grid-cols-2 gap-8 md:gap-12">
+          <div className="lg:col-span-5 grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
             <div>
               <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 mb-8">
                 The Ecosystem
@@ -92,6 +98,24 @@ export default function Footer() {
                 {FOOTER_LINKS.product.map((link, idx) => (
                   <li key={idx} className="group flex items-center gap-3">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary-500/20 group-hover:bg-primary-500 group-hover:scale-125 transition-all duration-300" />
+                    <Link 
+                      href={link.href} 
+                      className="text-sm font-medium text-slate-400 group-hover:text-white group-hover:translate-x-1 transition-all duration-300"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 mb-8">
+                Top Destinations
+              </h4>
+              <ul className="space-y-6">
+                {FOOTER_LINKS.destinations.map((link, idx) => (
+                  <li key={idx} className="group flex items-center gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-accent-500/20 group-hover:bg-accent-500 group-hover:scale-125 transition-all duration-300" />
                     <Link 
                       href={link.href} 
                       className="text-sm font-medium text-slate-400 group-hover:text-white group-hover:translate-x-1 transition-all duration-300"
@@ -123,7 +147,7 @@ export default function Footer() {
           </div>
 
           {/* Newsletter Column */}
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-3">
             <div className="bg-white/5 border border-white/10 p-8 rounded-[2rem] relative overflow-hidden group">
               <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                 <Zap size={40} className="text-primary" />

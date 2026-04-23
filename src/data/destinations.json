@@ -1,134 +1,184 @@
-{
-  "destinations": [
-    {
-      "slug": "goa",
-      "name": "Goa",
-      "state": "Goa",
-      "category": "Beach",
-      "tagline": "The Coastal Zen & Party Capital",
-      "best_time": "November to February",
-      "hidden_gems": ["Cola Beach", "Devil's Canyon", "Kuske Waterfall", "Butterfly Beach"],
-      "getaways": ["Gokarna", "Vengurla", "Tarkarli"],
-      "faq": [
-        { "q": "What is the best hidden beach in Goa?", "a": "Butterfly beach is a secluded gem only accessible by boat or trek from Palolem." }
-      ]
-    },
-    {
-      "slug": "lehandladakh",
-      "name": "Leh & Ladakh",
-      "state": "Ladakh",
-      "category": "High-Altitude",
-      "tagline": "The Land of High Passes",
-      "best_time": "May to September",
-      "hidden_gems": ["Turtuk Village", "Pangong Remote Tents", "Nubra Hidden Gompas"],
-      "getaways": ["Srinagar", "Kargil", "Spiti"],
-      "faq": [
-        { "q": "Is a permit required for Leh Ladakh?", "a": "Yes, an Inner Line Permit (ILP) is mandatory for domestic and international tourists." }
-      ]
-    },
-    {
-      "slug": "manali",
-      "name": "Manali",
-      "state": "Himachal Pradesh",
-      "category": "Mountains",
-      "tagline": "The Valley of the Gods",
-      "best_time": "October to June",
-      "hidden_gems": ["Jogini Falls", "Old Manali Trails", "Solang Remote Valleys"],
-      "getaways": ["Kasol", "Shimla", "Spiti Valley"],
-      "faq": [
-        { "q": "Can we visit Manali in winter?", "a": "Yes, Manali is spectacular in winter, especially for snow activities from December to February." }
-      ]
-    },
-    {
-      "slug": "udaipur",
-      "name": "Udaipur",
-      "state": "Rajasthan",
-      "category": "Heritage",
-      "tagline": "The City of Lakes",
-      "best_time": "September to March",
-      "hidden_gems": ["Badi Lake", "Sajjangarh Wildlife Sanctuary", "Traditional Haveli Stays"],
-      "getaways": ["Mount Abu", "Jodhpur", "Kumbhalgarh"],
-      "faq": [
-        { "q": "How many days are enough for Udaipur?", "a": "A 3-day itinerary is perfect to cover the major lakes and palaces comfortably." }
-      ]
-    },
-    {
-      "slug": "mumbai",
-      "name": "Mumbai",
-      "state": "Maharashtra",
-      "category": "Metropolis",
-      "tagline": "The City of Dreams",
-      "best_time": "October to March",
-      "hidden_gems": ["Kanheri Caves", "Gilbert Hill", "Worli Koliwada"],
-      "getaways": ["Lonavala", "Khandala", "Alibaug", "Matheran"],
-      "faq": [
-        { "q": "Best weekend getaways from Mumbai?", "a": "Lonavala and Alibaug are the top choices for a quick 2-day trip." }
-      ]
-    },
-    {
-      "slug": "delhi",
-      "name": "Delhi",
-      "state": "NCR",
-      "category": "Culture",
-      "tagline": "The Heart of India",
-      "best_time": "October to March",
-      "hidden_gems": ["Agrasen ki Baoli", "Mehrauli Archaeological Park", "Majnu ka Tilla"],
-      "getaways": ["Agra", "Jaipur", "Rishikesh", "Mussoorie"],
-      "faq": [
-        { "q": "What is the best 1-day itinerary for Delhi?", "a": "Start with Old Delhi's heritage followed by a visit to Rajpath and ending at Lotus Temple." }
-      ]
-    },
-    {
-      "slug": "rishikesh",
-      "name": "Rishikesh",
-      "state": "Uttarakhand",
-      "category": "Spiritual",
-      "tagline": "The Yoga Capital of the World",
-      "best_time": "September to June",
-      "hidden_gems": ["Secret Waterfall Trek", "Beatles Ashram Private Nodes", "Neer Garh Trails"],
-      "getaways": ["Haridwar", "Mussoorie", "Dehradun"],
-      "faq": [
-        { "q": "Is Rishikesh safe for solo travel?", "a": "Rishikesh is one of the safest and most welcoming cities in India for solo travelers." }
-      ]
-    },
-    {
-      "slug": "hampi",
-      "name": "Hampi",
-      "state": "Karnataka",
-      "category": "Heritage",
-      "tagline": "The Relic of Vijayanagara",
-      "best_time": "October to February",
-      "hidden_gems": ["Hippie Island Remote Boulders", "Anegundi Village", "Sanapur Lake"],
-      "getaways": ["Badami", "Gokarna", "Bangalore"],
-      "faq": [
-        { "q": "How to reach Hampi from Bangalore?", "a": "The best way is an overnight train or a 6-hour drive via NH48." }
-      ]
-    },
-    {
-      "slug": "bangalore",
-      "name": "Bangalore",
-      "state": "Karnataka",
-      "category": "Modern",
-      "tagline": "The Silicon Valley of India",
-      "best_time": "All year round",
-      "hidden_gems": ["Turahalli Forest", "Bannerghatta Remote Safari", "Nandi Hills Secret Sunset Nodes"],
-      "getaways": ["Mysore", "Coorg", "Wayanad", "Chikmagalur"],
-      "faq": [
-        { "q": "Best time to visit Nandi Hills?", "a": "Reach by 5:30 AM to witness the famous sunrise above the clouds." }
-      ]
-    },
-    {
-      "slug": "munnar",
-      "name": "Munnar",
-      "state": "Kerala",
-      "category": "Nature",
-      "tagline": "The Tea Garden Oasis",
-      "best_time": "September to May",
-      "hidden_gems": ["Top Station Sunrise", "Pothamedu Viewpoint", "Lockhart Gap"],
-      "getaways": ["Alleppey", "Thekkady", "Kochi"],
-      "faq": [
-        { "q": "Is Munnar good for honeymoon?", "a": "Munnar is the most popular romantic destination in South India because of its mist-covered hills." }
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": "manali",
+    "name": "Manali",
+    "state": "Himachal Pradesh",
+    "budget_range": "₹3,000 - ₹7,000",
+    "best_time": "March to June",
+    "avg_cost_daily": 2500,
+    "desc": "The gateway to adventure in the Himalayas.",
+    "tags": ["Hill Station", "Adventure", "Backpacking"],
+    "highlights": ["Solang Valley", "Hadimba Temple", "Old Manali Cafes", "Rohtang Pass"],
+    "nearby": ["goa", "rishikesh"],
+    "image": "https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993?auto=format&fit=crop&q=80&w=1200"
+  },
+  {
+    "id": "goa",
+    "name": "Goa",
+    "state": "Goa",
+    "budget_range": "₹4,000 - ₹12,000",
+    "best_time": "November to February",
+    "avg_cost_daily": 4500,
+    "desc": "Sun, sand, and the perfect coastal escape.",
+    "tags": ["Beach", "Party", "Heritage"],
+    "highlights": ["Palolem Beach", "Panjim Latin Quarter", "Dudhsagar Falls"],
+    "nearby": ["manali", "rishikesh"],
+    "image": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&q=80&w=1200"
+  },
+  {
+    "id": "rishikesh",
+    "name": "Rishikesh",
+    "state": "Uttarakhand",
+    "budget_range": "₹2,000 - ₹5,000",
+    "best_time": "September to November",
+    "avg_cost_daily": 1800,
+    "desc": "The yoga capital of the world and rafting hub.",
+    "tags": ["Yoga", "Adventure", "Spirituality"],
+    "highlights": ["Laxman Jhula", "Beatles Ashram", "Triveni Ghat"],
+    "nearby": ["manali", "shimla"],
+    "image": "https://images.unsplash.com/photo-1544735745-b89b78b55506?auto=format&fit=crop&q=80&w=1200"
+  },
+  {
+    "id": "jaipur",
+    "name": "Jaipur",
+    "state": "Rajasthan",
+    "budget_range": "₹3,500 - ₹8,000",
+    "best_time": "October to March",
+    "avg_cost_daily": 3200,
+    "desc": "The Pink City of royalty, forts, and vibrant markets.",
+    "tags": ["Heritage", "Royal", "Photography"],
+    "highlights": ["Amer Fort", "Hawa Mahal", "City Palace", "Nahargarh Fort"],
+    "nearby": ["rishikesh", "goa"],
+    "image": "https://images.unsplash.com/photo-1524230572899-a752b3835840?auto=format&fit=crop&q=80&w=1200"
+  },
+  {
+    "id": "shimla",
+    "name": "Shimla",
+    "state": "Himachal Pradesh",
+    "budget_range": "₹3,000 - ₹6,500",
+    "best_time": "March to June",
+    "avg_cost_daily": 2800,
+    "desc": "The Queen of Hills with colonial charm and snowy peaks.",
+    "tags": ["Hill Station", "Snow", "Colonial"],
+    "highlights": ["The Ridge", "Mall Road", "Jakhu Temple", "Kufri"],
+    "nearby": ["manali", "rishikesh"],
+    "image": "https://images.unsplash.com/photo-1597075095400-b60381669865?auto=format&fit=crop&q=80&w=1200"
+  },
+  {
+    "id": "munnar",
+    "name": "Munnar",
+    "state": "Kerala",
+    "budget_range": "₹2,500 - ₹6,000",
+    "best_time": "September to March",
+    "avg_cost_daily": 2200,
+    "desc": "Rolling tea gardens and misty hills of the Western Ghats.",
+    "tags": ["Nature", "Tea Gardens", "Honeymoon"],
+    "highlights": ["Eravikulam National Park", "Mattupetty Dam", "Tea Museum"],
+    "nearby": ["alleppey", "kochi"],
+    "image": "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&q=80&w=1200"
+  },
+  {
+    "id": "alleppey",
+    "name": "Alleppey",
+    "state": "Kerala",
+    "budget_range": "₹3,000 - ₹8,000",
+    "best_time": "November to February",
+    "avg_cost_daily": 3500,
+    "desc": "The Venice of the East, famous for houseboats and backwaters.",
+    "tags": ["Backwaters", "Houseboat", "Peace"],
+    "highlights": ["Alappuzha Beach", "Marari Beach", "Backwater Cruise"],
+    "nearby": ["munnar", "varkala"],
+    "image": "https://images.unsplash.com/photo-1593693411515-c202e93441aa?auto=format&fit=crop&q=80&w=1200"
+  },
+  {
+    "id": "leh",
+    "name": "Leh",
+    "state": "Ladakh",
+    "budget_range": "₹5,000 - ₹15,000",
+    "best_time": "June to September",
+    "avg_cost_daily": 5500,
+    "desc": "High-altitude desert landscapes and ancient monasteries.",
+    "tags": ["Extreme", "Trek", "Desert"],
+    "highlights": ["Pangong Lake", "Nubra Valley", "Khardung La", "Leh Palace"],
+    "nearby": ["spiti", "manali"],
+    "image": "https://images.unsplash.com/photo-1545063914-a1a6ec821c88?auto=format&fit=crop&q=80&w=1200"
+  },
+  {
+    "id": "udaipur",
+    "name": "Udaipur",
+    "state": "Rajasthan",
+    "budget_range": "₹4,000 - ₹10,000",
+    "best_time": "September to March",
+    "avg_cost_daily": 4200,
+    "desc": "The City of Lakes with majestic palaces and romantic sunsets.",
+    "tags": ["Heritage", "Lakes", "Royal"],
+    "highlights": ["City Palace", "Lake Pichola", "Jag Mandir", "Fateh Sagar"],
+    "nearby": ["jaipur", "jodhpur"],
+    "image": "https://images.unsplash.com/photo-1589136142558-9035fd1c8418?auto=format&fit=crop&q=80&w=1200"
+  },
+  {
+    "id": "shillong",
+    "name": "Shillong",
+    "state": "Meghalaya",
+    "budget_range": "₹2,500 - ₹5,500",
+    "best_time": "September to May",
+    "avg_cost_daily": 2400,
+    "desc": "Scotland of the East, known for waterfalls and pine trees.",
+    "tags": ["Northeast", "Waterfalls", "Music"],
+    "highlights": ["Elephant Falls", "Shillong Peak", "Umiam Lake", "Laitlum Canyons"],
+    "nearby": ["cherrapunji", "guwahati"],
+    "image": "https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?auto=format&fit=crop&q=80&w=1200"
+  },
+  {
+    "id": "hampi",
+    "name": "Hampi",
+    "state": "Karnataka",
+    "budget_range": "₹1,500 - ₹4,000",
+    "best_time": "October to March",
+    "avg_cost_daily": 1800,
+    "desc": "UNESCO World Heritage site with boulder-strewn landscapes.",
+    "tags": ["Heritage", "History", "Boulders"],
+    "highlights": ["Virupaksha Temple", "Vittala Temple", "Hippie Island"],
+    "nearby": ["goa", "bangalore"],
+    "image": "https://images.unsplash.com/photo-1600114002674-124b130e69b3?auto=format&fit=crop&q=80&w=1200"
+  },
+  {
+    "id": "pondicherry",
+    "name": "Pondicherry",
+    "state": "Puducherry",
+    "budget_range": "₹3,000 - ₹7,000",
+    "best_time": "October to March",
+    "avg_cost_daily": 3200,
+    "desc": "French colonial charm meets spiritual peace in Auroville.",
+    "tags": ["Coastal", "French", "Spiritual"],
+    "highlights": ["White Town", "Promenade Beach", "Auroville Matrimandir"],
+    "nearby": ["chennai", "mahabilipuram"],
+    "image": "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&q=80&w=1200"
+  },
+  {
+    "id": "coorg",
+    "name": "Coorg",
+    "state": "Karnataka",
+    "budget_range": "₹3,000 - ₹7,500",
+    "best_time": "September to June",
+    "avg_cost_daily": 3400,
+    "desc": "The Coffee Capital of India with lush green valleys.",
+    "tags": ["Coffee", "Nature", "Hills"],
+    "highlights": ["Abbey Falls", "Raja's Seat", "Namdroling Monastery"],
+    "nearby": ["wayanad", "mysore"],
+    "image": "https://images.unsplash.com/photo-1601918774946-25832a4be0d6?auto=format&fit=crop&q=80&w=1200"
+  },
+  {
+    "id": "gangtok",
+    "name": "Gangtok",
+    "state": "Sikkim",
+    "budget_range": "₹3,000 - ₹7,000",
+    "best_time": "March to June",
+    "avg_cost_daily": 3000,
+    "desc": "A clean, modern hill station with a Himalayan backdrop.",
+    "tags": ["Northeast", "Monastery", "Clean"],
+    "highlights": ["Tsomgo Lake", "MG Marg", "Rumtek Monastery"],
+    "nearby": ["darjeeling", "lachung"],
+    "image": "https://images.unsplash.com/photo-1570698473651-b2de99bae12f?auto=format&fit=crop&q=80&w=1200"
+  }
+]
