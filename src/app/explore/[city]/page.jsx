@@ -9,7 +9,8 @@ import destinations from '@/data/destinations.json';
 
 // 1. Dynamic Metadata Generation
 export async function generateMetadata({ params }) {
-  const cityId = params.city?.toLowerCase();
+  const { city } = await params;
+  const cityId = city?.toLowerCase();
   const data = destinations.destinations.find(d => d.id === cityId) || destinations.destinations[0];
   
   return {
@@ -26,8 +27,9 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default function CityPage({ params }) {
-  const cityId = params.city?.toLowerCase();
+export default async function CityPage({ params }) {
+  const { city } = await params;
+  const cityId = city?.toLowerCase();
   const data = destinations.destinations.find(d => d.id === cityId) || destinations.destinations[0];
 
   // 2. Advanced Schema Markup (TouristDestination + FAQ + Breadcrumbs)

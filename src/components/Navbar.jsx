@@ -10,6 +10,7 @@ import { useModal } from '@/context/ModalContext';
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
+  { label: 'AI Planner', href: '/ai-planner' },
   { label: 'Explore', href: '/explore' },
   { label: 'Features', href: '/features' },
   { label: 'How It Works', href: '/how-it-works' },

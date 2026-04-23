@@ -1,34 +1,66 @@
+import destinationsData from '../data/destinations.json';
+
 export default function sitemap() {
+  const baseUrl = 'https://ekalgo.com';
+  const destinations = destinationsData.destinations;
+
+  // 1. Static Routes
+  const staticRoutes = [
+    '',
+    '/explore',
+    '/ai-planner',
+    '/features',
+    '/how-it-works',
+    '/top-destinations-2026',
+    '/demo',
+    '/contact',
+  ].map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: new Date(),
+    changeFrequency: 'daily',
+    priority: route === '' ? 1 : 0.8,
+  }));
+
+  // 2. City Explore Guides (High Priority)
+  const cityExploreRoutes = destinations.map((d) => ({
+    url: `${baseUrl}/explore/${d.id}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.9,
+  }));
+
+  // 3. Vibe-Based Silos (Medium Priority)
+  const vibes = ['budget', 'solo', 'romantic'];
+  const vibeRoutes = destinations.flatMap((d) => 
+    vibes.map((vibe) => ({
+      url: `${baseUrl}/explore/${d.id}/${vibe}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    }))
+  );
+
+  // 4. Hidden Gems Silos
+  const hiddenGemsRoutes = destinations.map((d) => ({
+    url: `${baseUrl}/hidden-gems/${d.id}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
+
+  // 5. Weekend Getaways Silos
+  const getawaysRoutes = destinations.map((d) => ({
+    url: `${baseUrl}/getaways/${d.id}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
+
   return [
-    {
-      url: 'https://ekalgo.com',
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 1,
-    },
-    {
-      url: 'https://ekalgo.com/explore',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: 'https://ekalgo.com/demo',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.5,
-    },
-    {
-      url: 'https://ekalgo.com/features',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.5,
-    },
-    {
-      url: 'https://ekalgo.com/how-it-works',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.5,
-    },
+    ...staticRoutes,
+    ...cityExploreRoutes,
+    ...vibeRoutes,
+    ...hiddenGemsRoutes,
+    ...getawaysRoutes,
   ];
 }

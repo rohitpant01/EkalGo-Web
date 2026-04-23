@@ -111,7 +111,7 @@ export default function SampleItinerary() {
                 ))}
               </div>
 
-              <Link href="/explore?city=Manali" className="btn-accent inline-flex w-full md:w-auto mt-4 group">
+              <Link href="/explore?search=Manali" className="btn-accent inline-flex w-full md:w-auto mt-4 group">
                 Plan My Own Trip <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </Link>
             </motion.div>

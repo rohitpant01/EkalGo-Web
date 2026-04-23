@@ -12,7 +12,7 @@ import { useModal } from '@/context/ModalContext';
 
 const FOOTER_LINKS = {
   product: [
-    { label: 'AI Planner', href: '/explore' },
+    { label: 'AI Planner', href: '/ai-planner' },
     { label: 'Features', href: '/features' },
     { label: 'How It Works', href: '/how-it-works' },
     { label: 'Explore', href: '/explore' },
@@ -96,12 +96,12 @@ export default function Footer() {
               </h4>
               <ul className="space-y-6">
                 {FOOTER_LINKS.product.map((link, idx) => (
-                  <li key={idx} className="group flex items-center gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary-500/20 group-hover:bg-primary-500 group-hover:scale-125 transition-all duration-300" />
+                  <li key={idx} className="group">
                     <Link 
                       href={link.href} 
-                      className="text-sm font-medium text-slate-400 group-hover:text-white group-hover:translate-x-1 transition-all duration-300"
+                      className="flex items-center gap-3 text-sm font-medium text-slate-400 group-hover:text-white group-hover:translate-x-1 transition-all duration-300"
                     >
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary-500/20 group-hover:bg-primary-500 group-hover:scale-125 transition-all duration-300" />
                       {link.label}
                     </Link>
                   </li>
@@ -114,12 +114,12 @@ export default function Footer() {
               </h4>
               <ul className="space-y-6">
                 {FOOTER_LINKS.destinations.map((link, idx) => (
-                  <li key={idx} className="group flex items-center gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-accent-500/20 group-hover:bg-accent-500 group-hover:scale-125 transition-all duration-300" />
+                  <li key={idx} className="group">
                     <Link 
                       href={link.href} 
-                      className="text-sm font-medium text-slate-400 group-hover:text-white group-hover:translate-x-1 transition-all duration-300"
+                      className="flex items-center gap-3 text-sm font-medium text-slate-400 group-hover:text-white group-hover:translate-x-1 transition-all duration-300"
                     >
+                      <div className="w-1.5 h-1.5 rounded-full bg-accent-500/20 group-hover:bg-accent-500 group-hover:scale-125 transition-all duration-300" />
                       {link.label}
                     </Link>
                   </li>
