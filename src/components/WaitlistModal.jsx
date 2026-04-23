@@ -47,44 +47,36 @@ export default function WaitlistModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-start justify-center p-4 pt-16 sm:pt-[120px] modal-backdrop overflow-y-auto"
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 modal-backdrop"
       data-lenis-prevent
-      style={{ background: 'rgba(1,13,22,0.95)', backdropFilter: 'blur(16px)' }}
+      style={{ background: 'rgba(15, 23, 42, 0.4)', backdropFilter: 'blur(8px)' }}
       onClick={(e) => e.target === e.currentTarget && handleClose()}>
 
       <motion.div 
-        initial={{ opacity: 0, y: -20, scale: 0.95 }}
+        initial={{ opacity: 0, y: 20, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: -20, scale: 0.95 }}
-        className="relative w-full max-w-md rounded-3xl overflow-hidden"
-        style={{ background: 'linear-gradient(160deg, #043358 0%, #021A2C 100%)', border: '1px solid rgba(45,212,191,0.2)' }}>
-
-        {/* Glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-24 opacity-20 pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse, #2DD4BF, transparent 70%)' }} />
-
-
+        exit={{ opacity: 0, y: 20, scale: 0.95 }}
+        className="relative w-full max-w-md bg-white rounded-3xl overflow-hidden shadow-2xl border border-slate-100"
+      >
         <div className="relative p-8">
           {status !== 'success' && status !== 'already_joined' ? (
             <>
               <div className="text-center mb-8">
-                <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                  style={{ background: 'rgba(45,212,191,0.12)', border: '1px solid rgba(45,212,191,0.2)' }}>
-                  <Mail size={24} className="text-teal-400" />
+                <div className="w-14 h-14 rounded-2xl bg-primary-50 text-primary-500 flex items-center justify-center mx-auto mb-4 border border-primary-100">
+                  <Mail size={24} />
                 </div>
-                <h2 className="font-display text-2xl font-bold text-white mb-2">
+                <h2 className="font-display text-2xl font-bold text-slate-900 mb-2">
                   {title}
                 </h2>
-                <p className="text-blue-200/50 text-sm">
+                <p className="text-slate-500 text-sm">
                   {description}
                 </p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="relative">
-                  <div className="flex items-center gap-3 px-4 py-3.5 rounded-xl"
-                    style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
-                    <Mail size={16} className="text-blue-300/40 flex-shrink-0" />
+                  <div className="flex items-center gap-3 px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 focus-within:border-primary-400 focus-within:ring-2 focus-within:ring-primary-100 transition-all">
+                    <Mail size={16} className="text-slate-400 flex-shrink-0" />
                     <input
                       type="email"
                       value={email}
@@ -92,20 +84,20 @@ export default function WaitlistModal({
                       placeholder="your@email.com"
                       required
                       disabled={status === 'loading'}
-                      className="flex-1 bg-transparent text-white placeholder-blue-200/25 text-sm outline-none"
+                      className="flex-1 bg-transparent text-slate-900 placeholder:text-slate-400 text-sm outline-none"
                     />
                   </div>
                 </div>
 
                 {errorMsg && (
-                  <p className="text-xs text-ember px-1">{errorMsg}</p>
+                  <p className="text-xs text-red-500 px-1">{errorMsg}</p>
                 )}
 
                 <button
                   type="submit"
                   disabled={status === 'loading' || !email.trim()}
-                  className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl font-bold text-ocean-900 disabled:opacity-50 transition-all hover:scale-[1.02] active:scale-[0.98]"
-                  style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}>
+                  className="btn-primary w-full"
+                >
                   {status === 'loading' ? (
                     <><Loader2 size={18} className="animate-spin" /> Joining...</>
                   ) : (
@@ -114,9 +106,9 @@ export default function WaitlistModal({
                 </button>
               </form>
 
-              <div className="mt-6 flex items-center gap-6 justify-center">
-                {['🎁 Free early access', '🔕 No spam, ever', '🚀 Launch updates'].map((item) => (
-                  <span key={item} className="text-xs text-blue-200/30">{item}</span>
+              <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 justify-center">
+                {['🎁 Free early access', '🔕 No spam', '🚀 Launch updates'].map((item) => (
+                  <span key={item} className="text-xs font-medium text-slate-400">{item}</span>
                 ))}
               </div>
             </>
@@ -124,33 +116,32 @@ export default function WaitlistModal({
             // Success / Already Joined state
             <div className="text-center py-6">
               <div className="flex items-center justify-center mb-6">
-                <div className="w-20 h-20 rounded-full flex items-center justify-center"
-                  style={{ background: 'rgba(46,204,113,0.12)', border: '2px solid rgba(46,204,113,0.3)' }}>
-                  <CheckCircle size={36} className="text-jade" />
+                <div className="w-20 h-20 rounded-full bg-emerald-50 text-emerald-500 border-2 border-emerald-100 flex items-center justify-center">
+                  <CheckCircle size={36} />
                 </div>
               </div>
-              <h2 className="font-display text-2xl font-bold text-white mb-3">
+              <h2 className="font-display text-2xl font-bold text-slate-900 mb-3">
                 {status === 'success' ? "You're on the list! 🎉" : "You're already on the list! 👋"}
               </h2>
-              <p className="text-blue-200/50 text-sm mb-2">
-                We'll notify <span className="text-teal-300">{email}</span> the moment EkalGo launches.
+              <p className="text-slate-500 text-sm mb-2">
+                We'll notify <span className="text-primary-600 font-medium">{email}</span> the moment EkalGo launches.
               </p>
-              <p className="text-blue-200/30 text-xs mb-8">
+              <p className="text-slate-400 text-xs mb-8">
                 Check your inbox for a confirmation + exclusive early bird perks.
               </p>
               <button
                 onClick={handleClose}
-                className="px-8 py-3 rounded-2xl font-semibold text-sm text-white transition-all hover:bg-white/10"
-                style={{ border: '1px solid rgba(255,255,255,0.1)' }}>
+                className="btn-outline w-full"
+              >
                 Done
               </button>
             </div>
           )}
         </div>
         
-        {/* Close Button moved to end for stacking */}
+        {/* Close Button */}
         <button onClick={handleClose}
-          className="absolute top-4 right-4 p-2 rounded-xl text-blue-200/40 hover:text-white hover:bg-white/10 transition-all z-[200]">
+          className="absolute top-4 right-4 p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-all z-[200]">
           <X size={18} />
         </button>
       </motion.div>

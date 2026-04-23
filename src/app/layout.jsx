@@ -4,20 +4,17 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WaitlistModal from '@/components/WaitlistModal';
 import LockedModal from '@/components/LockedModal';
-import LiveSocialProof from '@/components/LiveSocialProof';
-import WhatsAppButton from '@/components/WhatsAppButton';
 import { Toaster } from 'react-hot-toast';
 import ClientLayout from '@/components/ClientLayout';
-import MobileNav from '@/components/layout/MobileNav';
 
 export const metadata = {
   metadataBase: new URL('https://ekalgo.com'),
-  title: "EkalGo — Discover Legendary Routes & Hidden Gems",
-  description: "EkalGo is an AI-powered travel assistant that creates personalized itineraries and finds off-beat destinations for the modern explorer.",
-  keywords: ["nearby places", "travel itineraries", "AI travel planner", "hidden gems India", "solo travel"],
+  title: "EkalGo — AI-Powered Travel Platform | Discover Hidden Gems",
+  description: "EkalGo is an AI-powered travel platform that creates personalized itineraries and discovers off-beat destinations for the modern explorer.",
+  keywords: ["nearby places", "travel itineraries", "AI travel planner", "hidden gems India", "solo travel", "travel companion"],
   openGraph: {
-    title: "EkalGo — Discover Legendary Routes & Hidden Gems",
-    description: "AI-powered travel itineraries and hidden gem discovery. Planning smarter, exploring deeper.",
+    title: "EkalGo — AI-Powered Travel Platform",
+    description: "Smart itineraries, hidden gems, and travel companions — all powered by AI.",
     url: "https://ekalgo.com",
     siteName: "EkalGo",
     images: [
@@ -33,8 +30,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "EkalGo — Discover Legendary Routes & Hidden Gems",
-    description: "AI-powered itineraries and hidden gems. Your personal travel architect.",
+    title: "EkalGo — AI-Powered Travel Platform",
+    description: "Smart itineraries, hidden gems, and travel companions — all powered by AI.",
     creator: "@ekal_go",
     images: ["/logo.png"],
   },
@@ -43,7 +40,7 @@ export const metadata = {
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
+  maximumScale: 5,
 };
 
 const jsonLd = {
@@ -64,21 +61,30 @@ const jsonLd = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className="min-h-screen noise-bg w-full overflow-x-hidden relative" style={{ background: 'var(--brand-900)' }}>
+    <html lang="en" className="scroll-smooth">
+      <body className="min-h-screen w-full overflow-x-hidden bg-white text-slate-900">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <ClientLayout>
-          <Toaster position="top-right" />
-          {/* Transitioning to SPA layout - Navbar might be integrated into TabSystem/Sidebar in future steps */}
-          <main className="min-h-screen pb-20 md:pb-0">
+          <Toaster 
+            position="top-center" 
+            toastOptions={{
+              style: {
+                background: '#FFFFFF',
+                color: '#0F172A',
+                border: '1px solid #E2E8F0',
+                borderRadius: '12px',
+                fontSize: '14px',
+              },
+            }}
+          />
+          <Navbar />
+          <main className="min-h-screen">
             {children}
           </main>
-          <MobileNav />
-          <LiveSocialProof />
-          <WhatsAppButton />
+          <Footer />
         </ClientLayout>
       </body>
     </html>

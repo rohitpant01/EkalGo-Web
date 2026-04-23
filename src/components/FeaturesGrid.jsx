@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Brain, Map, Compass, Shield, Sparkles, Navigation } from 'lucide-react';
@@ -6,84 +8,97 @@ const FEATURES = [
   {
     icon: Brain,
     title: 'AI Itinerary Generator',
-    desc: 'Instantly generate optimized, day-by-day travel plans tailored exactly to your preferences and pace.',
-    color: 'text-accent-neon'
+    desc: 'Generate optimized, day-by-day travel plans tailored exactly to your preferences and pace.',
+    color: 'bg-primary-50 text-primary-500',
   },
   {
     icon: Compass,
     title: 'Hidden Places Discovery',
     desc: 'Uncover secret spots, local gems, and offbeat trails that aren\'t swarming with tourists.',
-    color: 'text-accent-gold'
+    color: 'bg-accent-50 text-accent-600',
   },
   {
     icon: Navigation,
     title: 'Smart Route Optimization',
     desc: 'Save time and money with AI-calculated routes that find the most efficient way to explore.',
-    color: 'text-accent-teal'
+    color: 'bg-blue-50 text-blue-500',
   },
   {
     icon: Shield,
     title: 'Real-time Safety Insights',
-    desc: 'Travel confidently with live safety alerts, verified paths, and community-driven trust scores.',
-    color: 'text-gray-300'
+    desc: 'Travel confidently with live safety alerts, verified paths, and community trust scores.',
+    color: 'bg-emerald-50 text-emerald-500',
   },
   {
     icon: Sparkles,
-    title: 'Personalized Travel Plans',
-    desc: 'From foodie tours to adventure sports, get recommendations that match your exact vibe.',
-    color: 'text-accent-gold'
+    title: 'Personalized Recommendations',
+    desc: 'From foodie tours to adventure sports — recommendations that match your exact vibe.',
+    color: 'bg-purple-50 text-purple-500',
   },
   {
     icon: Map,
-    title: 'Map Integration',
-    desc: 'Seamlessly visualize your entire journey on interactive maps accessible offline.',
-    color: 'text-accent-neon'
-  }
+    title: 'Offline Maps & Guides',
+    desc: 'Seamlessly visualize your entire journey on interactive maps, even without connectivity.',
+    color: 'bg-rose-50 text-rose-500',
+  },
 ];
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1 }
+    transition: { staggerChildren: 0.08 }
   }
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } }
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } }
 };
 
 export default function FeaturesGrid() {
   return (
-    <section id="how-it-works" className="py-6 relative z-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
+    <section id="features" className="py-16 md:py-24 bg-white relative">
+      <div className="container-tight">
+        {/* Header */}
+        <div className="text-center mb-12 md:mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-bold mb-4"
+            className="badge badge-primary mx-auto mb-4"
           >
-            Powered by <span className="text-gradient-neon">Intelligence.</span>
+            <Sparkles size={14} />
+            <span>Powerful Features</span>
+          </motion.div>
+          <motion.h2 
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-4"
+          >
+            Everything You Need to
+            <br className="hidden sm:block" />
+            <span className="text-gradient-primary"> Travel Smarter</span>
           </motion.h2>
           <motion.p 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-gray-400 max-w-2xl mx-auto text-lg"
+            className="text-slate-500 max-w-2xl mx-auto text-base md:text-lg"
           >
-            Everything you need to plan the perfect trip, handled by AI in seconds.
+            Powered by AI, designed for explorers. Plan the perfect trip in seconds.
           </motion.p>
         </div>
 
+        {/* Feature Cards Grid */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          viewport={{ once: true, margin: "-80px" }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6"
         >
           {FEATURES.map((feature, idx) => {
             const Icon = feature.icon;
@@ -91,18 +106,14 @@ export default function FeaturesGrid() {
               <motion.div 
                 key={idx}
                 variants={itemVariants}
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                className="glass-panel p-8 group hover:-translate-y-2 transition-transform duration-300 relative overflow-hidden cursor-pointer"
+                className="card group cursor-default"
               >
-                {/* Glow effect on hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
-                <div className="bg-brand-800 border border-white/10 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Icon size={24} className={feature.color} />
+                <div className={`icon-box icon-box-lg rounded-xl ${feature.color} mb-5 group-hover:scale-110 transition-transform duration-300`}>
+                  <Icon size={24} />
                 </div>
                 
-                <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
-                <p className="text-gray-400 leading-relaxed min-h-[80px]">
+                <h3 className="text-lg font-display font-semibold text-slate-900 mb-2">{feature.title}</h3>
+                <p className="text-sm text-slate-500 leading-relaxed">
                   {feature.desc}
                 </p>
               </motion.div>

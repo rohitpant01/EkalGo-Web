@@ -2,80 +2,78 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Rocket, ArrowRight, CheckCircle, Smartphone, Mail } from 'lucide-react';
+import { Mail, ArrowRight, CheckCircle, Sparkles } from 'lucide-react';
 import { useModal } from '@/context/ModalContext';
 
 export default function WaitlistCTA() {
   const { openWaitlist } = useModal();
-  return (
-    <section className="py-20 relative overflow-hidden bg-brand-900 border-t border-white/5">
-      {/* Background Glows */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-accent-neon/10 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[200px] bg-accent-gold/10 blur-[80px] rounded-full pointer-events-none" />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+  return (
+    <section className="relative overflow-hidden noise-bg">
+      {/* Dark gradient background */}
+      <div className="absolute inset-0 bg-cta-gradient" />
+      
+      {/* Decorative elements */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-primary-400/10 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[150px] bg-accent-400/10 blur-[60px] rounded-full pointer-events-none" />
+
+      <div className="container-tight py-20 md:py-28 relative z-10 text-center">
+
+        {/* Icon */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="inline-flex items-center justify-center mb-6"
         >
-          <div className="w-16 h-16 rounded-2xl glass-panel border border-accent-gold/30 flex items-center justify-center shadow-glow-gold animate-float">
-            <Smartphone size={32} className="text-accent-gold" />
+          <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center shadow-glow-primary animate-float">
+            <Sparkles size={28} className="text-primary-300" />
           </div>
         </motion.div>
 
         <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-4xl md:text-6xl font-display font-bold text-white mb-6 drop-shadow-lg"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-5"
         >
-          The Journey <br className="hidden md:block" />
-          <span className="text-gradient-gold italic">starts here.</span>
+          Ready to Explore <br className="hidden md:block" />
+          <span className="text-gradient-primary">Differently?</span>
         </motion.h2>
 
         <motion.p 
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10"
+          className="text-slate-400 text-base md:text-lg max-w-xl mx-auto mb-10 leading-relaxed"
         >
-          Exploration is evolving. Join the EkalGo waitlist to be among the first to experience our next-gen travel discovery engine and social matching features.
+          Join thousands of travelers who are discovering the world smarter. Be among the first to access our AI-powered travel engine.
         </motion.p>
 
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="flex flex-col items-center gap-6"
+          className="flex flex-col items-center gap-5"
         >
           <button
             onClick={() => openWaitlist()}
-            className="group relative flex items-center justify-center gap-4 py-5 px-10 rounded-2xl font-bold text-ocean-900 shadow-glow-gold transition-all hover:scale-105 active:scale-95 text-lg"
-            style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}
+            className="group btn-primary-dark text-base px-10 py-4 rounded-2xl shadow-glow-primary hover:shadow-[0_0_40px_rgba(45,212,191,0.4)] transition-all hover:scale-105 active:scale-[0.98]"
           >
-            <Mail size={22} />
+            <Mail size={20} />
             Join the Waitlist
-            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </button>
 
-          <div className="flex flex-wrap justify-center gap-8 text-sm text-gray-500">
-            <span className="flex items-center gap-1.5"><CheckCircle size={14} className="text-accent-teal" /> Verified & Safe</span>
-            <span className="flex items-center gap-1.5"><CheckCircle size={14} className="text-accent-teal" /> 45 MB • Android 1.0+</span>
-            <span className="flex items-center gap-1.5"><Rocket size={14} className="text-accent-gold" /> Instant Access</span>
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-slate-500">
+            <span className="flex items-center gap-1.5"><CheckCircle size={14} className="text-primary-400" /> Free to join</span>
+            <span className="flex items-center gap-1.5"><CheckCircle size={14} className="text-primary-400" /> No spam, ever</span>
+            <span className="flex items-center gap-1.5"><CheckCircle size={14} className="text-primary-400" /> Early access perks</span>
           </div>
         </motion.div>
-
-        <div className="mt-12 flex justify-center gap-6">
-           <a href="https://x.com/ekal_go" target="_blank" rel="noopener noreferrer" className="text-blue-100/30 hover:text-accent-gold transition-colors text-xs font-mono uppercase tracking-widest">Twitter (X)</a>
-           <span className="text-white/10">/</span>
-           <a href="https://instagram.com/ekalgo.app" target="_blank" rel="noopener noreferrer" className="text-blue-100/30 hover:text-accent-gold transition-colors text-xs font-mono uppercase tracking-widest">Instagram</a>
-        </div>
       </div>
     </section>
   );

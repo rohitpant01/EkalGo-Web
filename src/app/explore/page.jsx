@@ -1,10 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Compass, Sparkles, Loader2, ShieldCheck, Zap } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Search, Compass, Sparkles, Loader2, MapPin, ArrowRight } from 'lucide-react';
 import { getPlaceWithPhoto } from '@/services/api';
-import PlaceCard from '@/components/PlaceCard';
 import { useModal } from '@/context/ModalContext';
 
 const DESTINATIONS = [
@@ -22,9 +21,17 @@ const DESTINATIONS = [
   { title: 'Coorg', type: 'Nature', budget: 'Moderate', duration: '2-3 Days', tags: ['Coffee', 'Mist'] },
 ];
 
+const CATEGORY_MAP = {
+  Beach: { label: 'Coastal Escapes', color: 'bg-blue-50 text-blue-600 border-blue-200' },
+  Mountains: { label: 'Mountain Highs', color: 'bg-emerald-50 text-emerald-600 border-emerald-200' },
+  Heritage: { label: 'Ancient Wonders', color: 'bg-amber-50 text-amber-600 border-amber-200' },
+  Nature: { label: 'Natural Sanctuaries', color: 'bg-green-50 text-green-600 border-green-200' },
+};
+
 export default function ExplorePage() {
   const { openWaitlist, openPreview } = useModal();
   const [searchTerm, setSearchTerm] = useState('');
+  const [activeFilter, setActiveFilter] = useState('All');
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -53,161 +60,213 @@ export default function ExplorePage() {
     });
   };
 
-  const handleLockedClick = () => {
-    openWaitlist();
-  };
+  const categories = ['All', ...new Set(DESTINATIONS.map(d => d.type))];
 
-  const categories = [...new Set(DESTINATIONS.map(d => d.type))];
-  
-  const groupedData = categories.map(cat => ({
-    name: cat,
-    items: places.filter(p => p.type === cat).slice(0, 3)
-  }));
-
-  const filteredGroups = groupedData.map(group => ({
-    ...group,
-    items: group.items.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()))
-  })).filter(group => group.items.length > 0);
+  const filteredPlaces = places.filter(p => {
+    const matchesSearch = p.title.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesFilter = activeFilter === 'All' || p.type === activeFilter;
+    return matchesSearch && matchesFilter;
+  });
 
   return (
-    <div className="min-h-screen pt-28 pb-20 bg-brand-900 overflow-hidden relative">
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-accent-neon/5 blur-[120px] pointer-events-none rounded-full" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-accent-gold/5 blur-[120px] pointer-events-none rounded-full" />
+    <div className="min-h-screen pt-[72px]">
+      {/* Hero Header */}
+      <section className="py-12 md:py-16 bg-gradient-to-b from-surface-alt to-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary-100/30 rounded-full blur-[100px] pointer-events-none" />
+        
+        <div className="container-tight relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center mb-8"
+          >
+            <div className="badge badge-primary mx-auto mb-4">
+              <Compass size={14} />
+              <span>Discovery Engine</span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-slate-900 mb-4">
+              Explore <span className="text-gradient-primary">Destinations</span>
+            </h1>
+            <p className="text-slate-500 text-base md:text-lg max-w-xl mx-auto">
+              Discover curated routes and hidden gems across India, powered by AI.
+            </p>
+          </motion.div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
-        >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full mb-6 glass-panel border border-accent-gold/20"
-            style={{ background: 'rgba(245,185,66,0.05)' }}>
-            <Sparkles size={14} className="text-accent-gold animate-pulse" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent-gold">
-              Elite Curatory Intelligence
-            </span>
+          {/* Search Bar */}
+          <div className="max-w-xl mx-auto mb-8">
+            <div className="relative flex items-center bg-white rounded-xl border border-slate-200 shadow-soft focus-within:border-primary-400 focus-within:shadow-card transition-all">
+              <Search className="ml-4 text-slate-400 flex-shrink-0" size={20} />
+              <input
+                type="text"
+                placeholder="Search destinations..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full bg-transparent py-3.5 px-4 text-slate-900 outline-none text-sm placeholder:text-slate-400"
+              />
+            </div>
           </div>
-          <h1 className="text-5xl md:text-7xl font-display font-bold text-white mb-6 tracking-tight">
-            Explore <span className="text-gradient-gold">Legendary</span> Routes.
-          </h1>
-          <p className="text-blue-100/40 text-lg max-w-2xl mx-auto font-body">
-            AI-orchestrated journeys tailored for the modern explorer. <br />
-            Select a destination to preview its smart path.
-          </p>
-        </motion.div>
 
-        <div className="max-w-2xl mx-auto mb-20 relative group">
-          <div className="absolute -inset-1 bg-gradient-to-r from-accent-gold/20 to-accent-neon/20 rounded-2xl blur opacity-30 group-focus-within:opacity-100 transition-opacity" />
-          <div className="relative flex items-center bg-brand-800/80 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden focus-within:border-accent-gold/40 transition-all">
-            <Search className="ml-6 text-gray-500" size={20} />
-            <input
-              type="text"
-              placeholder="Search by destination or niche..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-transparent py-5 px-6 text-white outline-none font-body placeholder-gray-500"
-            />
-          </div>
-        </div>
-
-        {loading ? (
-           <div className="flex flex-col items-center justify-center py-24 gap-6">
-              <div className="relative">
-                 <Loader2 className="text-accent-gold animate-spin" size={48} />
-                 <div className="absolute inset-0 blur-xl bg-accent-gold/20 animate-pulse" />
-              </div>
-              <p className="text-gray-400 font-mono animate-pulse uppercase tracking-[0.3em] text-[10px] text-center">
-                 Accessing Global Travel Nodes...
-              </p>
-           </div>
-        ) : (
-          <div className="space-y-24">
-            {filteredGroups.map((group) => (
-              <section key={group.name} className="space-y-10">
-                <div className="flex items-end justify-between border-b border-white/5 pb-4">
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-accent-gold/60">
-                       <Compass size={16} />
-                       <span className="text-[10px] font-bold uppercase tracking-widest leading-none">Category: {group.name}</span>
-                    </div>
-                    <h2 className="text-3xl font-display font-bold text-white tracking-tight flex items-center gap-4">
-                      {group.name === 'Beach' ? 'Coastal Escapes' : 
-                       group.name === 'Mountains' ? 'Mountain Highs' : 
-                       group.name === 'Heritage' ? 'Ancient Wonders' : 'Natural Sanctuaries'}
-                      <div className="h-[1px] w-12 bg-accent-gold/20" />
-                    </h2>
-                  </div>
-                  <div className="flex items-center gap-2 text-[10px] font-mono text-blue-100/30">
-                    <ShieldCheck size={12} className="text-green-500/50" />
-                    AI VERIFIED SELECTION
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                  {group.items.map((place, idx) => (
-                    <motion.div
-                      key={place.title}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: idx * 0.1 }}
-                    >
-                      <PlaceCard 
-                        href={`/explore/${(place.title || '').toLowerCase().replace(/\s+/g, '-')}`}
-                        onClick={() => handlePreview(place)}
-                        place={{
-                          name: place.title || place.name || 'Premium Route',
-                          type: (place.type || 'default').toLowerCase(),
-                          photoUrl: place.photoUrl,
-                          address: (place.tags || []).join(' • ') || 'Elite Selection',
-                          rating: place.rating || '5.0',
-                          description: place.description || `AI-optimized path for ${place.title || 'this destination'}. Discover hidden gems and curated routes with EkalGo Intelligence.`,
-                          duration: place.duration || '3-4 Days'
-                        }} 
-                      />
-                    </motion.div>
-                  ))}
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 }}
-                  >
-                    <PlaceCard 
-                      locked={true}
-                      onLockedClick={handleLockedClick}
-                      place={{
-                        name: 'Secret Place',
-                        type: group.name.toLowerCase(),
-                        photoUrl: null,
-                        address: 'APP EXCLUSIVE ACCESS',
-                        rating: 'Premium',
-                        description: 'This legendary route is locked for elite app members. Download EkalGo to reveal secret paths.',
-                        duration: '4-7 Days'
-                      }} 
-                    />
-                  </motion.div>
-                </div>
-              </section>
+          {/* Category Filters */}
+          <div className="flex flex-wrap justify-center gap-2">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveFilter(cat)}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                  activeFilter === cat
+                    ? 'bg-primary-400 text-white shadow-glow-primary'
+                    : 'bg-white text-slate-600 border border-slate-200 hover:border-primary-200 hover:text-primary-600'
+                }`}
+              >
+                {cat === 'All' ? 'All Destinations' : CATEGORY_MAP[cat]?.label || cat}
+              </button>
             ))}
           </div>
-        )}
+        </div>
+      </section>
 
-        {!loading && filteredGroups.length === 0 && (
-           <div className="text-center py-24 glass-panel border border-white/5 rounded-3xl">
-              <Zap className="text-accent-gold/20 mx-auto mb-6" size={48} />
-              <p className="text-gray-400 text-lg font-body">No legendary routes match your current search.</p>
-              <button 
-                onClick={() => setSearchTerm('')}
-                className="mt-6 text-accent-gold hover:text-white transition-colors underline underline-offset-8 decoration-accent-gold/30"
+      {/* Results */}
+      <section className="py-8 md:py-12 bg-white">
+        <div className="container-tight">
+          {loading ? (
+            <div className="flex flex-col items-center justify-center py-20 gap-4">
+              <Loader2 className="text-primary-400 animate-spin" size={40} />
+              <p className="text-slate-400 text-sm">Loading destinations...</p>
+            </div>
+          ) : filteredPlaces.length === 0 ? (
+            searchTerm.trim() !== '' ? (
+              <div className="text-center py-20">
+                <motion.div 
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className="w-16 h-16 rounded-2xl bg-primary-50 text-primary-500 flex items-center justify-center mx-auto mb-6 shadow-soft border border-primary-100"
+                >
+                  <Sparkles size={32} />
+                </motion.div>
+                <h3 className="text-2xl font-display font-bold text-slate-900 mb-3">
+                  Discover {searchTerm}
+                </h3>
+                <p className="text-slate-500 text-base mb-8 max-w-md mx-auto">
+                  We don't have a pre-curated route for this yet, but our AI can generate a custom itinerary for you instantly.
+                </p>
+                <div className="flex items-center justify-center gap-4">
+                  <button
+                    onClick={() => handlePreview({ title: searchTerm, type: 'Custom', photoUrl: null })}
+                    className="btn-primary"
+                  >
+                    Generate AI Itinerary <Sparkles size={16} />
+                  </button>
+                  <button
+                    onClick={() => { setSearchTerm(''); setActiveFilter('All'); }}
+                    className="btn-outline"
+                  >
+                    Clear Search
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="text-center py-20">
+                <MapPin className="text-slate-200 mx-auto mb-4" size={48} />
+                <p className="text-slate-500 text-lg mb-4">No destinations match your filters.</p>
+                <button
+                  onClick={() => { setSearchTerm(''); setActiveFilter('All'); }}
+                  className="btn-outline text-sm"
+                >
+                  Clear Filters
+                </button>
+              </div>
+            )
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+              {filteredPlaces.map((place, idx) => (
+                <motion.div
+                  key={place.title}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.05 }}
+                >
+                  <div
+                    onClick={() => handlePreview(place)}
+                    className="card group cursor-pointer overflow-hidden p-0"
+                  >
+                    {/* Image */}
+                    <div className="relative h-44 overflow-hidden">
+                      {place.photoUrl ? (
+                        <img
+                          src={place.photoUrl}
+                          alt={place.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center">
+                          <MapPin size={32} className="text-primary-400" />
+                        </div>
+                      )}
+                      {/* Category Badge */}
+                      <div className={`absolute top-3 left-3 px-2.5 py-1 rounded-md text-[11px] font-semibold border ${CATEGORY_MAP[place.type]?.color || 'bg-slate-50 text-slate-600 border-slate-200'}`}>
+                        {place.type}
+                      </div>
+                      {/* Duration Badge */}
+                      <div className="absolute top-3 right-3 px-2.5 py-1 rounded-md text-[11px] font-medium bg-white/90 backdrop-blur-sm text-slate-700 border border-white/50">
+                        {place.duration}
+                      </div>
+                    </div>
+                    
+                    {/* Content */}
+                    <div className="p-4">
+                      <div className="flex items-start justify-between mb-1.5">
+                        <h3 className="text-base font-display font-semibold text-slate-900 group-hover:text-primary-600 transition-colors">
+                          {place.title}
+                        </h3>
+                        {place.rating && (
+                          <span className="text-xs font-semibold text-amber-500 bg-amber-50 px-2 py-0.5 rounded-md flex-shrink-0">
+                            ⭐ {place.rating}
+                          </span>
+                        )}
+                      </div>
+                      
+                      <p className="text-xs text-slate-400 mb-2">
+                        {(place.tags || []).join(' • ')} · {place.budget}
+                      </p>
+
+                      <div className="flex items-center justify-between pt-2 border-t border-slate-100">
+                        <span className="text-xs text-slate-400">AI Curated Route</span>
+                        <ArrowRight size={14} className="text-slate-300 group-hover:text-primary-400 group-hover:translate-x-1 transition-all" />
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+
+              {/* Locked Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
               >
-                Reset Search Filters
-              </button>
-           </div>
-        )}
-      </div>
-
+                <div
+                  onClick={() => openWaitlist()}
+                  className="card group cursor-pointer overflow-hidden p-0 border-dashed border-2 border-primary-200 hover:border-primary-400"
+                >
+                  <div className="h-44 bg-gradient-to-br from-primary-50 to-accent-50 flex items-center justify-center">
+                    <div className="text-center">
+                      <Sparkles size={28} className="text-primary-400 mx-auto mb-2" />
+                      <p className="text-sm font-semibold text-slate-600">Secret Destinations</p>
+                    </div>
+                  </div>
+                  <div className="p-4 text-center">
+                    <p className="text-sm text-slate-500 mb-3">Unlock exclusive hidden gems with early access.</p>
+                    <span className="btn-primary text-xs px-4 py-2 min-h-0">
+                      Join Waitlist <ArrowRight size={12} />
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </div>
+      </section>
     </div>
   );
 }

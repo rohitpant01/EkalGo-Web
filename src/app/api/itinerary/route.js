@@ -13,22 +13,24 @@ export async function POST(req) {
 
     if (type === 'groq') {
       const prompt = `
-        You are an expert travel strategist for EkalGo. Create a premium 3-5 day itinerary for: "${query}".
+        You are an elite travel architect for EkalGo. Create a premium 3-5 day itinerary for: "${query}".
         
         CRITICAL ENGINE PARAMETERS:
-        1. WEIGHTED FOR HIDDEN GEMS: Prioritize nodes with low crowd density but high cultural/aesthetic vibe.
-        2. SPATIAL DATA: You MUST provide latitude and longitude for the destination and EVERY stop.
+        1. AVOID GENERIC TOURIST TRAPS: Do NOT suggest common, overcrowded spots (e.g., for Mumbai, avoid Slums/Dabbawalas/Gateway unless there is a unique twist).
+        2. UNIQUE & OFFBEAT: Focus on "Hidden Gems" — aesthetic cafes, secret viewpoints, underground cultural nodes, or luxury-niche experiences.
+        3. HIGH VIBE: Every location should be highly "Instagrammable" or offer a deep, unique cultural immersion.
+        4. SPATIAL DATA: You MUST provide latitude and longitude for the destination and EVERY stop.
         
         Return ONLY a valid JSON object in this fixed format:
         {
-          "title": "Inspiring Trip Title",
-          "summary": "Short emotional summary",
+          "title": "A Catchy Premium Title",
+          "summary": "Short emotional summary focusing on exclusivity and vibes",
           "duration": "4 Days",
           "bestSeason": "Nov to Feb",
           "difficulty": "Easy",
           "estimatedCost": "₹15,000",
           "coordinates": { "lat": 26.2389, "lng": 73.0243 },
-          "highlights": ["Point 1", "Point 2"],
+          "highlights": ["Unique Point 1", "Offbeat Point 2"],
           "safetyInsight": "Safe for solo travelers",
           "days": [
             {
@@ -36,13 +38,13 @@ export async function POST(req) {
               "theme": "Arrival & Vibes",
               "places": [
                 { 
-                  "name": "Place Name", 
-                  "type": "nature", 
+                  "name": "Unique Place Name", 
+                  "type": "hidden_gem", 
                   "lat": 26.24,
                   "lng": 73.02,
                   "duration": "2h", 
-                  "description": "Short desc", 
-                  "proTip": "Expert tip", 
+                  "description": "Engaging, vibe-focused description", 
+                  "proTip": "Expert hack for this spot", 
                   "tips": "Practical tips" 
                 }
               ]
@@ -94,15 +96,20 @@ export async function POST(req) {
 
     } else if (type === 'teaser') {
       const prompt = `
-        Create a 2-day travel teaser for ${destination}.
+        Create a 2-day high-vibe travel teaser for ${destination}.
+        
+        CRITICAL: Focus ONLY on unique, offbeat, and hidden gems. 
+        AVOID generic tourist traps like slums, busy markets, or common monuments. 
+        Think: "Secret Rooftops", "Art Deco Heritage", "Hidden Cafes", "Sunset Cliffs".
+        
         Return ONLY a valid JSON object:
         {
-          "day1Title": "Short catchy title",
-          "day1Desc": "1-2 sentence description",
-          "day2Title": "Short catchy title",
-          "day2Desc": "1-2 sentence description",
-          "savingsAmount": "2,840",
-          "hiddenGemsCount": "9"
+          "day1Title": "Aesthetic & Catchy Title",
+          "day1Desc": "Engaging description of a unique experience",
+          "day2Title": "Catchy & Offbeat Title",
+          "day2Desc": "Engaging description of a hidden gem",
+          "savingsAmount": "3,200",
+          "hiddenGemsCount": "12"
         }
       `;
       const response = await axios.post(GROQ_URL, {

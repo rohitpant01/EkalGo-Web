@@ -1,30 +1,25 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, Search, Sparkles, MapPin, Mail } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight, Sparkles, MapPin, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { useModal } from '@/context/ModalContext';
 
-export default function Hero({ onSearch }) {
+const DESTINATIONS = ["Goa", "Manali", "Rishikesh", "Ladakh", "Kerala"];
+
+export default function Hero() {
   const { openWaitlist } = useModal();
-  const canvasRef = useRef(null);
-  const containerRef = useRef(null);
-  const { scrollY } = useScroll();
-  const yParallax = useTransform(scrollY, [0, 1000], [0, 200]);
-  
   const [typedText, setTypedText] = useState('');
-  
-  // Real typing animation effect
+
   useEffect(() => {
-    const destinations = ["Goa...", "Manali...", "Rishikesh..."];
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
     let typingInterval;
 
     const type = () => {
-      const currentWord = destinations[wordIndex];
+      const currentWord = DESTINATIONS[wordIndex];
       
       if (isDeleting) {
         setTypedText(currentWord.substring(0, charIndex - 1));
@@ -38,181 +33,83 @@ export default function Hero({ onSearch }) {
         clearInterval(typingInterval);
         setTimeout(() => {
           isDeleting = true;
-          typingInterval = setInterval(type, 100);
-        }, 1500);
+          typingInterval = setInterval(type, 80);
+        }, 2000);
       } else if (isDeleting && charIndex === 0) {
         isDeleting = false;
-        wordIndex = (wordIndex + 1) % destinations.length;
+        wordIndex = (wordIndex + 1) % DESTINATIONS.length;
       }
     };
 
-    typingInterval = setInterval(type, 150);
+    typingInterval = setInterval(type, 120);
     return () => clearInterval(typingInterval);
   }, []);
 
-  // Advanced Canvas particle/star background
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let w = (canvas.width = window.innerWidth);
-    let h = (canvas.height = window.innerHeight);
-    let animId;
-
-    const particles = Array.from({ length: 80 }, () => ({
-      x: Math.random() * w,
-      y: Math.random() * h,
-      size: Math.random() * 2,
-      speedX: (Math.random() - 0.5) * 0.3,
-      speedY: (Math.random() - 0.5) * 0.3,
-      glow: Math.random() > 0.8 ? '#F5B942' : '#0EA5E9'
-    }));
-
-    function draw() {
-      ctx.clearRect(0, 0, w, h);
-      
-      particles.forEach((p, i) => {
-        p.x += p.speedX;
-        p.y += p.speedY;
-        
-        if (p.x < 0) p.x = w;
-        if (p.x > w) p.x = 0;
-        if (p.y < 0) p.y = h;
-        if (p.y > h) p.y = 0;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = p.glow;
-        ctx.globalAlpha = Math.random() * 0.5 + 0.3;
-        ctx.fill();
-        ctx.globalAlpha = 1;
-
-        // Draw connecting lines for nearby particles
-        for(let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-          if (dist < 100) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 - dist/1000})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
-      });
-
-      animId = requestAnimationFrame(draw);
-    }
-    draw();
-
-    const onResize = () => {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-    };
-    window.addEventListener('resize', onResize);
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener('resize', onResize);
-    };
-  }, []);
-
   return (
-    <section
-      ref={containerRef}
-      className="relative w-full min-h-screen flex flex-col justify-center items-center text-center overflow-hidden bg-brand-900"
-    >
-      {/* Particle background with scroll parallax */}
-      <motion.div 
-        className="absolute inset-0 pointer-events-none opacity-60"
-        style={{ y: yParallax }}
-      >
-        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
-      </motion.div>
+    <section className="relative w-full min-h-[90vh] flex flex-col justify-center items-center overflow-hidden bg-gradient-to-b from-surface-alt via-white to-white">
+      {/* Decorative gradient blobs */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-100/40 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent-100/30 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-50/50 rounded-full blur-[80px] pointer-events-none" />
 
-      {/* Main Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 flex flex-col items-center">
+      {/* Content */}
+      <div className="relative z-10 container-tight pt-28 pb-16 md:pt-36 md:pb-24 flex flex-col items-center text-center">
         
         {/* Badge */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 glass-panel border border-accent-gold/20"
+          className="badge badge-primary mb-6"
         >
-          <Sparkles size={14} className="text-accent-gold" />
-          <span className="text-xs font-semibold tracking-wide uppercase text-gray-300">
-            Next-Gen Travel Intelligence
-          </span>
+          <Sparkles size={14} />
+          <span>AI-Powered Travel Platform</span>
         </motion.div>
 
         {/* Headline */}
         <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="font-display font-bold text-4xl sm:text-6xl md:text-8xl leading-tight mb-6 max-w-5xl mx-auto drop-shadow-2xl"
+          className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] mb-6 max-w-4xl"
         >
-          <span className="text-white">Plan Smarter.</span>
+          <span className="text-slate-900">Discover Places</span>
           <br />
-          <span className="text-gradient-gold">Travel Better.</span>
+          <span className="text-gradient-primary">You Never Knew Existed</span>
         </motion.h1>
 
-        {/* Sub */}
+        {/* Subtitle */}
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-8 leading-relaxed"
+          className="text-base sm:text-lg md:text-xl text-slate-500 max-w-2xl mx-auto mb-10 leading-relaxed px-4"
         >
-          AI-powered itineraries, hidden gems, and real-time travel routes tailored just for you. Explore the world effortlessly.
+          AI-crafted itineraries, hidden gems, and smart routes tailored to your travel style. Plan effortlessly, explore endlessly.
         </motion.p>
 
-        {/* Trust Boosters */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="flex flex-wrap justify-center gap-6 mb-12"
-        >
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/5">
-            <div className="flex -space-x-2">
-              {[1, 2, 3].map(i => (
-                <div key={i} className="w-6 h-6 rounded-full border-2 border-brand-900 bg-brand-800 flex items-center justify-center text-[10px] font-bold text-gray-400 overflow-hidden">
-                  <img src={`https://i.pravatar.cc/100?u=${i}`} alt="user" />
-                </div>
-              ))}
-            </div>
-            <span className="text-[11px] font-bold text-blue-100/60 uppercase tracking-wider">12 explorers joining EkalGo waitlist right now</span>
-          </div>
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/5">
-            <Mail size={12} className="text-teal-400" />
-            <span className="text-[11px] font-bold text-blue-100/60 uppercase tracking-wider">8 travelers just requested early access</span>
-          </div>
-        </motion.div>
-
-        {/* Animated Input Box */}
+        {/* Search Teaser */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="w-full max-w-2xl mx-auto mb-12 px-4"
+          className="w-full max-w-lg mx-auto mb-10 px-4"
         >
-          <div className="relative glass-panel rounded-2xl sm:rounded-full flex flex-col sm:flex-row items-center p-3 sm:p-2 border border-accent-neon/30 hover:border-accent-neon/60 transition-colors shadow-glow-neon">
-            <div className="flex items-center w-full sm:w-auto flex-1">
-              <div className="pl-4 pr-2">
-                <Search className="text-accent-neon" size={20} />
-              </div>
-              <div className="flex-1 h-12 flex items-center bg-transparent border-none outline-none text-white text-base sm:text-lg font-medium placeholder-gray-500">
-                <span className="text-gray-300">Where to? <span className="text-white">{typedText}</span><span className="animate-pulse">|</span></span>
+          <div className="relative flex items-center p-2 bg-white rounded-2xl border border-slate-200 shadow-card hover:shadow-card-hover hover:border-primary-300 transition-all duration-300">
+            <div className="flex items-center flex-1 pl-4 gap-3">
+              <MapPin className="text-primary-400 flex-shrink-0" size={20} />
+              <div className="flex-1 h-12 flex items-center text-base">
+                <span className="text-slate-400">Where to? </span>
+                <span className="text-slate-800 font-medium ml-1">{typedText}</span>
+                <span className="text-primary-400 animate-pulse ml-0.5">|</span>
               </div>
             </div>
-            <Link 
-              href="/ai-planner"
-              className="btn-primary rounded-xl sm:rounded-full px-8 py-4 sm:py-3 w-full sm:w-auto sm:ml-2 shrink-0 flex items-center justify-center gap-2 font-bold shadow-glow-gold"
+            <Link
+              href="/explore"
+              className="btn-primary rounded-xl px-5 py-3 text-sm shrink-0"
             >
-              Generate
-              <Sparkles size={16} />
+              Explore
+              <Sparkles size={14} />
             </Link>
           </div>
         </motion.div>
@@ -222,26 +119,45 @@ export default function Hero({ onSearch }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full px-4"
         >
           <button
             onClick={() => openWaitlist()}
-            className="group relative flex items-center justify-center gap-3 py-5 px-10 rounded-2xl font-bold text-ocean-900 shadow-glow-gold transition-all hover:scale-105 active:scale-95 text-lg"
-            style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}
+            className="btn-accent w-full sm:w-auto text-base px-8"
           >
-            <Mail size={22} />
+            <Mail size={18} />
             Join the Waitlist
-            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+            <ArrowRight size={16} className="ml-1" />
           </button>
           <Link
             href="/explore"
-            className="btn-secondary flex items-center justify-center gap-3 px-8 py-4 w-full sm:w-auto text-lg"
+            className="btn-outline w-full sm:w-auto text-base px-8"
           >
-            <MapPin size={20} />
+            <MapPin size={18} />
             Explore Routes
           </Link>
         </motion.div>
 
+        {/* Trust Line */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.7 }}
+          className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-400"
+        >
+          <div className="flex items-center gap-2">
+            <div className="flex -space-x-2">
+              {[1, 2, 3, 4].map(i => (
+                <div key={i} className="w-7 h-7 rounded-full border-2 border-white bg-gradient-to-br from-primary-200 to-primary-400 flex items-center justify-center text-[10px] font-bold text-white overflow-hidden">
+                  <img src={`https://i.pravatar.cc/100?u=ekalgo${i}`} alt="" className="w-full h-full object-cover" />
+                </div>
+              ))}
+            </div>
+            <span>Trusted by <strong className="text-slate-600">10,000+</strong> travelers</span>
+          </div>
+          <span className="hidden sm:block text-slate-300">•</span>
+          <span>⭐ 4.9 rating</span>
+        </motion.div>
       </div>
     </section>
   );

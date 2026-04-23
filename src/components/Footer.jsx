@@ -3,121 +3,137 @@
 import React from 'react';
 import Link from 'next/link';
 import Logo from './Logo';
-import { Mail, Github, Twitter, Instagram, MessageSquare, Shield, Lock, ScrollText, Download } from 'lucide-react';
+import { Mail, Twitter, Instagram, MessageSquare, ArrowUpRight } from 'lucide-react';
 import { useModal } from '@/context/ModalContext';
-import { redirectToAPK } from '@/utils/redirect';
+
+const FOOTER_LINKS = {
+  product: [
+    { label: 'AI Planner', href: '/explore' },
+    { label: 'Explore Destinations', href: '/explore' },
+    { label: 'Hidden Gems', href: '/explore' },
+    { label: 'Safety Index', href: '/explore' },
+  ],
+  company: [
+    { label: 'About', href: '/about' },
+    { label: 'Contact', href: '/contact' },
+    { label: 'Careers', href: '/about' },
+  ],
+  legal: [
+    { label: 'Privacy Policy', action: 'privacy' },
+    { label: 'Terms of Service', action: 'terms' },
+    { label: 'Cookie Policy', action: 'cookies' },
+  ],
+};
+
+const SOCIAL_LINKS = [
+  { icon: Twitter, href: 'https://x.com/ekal_go', label: 'Twitter' },
+  { icon: Instagram, href: 'https://instagram.com/ekalgo.app', label: 'Instagram' },
+  { icon: MessageSquare, href: 'https://wa.me/918474972007', label: 'WhatsApp' },
+];
 
 export default function Footer() {
   const { openLegal, openWaitlist } = useModal();
+
   return (
-    <footer className="py-20 border-t border-white/5 bg-brand-900 relative overflow-hidden"
-      style={{ background: 'var(--brand-900)' }}>
+    <footer className="section-dark relative overflow-hidden">
+      {/* Top gradient line */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-400/30 to-transparent" />
       
-      {/* Background Decorative Element */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-accent-gold/20 to-transparent" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16">
+      <div className="container-tight py-16 lg:py-20 relative z-10">
+        {/* Main Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-12 gap-8 lg:gap-12 mb-12">
           
-          {/* Brand & About */}
-          <div className="lg:col-span-5 space-y-8">
-            <div className="flex flex-col items-start gap-4">
-              <Logo size="md" />
-              <p className="text-blue-100/60 leading-relaxed max-w-sm font-body">
-                EkalGo is an AI-powered travel platform designed to help you explore smarter. From hidden gems to optimized routes, we aim to make travel effortless and intelligent.
-              </p>
-            </div>
-            
-            <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 space-y-4">
-              <h4 className="text-xs font-bold text-accent-gold uppercase tracking-widest font-display">About EkalGo</h4>
-              <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-brand-800 border border-white/10 flex items-center justify-center text-accent-teal font-bold text-xs">ET</div>
-                  <div>
-                    <p className="text-sm font-bold text-white">EkalGo Team</p>
-                    <p className="text-[10px] text-blue-100/40 uppercase tracking-widest">Founder & Architects</p>
-                  </div>
-                </div>
-                <p className="text-xs text-blue-100/50 italic leading-relaxed">
-                  "Our mission is to revolutionize travel planning by making hidden intelligence accessible to every explorer."
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Quick Links */}
-          <div className="lg:col-span-2 space-y-6">
-            <h4 className="text-[10px] font-bold text-white uppercase tracking-[0.2em] font-display">Platform</h4>
-            <div className="flex flex-col gap-4">
-              <Link href="/explore" className="text-sm text-blue-100/40 hover:text-white transition-colors">Discovery Engine</Link>
-              <Link href="/ai-planner" className="text-sm text-blue-100/40 hover:text-white transition-colors">AI Route Planner</Link>
-              <Link href="/safety" className="text-sm text-blue-100/40 hover:text-white transition-colors">Safety Index</Link>
-              <button onClick={openWaitlist} className="text-sm text-blue-100/40 hover:text-accent-gold transition-colors text-left">Early Access</button>
-            </div>
-          </div>
-
-          {/* Legal & Trust */}
-          <div className="lg:col-span-2 space-y-6">
-            <h4 className="text-[10px] font-bold text-white uppercase tracking-[0.2em] font-display">Trust Center</h4>
-            <div className="flex flex-col items-start gap-4">
-              <button 
-                onClick={() => openLegal('privacy')}
-                className="text-sm text-blue-100/40 hover:text-white transition-colors flex items-center gap-2"
-              >
-                <Lock size={14} /> Privacy
-              </button>
-              <button 
-                onClick={() => openLegal('terms')}
-                className="text-sm text-blue-100/40 hover:text-white transition-colors flex items-center gap-2"
-              >
-                <Shield size={14} /> Terms
-              </button>
-              <button 
-                onClick={() => openLegal('cookies')}
-                className="text-sm text-blue-100/40 hover:text-white transition-colors flex items-center gap-2"
-              >
-                <ScrollText size={14} /> Cookies
-              </button>
-              <a href="https://wa.me/918474972007" target="_blank" rel="noopener noreferrer" className="text-sm text-blue-100/40 hover:text-accent-teal transition-colors flex items-center gap-2">
-                <MessageSquare size={14} /> Support
-              </a>
-            </div>
-          </div>
-
-          {/* Contact */}
-          <div className="lg:col-span-3 space-y-6 text-center lg:text-right">
-            <h4 className="text-[10px] font-bold text-white uppercase tracking-[0.2em] font-display">Get in Touch</h4>
-            <div className="space-y-4">
-              <a href="mailto:ekalgo.app@gmail.com" className="text-sm text-blue-100/60 hover:text-accent-gold transition-colors block">ekalgo.app@gmail.com</a>
-              <div className="flex items-center justify-center lg:justify-end gap-3 font-display">
-                <a href="https://x.com/ekal_go" target="_blank" rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-xl flex items-center justify-center text-blue-100/40 hover:text-white hover:bg-white/5 transition-all border border-white/5 bg-brand-800">
-                  <Twitter size={18} />
+          {/* Brand Column */}
+          <div className="col-span-2 md:col-span-4 space-y-5">
+            <Logo size="md" variant="light" />
+            <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
+              AI-powered travel platform that helps you explore smarter. From hidden gems to optimized routes, making travel effortless.
+            </p>
+            <div className="flex items-center gap-3">
+              {SOCIAL_LINKS.map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-10 h-10 rounded-lg flex items-center justify-center text-slate-500 hover:text-white hover:bg-white/10 transition-all border border-white/5"
+                >
+                  <Icon size={18} />
                 </a>
-                <a href="https://instagram.com/ekalgo.app" target="_blank" rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-xl flex items-center justify-center text-blue-100/40 hover:text-white hover:bg-white/5 transition-all border border-white/5 bg-brand-800">
-                  <Instagram size={18} />
-                </a>
-                <a href="https://github.com/rohitpant01/EkalGo-Web" target="_blank" rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-xl flex items-center justify-center text-blue-100/40 hover:text-white hover:bg-white/5 transition-all border border-white/5 bg-brand-800">
-                  <Github size={18} />
-                </a>
-              </div>
+              ))}
             </div>
           </div>
 
+          {/* Product Links */}
+          <div className="col-span-1 md:col-span-2 md:col-start-6">
+            <h4 className="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-4">Product</h4>
+            <ul className="space-y-3">
+              {FOOTER_LINKS.product.map((link) => (
+                <li key={link.label}>
+                  <Link href={link.href} className="text-sm text-slate-500 hover:text-white transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company Links */}
+          <div className="col-span-1 md:col-span-2">
+            <h4 className="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-4">Company</h4>
+            <ul className="space-y-3">
+              {FOOTER_LINKS.company.map((link) => (
+                <li key={link.label}>
+                  <Link href={link.href} className="text-sm text-slate-500 hover:text-white transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Legal Links */}
+          <div className="col-span-1 md:col-span-2">
+            <h4 className="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-4">Legal</h4>
+            <ul className="space-y-3">
+              {FOOTER_LINKS.legal.map((link) => (
+                <li key={link.label}>
+                  <button
+                    onClick={() => openLegal(link.action)}
+                    className="text-sm text-slate-500 hover:text-white transition-colors text-left"
+                  >
+                    {link.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Newsletter / CTA */}
+          <div className="col-span-2 md:col-span-4 md:col-start-9 md:row-start-1">
+            <h4 className="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-4">Stay Updated</h4>
+            <p className="text-sm text-slate-500 mb-4">Get notified when we launch new features and destinations.</p>
+            <button
+              onClick={() => openWaitlist()}
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-primary-400/10 text-primary-400 text-sm font-semibold hover:bg-primary-400/20 transition-all border border-primary-400/20"
+            >
+              <Mail size={16} />
+              Join the Waitlist
+              <ArrowUpRight size={14} />
+            </button>
+          </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-10 border-t border-white/5">
-          <p className="text-[10px] text-blue-100/20 font-mono uppercase tracking-widest leading-loose">
-            © {new Date().getFullYear()} EkalGo. AI-Powered Discovery. All rights reserved.
+        {/* Bottom Bar */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-white/5">
+          <p className="text-xs text-slate-600">
+            © {new Date().getFullYear()} EkalGo. All rights reserved.
           </p>
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2">
-              <div className="w-1 h-1 rounded-full bg-accent-gold" />
-              <span className="text-[10px] text-blue-100/40 uppercase tracking-widest font-mono">Made by Team EkalGo India</span>
-            </div>
+          <div className="flex items-center gap-1.5 text-xs text-slate-600">
+            <span>Made with</span>
+            <span className="text-primary-400">♥</span>
+            <span>in India</span>
           </div>
         </div>
       </div>

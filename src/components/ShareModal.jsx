@@ -21,7 +21,7 @@ export default function ShareModal({ isOpen, onClose, data }) {
     {
       name: 'WhatsApp',
       icon: <MessageCircle size={20} />,
-      color: 'bg-[#25D366]',
+      color: 'bg-[#25D366] text-white',
       action: () => {
         const text = encodeURIComponent(`${data.text}\n\n${data.url}`);
         window.open(`https://wa.me/?text=${text}`, '_blank');
@@ -30,7 +30,7 @@ export default function ShareModal({ isOpen, onClose, data }) {
     {
       name: 'Email',
       icon: <Mail size={20} />,
-      color: 'bg-accent-gold',
+      color: 'bg-primary-500 text-white',
       action: () => {
         const subject = encodeURIComponent(data.title);
         const body = encodeURIComponent(`${data.text}\n\nCheck it out here: ${data.url}`);
@@ -42,51 +42,51 @@ export default function ShareModal({ isOpen, onClose, data }) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6" data-lenis-prevent>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-[#010912]/90 backdrop-blur-xl"
+            className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
           />
           
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="relative w-full max-w-md bg-[#0B0F1A] border border-white/5 rounded-[2.5rem] shadow-[0_40px_80px_rgba(0,0,0,0.8)] overflow-hidden"
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            className="relative w-full max-w-md bg-white border border-slate-100 rounded-[2rem] shadow-2xl overflow-hidden"
           >
-            <div className="p-8 border-b border-white/5 flex items-center justify-between pb-6">
+            <div className="p-6 sm:p-8 border-b border-slate-100 flex items-center justify-between pb-6">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-accent-gold/10 flex items-center justify-center border border-accent-gold/20">
-                  <Share className="text-accent-gold" size={24} />
+                <div className="w-12 h-12 rounded-2xl bg-primary-50 flex items-center justify-center border border-primary-100">
+                  <Share className="text-primary-500" size={24} />
                 </div>
                 <div>
-                   <h2 className="text-xl font-bold text-white font-display tracking-tight uppercase">Share Itinerary</h2>
-                   <p className="text-[10px] font-bold text-accent-gold uppercase tracking-[0.2em] mt-1">EkalGo Discovery Engine</p>
+                   <h2 className="text-xl font-bold text-slate-900 font-display tracking-tight uppercase">Share Itinerary</h2>
+                   <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">EkalGo Engine</p>
                 </div>
               </div>
               <button 
                 onClick={onClose}
-                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:text-white hover:bg-white/10 transition-all"
+                className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-all"
               >
                 <X size={20} />
               </button>
             </div>
 
-            <div className="p-8 space-y-8">
+            <div className="p-6 sm:p-8 space-y-8">
               {/* Copy Link Section */}
               <div className="space-y-3">
-                <label className="text-[10px] font-bold text-white/30 uppercase tracking-widest">Itinerary Link</label>
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Itinerary Link</label>
                 <div className="flex gap-2">
-                  <div className="flex-1 bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm text-white/60 truncate font-mono">
+                  <div className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-600 truncate font-mono">
                     {data.url}
                   </div>
                   <button 
                     onClick={copyToClipboard}
                     className={`px-4 rounded-xl flex items-center justify-center transition-all ${
-                      copied ? 'bg-green-500 text-white' : 'bg-white/5 text-white/40 hover:text-white hover:bg-white/10 border border-white/10'
+                      copied ? 'bg-emerald-500 text-white' : 'bg-slate-50 text-slate-500 hover:text-slate-700 hover:bg-slate-100 border border-slate-200'
                     }`}
                   >
                     {copied ? <Check size={18} /> : <Copy size={18} />}
@@ -100,19 +100,16 @@ export default function ShareModal({ isOpen, onClose, data }) {
                   <button
                     key={option.name}
                     onClick={option.action}
-                    className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 hover:bg-white/[0.05] transition-all group"
+                    className="flex flex-col items-center gap-3 p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-slate-200 hover:bg-white hover:shadow-soft transition-all group"
                   >
-                    <div className={`w-12 h-12 rounded-xl ${option.color} flex items-center justify-center text-brand-900 shadow-lg group-hover:scale-110 transition-transform`}>
+                    <div className={`w-12 h-12 rounded-xl ${option.color} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform`}>
                       {option.icon}
                     </div>
-                    <span className="text-xs font-bold text-white/60">{option.name}</span>
+                    <span className="text-xs font-bold text-slate-600">{option.name}</span>
                   </button>
                 ))}
               </div>
             </div>
-
-            {/* Bottom Accent */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-accent-gold/5 blur-[80px] pointer-events-none" />
           </motion.div>
         </div>
       )}

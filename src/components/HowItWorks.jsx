@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Search, BrainCircuit, Compass, PlaneTakeoff } from 'lucide-react';
@@ -5,82 +7,94 @@ import { Search, BrainCircuit, Compass, PlaneTakeoff } from 'lucide-react';
 const STEPS = [
   {
     icon: Search,
+    number: '01',
     title: 'Enter Destination',
-    desc: 'Tell us where you want to go and your vibe.',
-    color: 'from-accent-neon to-brand-800'
+    desc: 'Tell us where you want to go, your budget, and your travel vibe.',
+    color: 'bg-primary-50 text-primary-500',
   },
   {
     icon: BrainCircuit,
+    number: '02',
     title: 'AI Generates Plan',
-    desc: 'Our engine computes thousands of possibilities.',
-    color: 'from-accent-gold to-brand-800'
+    desc: 'Our engine analyzes thousands of possibilities to craft your perfect itinerary.',
+    color: 'bg-accent-50 text-accent-600',
   },
   {
     icon: Compass,
-    title: 'Explore Hidden Gems',
-    desc: 'Discover places algorithms rarely show.',
-    color: 'from-accent-teal to-brand-800'
+    number: '03',
+    title: 'Discover Hidden Gems',
+    desc: 'Explore secret spots and local favorites that most tourists never find.',
+    color: 'bg-blue-50 text-blue-500',
   },
   {
     icon: PlaneTakeoff,
+    number: '04',
     title: 'Travel with Confidence',
-    desc: 'Enjoy verified routes and real-time alerts.',
-    color: 'from-accent-gold to-brand-800'
-  }
+    desc: 'Hit the road with verified routes, real-time alerts, and offline access.',
+    color: 'bg-emerald-50 text-emerald-500',
+  },
 ];
 
 export default function HowItWorks() {
   return (
-    <section className="py-24 relative overflow-hidden bg-brand-900 border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="text-center mb-24">
+    <section id="how-it-works" className="py-16 md:py-24 bg-surface-alt relative overflow-hidden">
+      <div className="container-tight">
+        {/* Header */}
+        <div className="text-center mb-12 md:mb-20">
           <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-bold mb-4 text-white"
+            className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-slate-900 mb-4"
           >
-            How it <span className="text-gradient-gold">Works</span>
+            How It <span className="text-gradient-primary">Works</span>
           </motion.h2>
-          <p className="text-gray-400">Four simple steps to your ultimate journey.</p>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-slate-500 text-base md:text-lg"
+          >
+            Four simple steps to your dream journey.
+          </motion.p>
         </div>
 
+        {/* Steps */}
         <div className="relative">
-          {/* Connecting Line */}
-          <div className="hidden md:block absolute top-[48px] left-[12%] right-[12%] h-0.5 bg-gradient-to-r from-accent-neon via-accent-gold to-accent-teal opacity-30 z-0" />
+          {/* Connecting Line — Desktop Only */}
+          <div className="hidden md:block absolute top-[60px] left-[10%] right-[10%] h-px bg-gradient-to-r from-primary-200 via-accent-200 to-primary-200 z-0" />
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 z-10 relative">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-6 relative z-10">
             {STEPS.map((step, idx) => {
               const Icon = step.icon;
               return (
                 <motion.div 
                   key={idx}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: idx * 0.2 }}
-                  className="flex flex-col items-center text-center relative group"
+                  transition={{ delay: idx * 0.15 }}
+                  className="flex flex-col items-center text-center group"
                 >
-                  <div className={`w-24 h-24 rounded-full flex items-center justify-center mb-6 bg-gradient-to-br ${step.color} p-[1px] group-hover:scale-110 transition-transform duration-300 shadow-glass-card`}>
-                    <div className="w-full h-full rounded-full bg-brand-900 flex items-center justify-center">
-                      <Icon size={32} className={idx % 2 === 0 ? 'text-accent-neon' : 'text-accent-gold'} />
+                  {/* Icon Circle */}
+                  <div className="relative mb-6">
+                    <div className={`w-[72px] h-[72px] md:w-20 md:h-20 rounded-2xl ${step.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-soft`}>
+                      <Icon size={28} />
+                    </div>
+                    {/* Step Number */}
+                    <div className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-white border-2 border-primary-200 flex items-center justify-center text-xs font-bold text-primary-600 shadow-sm">
+                      {idx + 1}
                     </div>
                   </div>
                   
-                  {/* Step Number Badge */}
-                  <div className="absolute top-0 right-1/2 translate-x-10 -translate-y-2 w-8 h-8 rounded-full bg-brand-800 border-2 border-brand-900 flex items-center justify-center text-sm font-bold text-white shadow-lg z-20">
-                    {idx + 1}
-                  </div>
-
-                  <h3 className="text-xl font-semibold text-white mb-2">{step.title}</h3>
-                  <p className="text-gray-400 text-sm max-w-[200px]">{step.desc}</p>
+                  <h3 className="text-base md:text-lg font-display font-semibold text-slate-900 mb-2">{step.title}</h3>
+                  <p className="text-sm text-slate-500 max-w-[220px] leading-relaxed">{step.desc}</p>
                 </motion.div>
               );
             })}
           </div>
         </div>
-
       </div>
     </section>
   );

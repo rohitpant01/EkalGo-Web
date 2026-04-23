@@ -1,17 +1,22 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Rocket, Sparkles, User, LogIn, Compass } from 'lucide-react';
+import { Menu, X, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from './Logo';
 import { useModal } from '@/context/ModalContext';
-import { useTabStore } from '@/context/tabStore';
+
+const NAV_LINKS = [
+  { label: 'Home', href: '/' },
+  { label: 'Explore', href: '/explore' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
+];
 
 export default function Navbar() {
-  const { openLegal, openWaitlist } = useModal();
-  const { addTab, setActiveTab } = useTabStore();
+  const { openWaitlist } = useModal();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -22,168 +27,146 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const handleNavClick = (e, link) => {
-    e.preventDefault();
+  // Close menu on route change
+  useEffect(() => {
     setMenuOpen(false);
+  }, [pathname]);
 
-    // 1. Handle Tab-based Views
-    if (link.type === 'tab') {
-      addTab({
-        id: link.id,
-        title: link.label,
-        type: link.tabType,
-        pinned: false,
-        data: {}
-      });
-      setActiveTab(link.id);
-      return;
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
     }
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
 
-    // 2. Handle Scroll-based Sections (Internal to Discover Tab)
-    if (link.type === 'scroll') {
-      // Always switch to Discover first since these sections live there
-      setActiveTab('discover');
-      
-      // Delay slightly for React to render/switch to the tab
-      setTimeout(() => {
-        const el = document.getElementById(link.id);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
-      return;
-    }
-
-    // 3. Special: AI Planner focuses the search on the Discover tab
-    if (link.id === 'ai-planner') {
-      setActiveTab('discover');
-      setTimeout(() => {
-        const searchEl = document.getElementById('discovery-search-header');
-        if (searchEl) searchEl.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-      return;
-    }
+  const isActive = (href) => {
+    if (href === '/') return pathname === '/';
+    return pathname.startsWith(href);
   };
 
-  const navLinks = [
-    { label: 'AI Planner', id: 'ai-planner', type: 'special' },
-    { label: 'Explore', id: 'explore-global', type: 'tab', tabType: 'explore' },
-    { label: 'Safety', id: 'safety', type: 'scroll' },
-    { label: 'How It Works', id: 'how-it-works', type: 'scroll' },
-  ];
-
-  const isHome = pathname === '/';
-
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 h-20 border-b border-white/5 flex items-center ${
-        scrolled ? 'bg-[#010912]/95 backdrop-blur-xl shadow-2xl' : 'bg-[#020C16]/80 backdrop-blur-md'
-      }`}
-    >
-      <div className="w-full max-w-7xl mx-auto flex items-center justify-between">
-        {/* Left: Logo */}
-        <div className="flex-shrink-0">
-          <Link href="/" className="transition-opacity hover:opacity-80">
-            <Logo size="md" />
+    <>
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-[72px] flex items-center ${
+          scrolled
+            ? 'bg-white/90 backdrop-blur-xl shadow-nav'
+            : 'bg-transparent'
+        }`}
+      >
+        <div className="container-tight flex items-center justify-between w-full">
+          {/* Logo */}
+          <Link href="/" className="transition-opacity hover:opacity-80 relative z-[60]">
+            <Logo size="md" variant={scrolled || menuOpen ? 'default' : (pathname === '/' ? 'default' : 'default')} />
           </Link>
-        </div>
 
-        {/* Right side group: Nav Links + Buttons */}
-        <div className="hidden md:flex items-center gap-10">
-          <nav className="flex items-center gap-8 nav-links">
-            {navLinks.map((link) => (
+          {/* Desktop Nav Links */}
+          <div className="hidden md:flex items-center gap-1">
+            {NAV_LINKS.map((link) => (
               <Link
-                key={link.label}
-                href={isHome ? `#${link.id}` : `/#${link.id}`}
-                onClick={(e) => handleNavClick(e, link)}
-                className="relative text-sm font-medium text-gray-300 hover:text-white transition-colors duration-200 group"
+                key={link.href}
+                href={link.href}
+                className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 ${
+                  isActive(link.href)
+                    ? 'text-primary-600 bg-primary-50/60'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                }`}
               >
                 {link.label}
-                <motion.span 
-                  className="absolute -bottom-1 left-0 w-0 h-[2px] bg-accent-gold rounded-full" 
-                  whileHover={{ width: '100%' }}
-                  transition={{ duration: 0.3 }}
-                />
+                {isActive(link.href) && (
+                  <motion.span
+                    layoutId="navIndicator"
+                    className="absolute bottom-0 left-3 right-3 h-0.5 bg-primary-400 rounded-full"
+                    transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                  />
+                )}
               </Link>
             ))}
-          </nav>
-
-          <div className="flex items-center gap-6 border-l border-white/10 pl-10">
-             <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-white/20">
-                <button onClick={() => openLegal('privacy')} className="hover:text-accent-gold transition-colors">Privacy</button>
-                <div className="w-1 h-1 rounded-full bg-white/10" />
-                <button onClick={() => openLegal('terms')} className="hover:text-accent-gold transition-colors">Terms</button>
-             </div>
-             <div className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-accent-gold/5 border border-accent-gold/20 shadow-glow-gold/10 group cursor-default">
-                <div className="w-2 h-2 rounded-full bg-accent-gold animate-pulse shadow-glow-gold" />
-                <span className="text-[10px] font-bold text-accent-gold uppercase tracking-[0.2em] group-hover:tracking-[0.3em] transition-all">Pulse Active</span>
-             </div>
-             
-             <button 
-               onClick={() => openWaitlist()}
-               className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-accent-gold text-ocean-900 text-xs font-bold hover:scale-105 active:scale-95 transition-all shadow-glow-gold/20"
-             >
-               <Rocket size={14} />
-               <span>Join Waitlist</span>
-             </button>
           </div>
+
+          {/* Desktop CTA */}
+          <div className="hidden md:flex items-center gap-3">
+            <button
+              onClick={() => openWaitlist()}
+              className="btn-primary text-sm px-5 py-2.5 min-h-[40px]"
+            >
+              Get Early Access
+              <ArrowRight size={15} />
+            </button>
+          </div>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            className="md:hidden relative z-[60] p-2 -mr-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
         </div>
+      </nav>
 
-        {/* Mobile menu toggle */}
-        <button
-          className="md:hidden p-2 text-gray-400 hover:text-white transition-colors"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          {menuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
-
-      {/* Mobile menu */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-             initial={{ opacity: 0, y: -10 }}
-             animate={{ opacity: 1, y: 0 }}
-             exit={{ opacity: 0, y: -10 }}
-             className="md:hidden absolute top-full left-0 right-0 bg-[#020C16] border-t border-white/5 pb-10 pt-6 px-6 space-y-2 shadow-[0_40px_80px_rgba(0,0,0,0.9)] backdrop-blur-3xl flex flex-col z-[100]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 md:hidden"
           >
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={isHome ? `#${link.id}` : `/#${link.id}`}
-                onClick={(e) => handleNavClick(e, link)}
-                className="block px-4 py-3 rounded-xl text-base font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-all text-center"
-              >
-                {link.label}
-              </Link>
-            ))}
-            <div className="pt-4 border-t border-white/5 flex flex-col gap-2">
-              <div className="flex items-center justify-center gap-4 py-2 text-[10px] uppercase tracking-widest font-bold">
-                <button 
-                  onClick={() => { openLegal('privacy'); setMenuOpen(false); }}
-                  className="text-white/20 hover:text-accent-gold"
+            {/* Backdrop */}
+            <div 
+              className="absolute inset-0 bg-black/20 backdrop-blur-sm"
+              onClick={() => setMenuOpen(false)}
+            />
+            
+            {/* Menu Panel */}
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25, ease: 'easeOut' }}
+              className="absolute top-0 left-0 right-0 bg-white pt-[80px] pb-8 px-5 shadow-elevated rounded-b-2xl"
+            >
+              <div className="flex flex-col gap-1">
+                {NAV_LINKS.map((link, idx) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: idx * 0.05 + 0.1 }}
+                  >
+                    <Link
+                      href={link.href}
+                      className={`flex items-center px-4 py-3.5 rounded-xl text-base font-medium transition-all ${
+                        isActive(link.href)
+                          ? 'text-primary-600 bg-primary-50'
+                          : 'text-slate-700 hover:bg-slate-50'
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="mt-6 pt-6 border-t border-slate-100">
+                <button
+                  onClick={() => { openWaitlist(); setMenuOpen(false); }}
+                  className="btn-primary w-full text-base"
                 >
-                  Privacy
-                </button>
-                <div className="w-1 h-1 rounded-full bg-white/10" />
-                <button 
-                  onClick={() => { openLegal('terms'); setMenuOpen(false); }}
-                  className="text-white/20 hover:text-accent-gold"
-                >
-                  Terms
+                  Get Early Access
+                  <ArrowRight size={16} />
                 </button>
               </div>
-              <button
-                onClick={() => { openWaitlist(); setMenuOpen(false); }}
-                className="w-full py-4 rounded-xl bg-accent-gold text-ocean-900 flex justify-center items-center gap-2 text-sm font-bold shadow-glow-gold"
-              >
-                <Rocket size={16} />
-                Join the Waitlist
-              </button>
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </>
   );
 }

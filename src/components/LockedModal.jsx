@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { X, Sparkles, Star, ArrowRight, Download, Mail } from 'lucide-react';
+import { X, Star, ArrowRight, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useModal } from '@/context/ModalContext';
 
@@ -19,46 +19,40 @@ export default function LockedModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-start justify-center p-4 pt-16 sm:pt-[120px] modal-backdrop overflow-y-auto"
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 modal-backdrop"
       data-lenis-prevent
-      style={{ background: 'rgba(1,13,22,0.95)', backdropFilter: 'blur(16px)' }}
+      style={{ background: 'rgba(15, 23, 42, 0.4)', backdropFilter: 'blur(8px)' }}
       onClick={(e) => e.target === e.currentTarget && onClose()}>
 
       <motion.div
-        initial={{ opacity: 0, y: -20, scale: 0.95 }}
+        initial={{ opacity: 0, y: 20, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: -20, scale: 0.95 }}
-        className="relative w-full max-w-lg rounded-3xl overflow-hidden"
-        style={{ background: 'linear-gradient(160deg, #043358 0%, #021A2C 100%)', border: '1px solid rgba(228,178,80,0.2)' }}>
-
-        {/* Top glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-32 opacity-20 pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse, #F9A826, transparent 70%)' }} />
-
-        <div className="relative p-8">
+        exit={{ opacity: 0, y: 20, scale: 0.95 }}
+        className="relative w-full max-w-lg bg-white rounded-3xl overflow-hidden shadow-2xl border border-slate-100"
+      >
+        <div className="relative p-6 sm:p-8">
           {/* Header */}
-          <div className="text-center mb-8 text-white">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-gold/10 border border-accent-gold/20 mb-6 font-mono text-[10px] uppercase tracking-widest text-accent-gold">
-               <Star size={12} className="fill-accent-gold" />
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent-50 border border-accent-100 mb-5 text-[11px] font-bold uppercase tracking-widest text-accent-600">
+               <Star size={12} className="fill-accent-500" />
                Premium Feature
             </div>
-            <h2 className="font-display text-2xl font-bold mb-2 text-white">
+            <h2 className="font-display text-2xl font-bold mb-3 text-slate-900">
               Unlock the Full Experience
             </h2>
-            <p className="text-blue-200/50 text-sm">
+            <p className="text-slate-500 text-sm">
               We're currently scaling our AI travel engine. Join the waitlist to be among the first to experience these premium features.
             </p>
           </div>
 
           {/* Feature grid */}
-          <div className="grid grid-cols-2 gap-3 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
             {FEATURES.map((f) => (
-              <div key={f.title} className="flex items-start gap-3 p-3 rounded-xl hover:bg-white/[0.05] transition-colors"
-                style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <div key={f.title} className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-100">
                 <span className="text-xl flex-shrink-0">{f.icon}</span>
                 <div>
-                  <div className="text-xs font-semibold text-white mb-0.5">{f.title}</div>
-                  <div className="text-xs text-blue-200/40 leading-relaxed">{f.desc}</div>
+                  <div className="text-sm font-semibold text-slate-900 mb-0.5">{f.title}</div>
+                  <div className="text-xs text-slate-500 leading-relaxed">{f.desc}</div>
                 </div>
               </div>
             ))}
@@ -67,9 +61,9 @@ export default function LockedModal({ isOpen, onClose }) {
           {/* CTAs */}
           <div className="space-y-3">
             <button
-              onClick={() => { openWaitlist(); onClose(); }}
-              className="w-full flex items-center justify-center gap-3 py-4 rounded-2xl font-bold text-ocean-900 transition-all hover:scale-[1.02] active:scale-[0.98]"
-              style={{ background: 'linear-gradient(135deg, #F9A826 0%, #F59E0B 100%)' }}>
+              onClick={() => { onClose(); openWaitlist(); }}
+              className="btn-accent w-full"
+            >
               <Mail size={18} />
               Join the Waitlist
               <ArrowRight size={16} />
@@ -77,14 +71,14 @@ export default function LockedModal({ isOpen, onClose }) {
           </div>
 
           {/* Fine print */}
-          <p className="text-center text-xs text-blue-200/30 mt-6">
+          <p className="text-center text-xs font-medium text-slate-400 mt-6 uppercase tracking-wider">
             Early Access Waitlist • Web & Mobile
           </p>
         </div>
         
         {/* Close Button */}
         <button onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-xl text-blue-200/40 hover:text-white hover:bg-white/10 transition-all z-[200]">
+          className="absolute top-4 right-4 p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-all z-[200]">
           <X size={18} />
         </button>
       </motion.div>
