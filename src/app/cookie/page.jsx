@@ -31,7 +31,7 @@ export default function CookiePage() {
     <main className="min-h-screen pt-32 pb-24 bg-white">
       <div className="container-tight">
         <div className="max-w-4xl mx-auto">
-          
+
           <Link href="/" className="inline-flex items-center gap-2 text-slate-500 hover:text-primary mb-12 transition-colors font-bold text-xs uppercase tracking-widest">
             <ArrowLeft size={14} /> Back to Home
           </Link>
@@ -46,7 +46,7 @@ export default function CookiePage() {
               Detailed <span className="text-gradient-primary">Cookie Policy.</span>
             </h1>
             <p className="text-xl text-slate-500 leading-relaxed max-w-2xl">
-              This policy provides detailed information about how and when EkalGo uses cookies on our platform. 
+              This policy provides detailed information about how and when EkalGo uses cookies on our platform.
               <span className="block mt-4 text-sm font-bold text-slate-900 uppercase tracking-widest">Effective Date: April 23, 2026</span>
             </p>
           </motion.div>
@@ -72,7 +72,7 @@ export default function CookiePage() {
           {/* Section 2: Cookie Categories & Tables */}
           <div className="space-y-16">
             {cookieTables.map((cat, idx) => (
-              <motion.div 
+              <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -84,26 +84,51 @@ export default function CookiePage() {
                   <p className="text-slate-500 text-base leading-relaxed">{cat.description}</p>
                 </div>
 
+                {/* Responsive Table Wrapper */}
                 <div className="overflow-hidden rounded-3xl border border-slate-100 shadow-sm">
-                  <table className="w-full text-left text-sm">
-                    <thead>
-                      <tr className="bg-slate-50 border-b border-slate-100">
-                        <th className="px-6 py-4 font-bold text-slate-900">Cookie Name</th>
-                        <th className="px-6 py-4 font-bold text-slate-900">Purpose</th>
-                        <th className="px-6 py-4 font-bold text-slate-900">Duration</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-100">
-                      {cat.cookies.map((cookie, i) => (
-                        <tr key={i} className="hover:bg-slate-50/50 transition-colors">
-                          <td className="px-6 py-4 font-mono text-xs text-primary-600">{cookie.name}</td>
-                          <td className="px-6 py-4 text-slate-600">{cookie.purpose}</td>
-                          <td className="px-6 py-4 text-slate-500">{cookie.duration}</td>
+                  {/* Desktop Table View */}
+                  <div className="hidden md:block overflow-x-auto">
+                    <table className="w-full text-left text-sm whitespace-nowrap lg:whitespace-normal">
+                      <thead>
+                        <tr className="bg-slate-50 border-b border-slate-100">
+                          <th className="px-6 py-4 font-bold text-slate-900">Cookie Name</th>
+                          <th className="px-6 py-4 font-bold text-slate-900">Purpose</th>
+                          <th className="px-6 py-4 font-bold text-slate-900 w-32">Duration</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {cat.cookies.map((cookie, i) => (
+                          <tr key={i} className="hover:bg-slate-50/50 transition-colors">
+                            <td className="px-6 py-4 font-mono text-xs text-primary-600">{cookie.name}</td>
+                            <td className="px-6 py-4 text-slate-600 text-sm">{cookie.purpose}</td>
+                            <td className="px-6 py-4 text-slate-500 text-sm">{cookie.duration}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Mobile Card View */}
+                  <div className="md:hidden divide-y divide-slate-100">
+                    {cat.cookies.map((cookie, i) => (
+                      <div key={i} className="p-6 space-y-4 hover:bg-slate-50/50 transition-colors">
+                        <div className="flex flex-col gap-1">
+                          <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Cookie Name</span>
+                          <span className="font-mono text-xs text-primary-600 break-all">{cookie.name}</span>
+                        </div>
+                        <div className="flex flex-col gap-1">
+                          <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Purpose</span>
+                          <span className="text-sm text-slate-600 leading-relaxed">{cookie.purpose}</span>
+                        </div>
+                        <div className="flex flex-col gap-1">
+                          <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Duration</span>
+                          <span className="text-sm text-slate-500">{cookie.duration}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
+
               </motion.div>
             ))}
           </div>
@@ -137,7 +162,7 @@ export default function CookiePage() {
                 </div>
                 <h3 className="text-xl font-bold mb-4">Questions about Cookies?</h3>
                 <p className="text-slate-400 text-sm leading-relaxed mb-8">
-                  If you have any questions about our use of cookies or other technologies, please email us at <span className="text-white font-mono">privacy@ekalgo.com</span>.
+                  If you have any questions about our use of cookies or other technologies, please email us at <span className="text-white font-mono">ekalgo.app@gmail.com</span>.
                 </p>
                 <Link href="/contact" className="btn-primary bg-white text-slate-900 hover:bg-slate-100 w-full">
                   Contact Support
