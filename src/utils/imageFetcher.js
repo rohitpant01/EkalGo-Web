@@ -8,8 +8,8 @@ export async function fetchPlaceImage(query) {
     const PEXELS_KEY = process.env.PEXELS_API_KEY;
     if (PEXELS_KEY) {
       try {
-        const pexelsQuery = `${query} travel landscape destination`;
-        const response = await axios.get(`https://api.pexels.com/v1/search?query=${encodeURIComponent(pexelsQuery)}&per_page=1`, {
+        const pexelsQuery = `${query} travel scenic landscape landmark`;
+        const response = await axios.get(`https://api.pexels.com/v1/search?query=${encodeURIComponent(pexelsQuery)}&per_page=1&orientation=landscape`, {
           headers: { Authorization: PEXELS_KEY }
         });
         if (response.data?.photos?.length > 0) {
@@ -24,8 +24,8 @@ export async function fetchPlaceImage(query) {
     const PIXABAY_KEY = process.env.PIXABAY_API_KEY;
     if (PIXABAY_KEY) {
       try {
-        const pixabayQuery = `${query} landmark scenic`;
-        const response = await axios.get(`https://pixabay.com/api/?key=${PIXABAY_KEY}&q=${encodeURIComponent(pixabayQuery)}&image_type=photo&per_page=3&safesearch=true&orientation=horizontal`);
+        const pixabayQuery = `${query} landscape nature scenic`;
+        const response = await axios.get(`https://pixabay.com/api/?key=${PIXABAY_KEY}&q=${encodeURIComponent(pixabayQuery)}&image_type=photo&per_page=3&safesearch=true&orientation=horizontal&category=travel`);
         if (response.data?.hits?.length > 0) {
           return response.data.hits[0].largeImageURL;
         }
@@ -34,10 +34,11 @@ export async function fetchPlaceImage(query) {
       }
     }
 
-    // 3. Final Fallback (Unsplash Source - High Quality)
-    return `https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=1200`;
+    // 3. Final Fallback (Unsplash - High Quality Landscape)
+    return `https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=1600`;
   } catch (error) {
     console.error('Image Fetcher error:', error.message);
-    return `https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=1200`;
+    return `https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=1600`;
   }
 }
+

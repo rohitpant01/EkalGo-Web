@@ -91,7 +91,7 @@ export default function PlaceCard({ place, locked = false, travelersCount, onCli
   const typeStyle = TYPE_COLORS[place.type] || TYPE_COLORS.default;
 
   // Use a high-quality Unsplash image as a generic fallback if no photo is available or if it fails to load
-  const fallbackImage = `https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=600`;
+  const fallbackImage = `https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=800`;
   const displayPhoto = imgError ? fallbackImage : (googlePhoto || place.photoUrl || fallbackImage);
   const hasPhoto = !!displayPhoto;
 

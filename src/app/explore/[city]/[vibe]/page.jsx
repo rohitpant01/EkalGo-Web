@@ -8,6 +8,7 @@ import { Sparkles, HelpCircle, Shield, TrendingUp, Check, ArrowRight, Utensils, 
 import { generateSEOContent } from '@/utils/contentEngine';
 import destinationsData from '@/data/destinations.json';
 import Link from 'next/link';
+import { BreadcrumbSchema, FAQSchema, DestinationSchema } from '@/components/SchemaComponents';
 
 export async function generateMetadata({ params }) {
   const { city: citySlug, vibe } = await params;
@@ -49,6 +50,13 @@ export default async function VibeExplorePage({ params }) {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-primary-100">
+      <DestinationSchema data={city} />
+      <FAQSchema faqs={seo.faqs} />
+      <BreadcrumbSchema items={[
+        { label: 'Explore', href: '/explore' },
+        { label: city.name, href: `/explore/${citySlug}` },
+        { label: vibe, href: `/explore/${citySlug}/${vibe}` }
+      ]} />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 overflow-hidden border-b border-slate-100 bg-slate-50/50">

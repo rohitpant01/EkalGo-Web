@@ -6,6 +6,9 @@ import TrustBar from '@/components/TrustBar';
 import SampleItinerary from '@/components/SampleItinerary';
 import AppShowcase from '@/components/AppShowcase';
 import destinations from '@/data/destinations.json';
+import { BreadcrumbSchema, FAQSchema, DestinationSchema } from '@/components/SchemaComponents';
+
+import CityHero from '@/components/CityHero';
 
 // 1. Dynamic Metadata Generation
 export async function generateMetadata({ params }) {
@@ -33,82 +36,28 @@ export default async function CityPage({ params }) {
   const data = destinations.destinations.find(d => d.id === cityId) || destinations.destinations[0];
 
   // 2. Advanced Schema Markup (TouristDestination + FAQ + Breadcrumbs)
-  const touristSchema = {
-    "@context": "https://schema.org",
-    "@type": "TouristDestination",
-    "name": data.name,
-    "description": data.desc,
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": data.name,
-      "addressRegion": data.state,
-      "addressCountry": "IN"
-    }
-  };
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": `What is the average daily budget for a trip to ${data.name}?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": `The average daily cost to explore ${data.name} is approximately ₹${data.avg_cost_daily}, with a total budget range of ${data.budget_range} for a 3-5 day trip.`
-        }
-      },
-      {
-        "@type": "Question",
-        "name": `When is the best time to visit ${data.name}?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": `The ideal time to visit ${data.name} is during ${data.best_time}, when the weather is most favorable for exploring highlights like ${data.highlights.join(', ')}.`
-        }
-      }
-    ]
-  };
-
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ekalgo.com" },
-      { "@type": "ListItem", "position": 2, "name": "Explore", "item": "https://ekalgo.com/explore" },
-      { "@type": "ListItem", "position": 3, "name": data.name, "item": `https://ekalgo.com/explore/${data.id}` }
-    ]
-  };
+  // ... (Schema logic remains same)
 
   return (
     <main className="pt-20">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(touristSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <DestinationSchema data={data} />
+      <FAQSchema faqs={[
+        {
+          q: `What is the average daily budget for a trip to ${data.name}?`,
+          a: `The average daily cost to explore ${data.name} is approximately ₹${data.avg_cost_daily}, with a total budget range of ${data.budget_range} for a 3-5 day trip.`
+        },
+        {
+          q: `When is the best time to visit ${data.name}?`,
+          a: `The ideal time to visit ${data.name} is during ${data.best_time}, when the weather is most favorable for exploring highlights like ${data.highlights.join(', ')}.`
+        }
+      ]} />
+      <BreadcrumbSchema items={[
+        { label: "Home", href: "/" },
+        { label: "Explore", href: "/explore" },
+        { label: data.name, href: `/explore/${data.id}` }
+      ]} />
 
-      {/* Hero Section */}
-      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
-        <img 
-          src={data.image} 
-          className="absolute inset-0 w-full h-full object-cover"
-          alt={`${data.name} Travel Guide`}
-        />
-        <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-[2px]" />
-        
-        <div className="container-tight relative z-10 text-center text-white">
-          <Link href="/explore" className="inline-flex items-center gap-2 text-sm font-bold text-white/60 hover:text-white mb-8 transition-colors">
-            <ChevronLeft size={16} /> Back to Explore
-          </Link>
-          <div>
-            <div className="badge border-white/20 bg-white/10 text-white mb-4">Destination Guide</div>
-            <h1 className="text-5xl md:text-7xl font-display font-black mb-6 tracking-tight">
-              Explore <span className="text-primary-400">{data.name}</span>
-            </h1>
-            <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
-              Plan your perfect {data.name} trip within a budget of {data.budget_range}.
-            </p>
-          </div>
-        </div>
-      </section>
+      <CityHero data={data} />
 
       {/* Stats Bar */}
       <div className="bg-white border-y border-slate-100 py-8">

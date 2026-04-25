@@ -22,6 +22,12 @@ const FOOTER_LINKS = {
     label: `${d.name} Guide`,
     href: `/explore/${d.id}`
   })).concat([{ label: 'View All', href: '/explore' }]),
+  discovery: [
+    { label: 'Budget Trips', href: '/explore/manali/budget' },
+    { label: 'Solo Adventures', href: '/explore/rishikesh/solo' },
+    { label: 'Romantic Getaways', href: '/explore/pondicherry/romantic' },
+    { label: 'Hidden Gems Hub', href: '/explore' },
+  ],
   company: [
     { label: 'Contact', href: '/contact' },
     { label: 'Support', href: 'mailto:ekalgo.app@gmail.com' },
@@ -88,7 +94,7 @@ export default function Footer() {
           </div>
 
           {/* Links Columns */}
-          <div className="lg:col-span-5 grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12">
+          <div className="lg:col-span-5 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             <div>
               <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 mb-8">
                 The Ecosystem
@@ -127,12 +133,12 @@ export default function Footer() {
             </div>
             <div>
               <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 mb-8">
-                Our Universe
+                Travel Discovery
               </h4>
               <ul className="space-y-6">
-                {FOOTER_LINKS.company.map((link, idx) => (
+                {FOOTER_LINKS.discovery.map((link, idx) => (
                   <li key={idx} className="group flex items-center gap-3">
-                    <div className="w-5 h-[1px] bg-white/10 group-hover:w-8 group-hover:bg-primary-500 transition-all duration-500" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary-500/20 group-hover:bg-primary-500 group-hover:scale-125 transition-all duration-300" />
                     <Link 
                       href={link.href} 
                       className="text-sm font-medium text-slate-400 group-hover:text-white transition-all duration-300"
@@ -141,6 +147,21 @@ export default function Footer() {
                     </Link>
                   </li>
                 ))}
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 mb-8">
+                Legal & Safety
+              </h4>
+              <ul className="space-y-6">
+                <li className="group flex items-center gap-3">
+                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/20 group-hover:bg-emerald-500 group-hover:scale-125 transition-all duration-300" />
+                   <Link href="/privacy" className="text-sm font-medium text-slate-400 group-hover:text-white transition-all duration-300">Privacy Policy</Link>
+                </li>
+                <li className="group flex items-center gap-3">
+                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-500/20 group-hover:bg-emerald-500 group-hover:scale-125 transition-all duration-300" />
+                   <Link href="/terms" className="text-sm font-medium text-slate-400 group-hover:text-white transition-all duration-300">Terms of Service</Link>
+                </li>
               </ul>
             </div>
           </div>

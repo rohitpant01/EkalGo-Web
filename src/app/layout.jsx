@@ -13,11 +13,12 @@ export const metadata = {
     default: "EkalGo — AI-Powered Travel Platform | Plan Your Perfect Trip",
     template: "%s | EkalGo Travel"
   },
-  description: "Plan smart, budget-friendly trips with EkalGo. Discover hidden gems, find verified travel partners, and get AI-optimized itineraries for Manali, Goa, and beyond.",
+  description: "Plan smart, budget-friendly trips with EkalGo. Discover hidden gems, find verified travel partners, and get AI-optimized itineraries for Manali, Goa, and beyond. The future of travel planning in India.",
   keywords: [
     "AI Travel Planner", "Plan Trip to Manali", "Budget Travel India", 
     "Find Travel Partners", "Hidden Gems Himachal", "Smart Itinerary Generator",
-    "Solo Travel India", "EkalGo App", "Personalized Travel Recommendations"
+    "Solo Travel India", "EkalGo App", "Personalized Travel Recommendations",
+    "Best Places to Visit in India 2026", "Travel Community India", "Verified Travel Partners"
   ],
   authors: [{ name: "EkalGo Team" }],
   creator: "EkalGo",
@@ -62,6 +63,9 @@ export const metadata = {
       'max-snippet': -1,
     },
   },
+  verification: {
+    google: 'google-site-verification-id', // Placeholder, user should update
+  }
 };
 
 export const viewport = {
@@ -70,7 +74,39 @@ export const viewport = {
   maximumScale: 5,
 };
 
-const jsonLd = {
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "EkalGo",
+  "url": "https://ekalgo.com",
+  "logo": "https://ekalgo.com/logo.png",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+91-000-000-0000",
+    "contactType": "customer service",
+    "areaServed": "IN",
+    "availableLanguage": "en"
+  },
+  "sameAs": [
+    "https://x.com/ekal_go",
+    "https://instagram.com/ekalgo.app",
+    "https://linkedin.com/company/ekalgo"
+  ]
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "EkalGo",
+  "url": "https://ekalgo.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://ekalgo.com/explore?search={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+};
+
+const appJsonLd = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "EkalGo",
@@ -101,7 +137,15 @@ export default function RootLayout({ children }) {
       <body className="min-h-screen w-full overflow-x-hidden bg-white text-slate-900">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(appJsonLd) }}
         />
         <ClientLayout>
           <Toaster 

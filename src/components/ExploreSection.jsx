@@ -37,7 +37,7 @@ export default function ExploreSection() {
           const details = await getPlaceWithPhoto(place.title);
           return {
             ...place,
-            image: details.photoUrl || 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=1200', // Nature Fallback
+            image: details.photoUrl || 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=1200', // Nature Fallback
             rating: details.rating || (4.5 + Math.random() * 0.4).toFixed(1), // Fallback
           };
         })

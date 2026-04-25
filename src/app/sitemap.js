@@ -14,6 +14,11 @@ export default function sitemap() {
     '/top-destinations-2026',
     '/demo',
     '/contact',
+    '/about',
+    '/pricing',
+    '/safety',
+    '/terms',
+    '/privacy',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
@@ -36,7 +41,7 @@ export default function sitemap() {
       url: `${baseUrl}/explore/${d.id}/${vibe}`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.6,
+      priority: 0.7,
     }))
   );
 
